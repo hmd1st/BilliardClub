@@ -1,1 +1,112 @@
-﻿
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="" Member="Members">
+    <Type Name="Member">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="FirstName" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="LastName" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Code" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="NationalCode" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
+      <Association Name="Member_Memeber_Cabinet" Member="Memeber_Cabinets" ThisKey="ID" OtherKey="MemberID" Type="Memeber_Cabinet" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Levels">
+    <Type Name="Level">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Assets">
+    <Type Name="Asset">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Peyments">
+    <Type Name="Peyment">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Price" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Date" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Description" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Cabinets">
+    <Type Name="Cabinet">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Association Name="Cabinet_Memeber_Cabinet" Member="Memeber_Cabinets" ThisKey="ID" OtherKey="CabinetID" Type="Memeber_Cabinet" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Memeber_Cabinets">
+    <Type Name="Memeber_Cabinet">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="DateStart" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="DateEnd" Type="System.String" CanBeNull="false" />
+      <Column Name="CabinetID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Member_Memeber_Cabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
+      <Association Name="Cabinet_Memeber_Cabinet" Member="Cabinet" ThisKey="CabinetID" OtherKey="ID" Type="Cabinet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Teachers">
+    <Type Name="Teacher">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="FirstName" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="LastName" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="PricePublic" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="PricePrivate" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Traninigs">
+    <Type Name="Traninig">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="PlayingBoards">
+    <Type Name="PlayingBoard">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Teams">
+    <Type Name="Team">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Team_Members">
+    <Type Name="Team_Member">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="MemberID" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="TeamID" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Contests">
+    <Type Name="Contest">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Shifts">
+    <Type Name="Shift">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Percent" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Emkanats">
+    <Type Name="Emkanat">
+      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="" Member="Price" Type="System.String" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Class1s">
+    <Type Name="Class1" />
+  </Table>
+  <Table Name="" Member="Class2s">
+    <Type Name="Class2" />
+  </Table>
+</Database>
