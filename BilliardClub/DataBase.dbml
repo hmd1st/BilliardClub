@@ -1,112 +1,201 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Class="DataBaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Table Name="" Member="Members">
     <Type Name="Member">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="FirstName" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="LastName" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Code" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="NationalCode" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
-      <Association Name="Member_Memeber_Cabinet" Member="Memeber_Cabinets" ThisKey="ID" OtherKey="MemberID" Type="Memeber_Cabinet" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Code" Type="System.String" DbType="nvarchar(15)" CanBeNull="false" />
+      <Column Name="FirstName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="NationalCode" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="BirthDate" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="Image" Type="System.Byte[]" DbType="varbinary(max)" CanBeNull="false" />
+      <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Member_MemeberCabinet" Member="MemeberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemeberCabinet" />
+      <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
+      <Association Name="Member_PhoneNumber" Member="PhoneNumbers" ThisKey="ID" OtherKey="MemberID" Type="PhoneNumber" />
+      <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
+      <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
+      <Association Name="Level_Member" Member="Level" ThisKey="LevelID" OtherKey="ID" Type="Level" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Levels">
     <Type Name="Level">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="Level_Member" Member="Members" ThisKey="ID" OtherKey="LevelID" Type="Member" />
     </Type>
   </Table>
   <Table Name="" Member="Assets">
     <Type Name="Asset">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="" Member="Peyments">
     <Type Name="Peyment">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Price" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Date" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Description" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="Price" Type="System.String" CanBeNull="false" />
+      <Column Name="Date" Type="System.String" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="" Member="Cabinets">
     <Type Name="Cabinet">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
-      <Association Name="Cabinet_Memeber_Cabinet" Member="Memeber_Cabinets" ThisKey="ID" OtherKey="CabinetID" Type="Memeber_Cabinet" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="Cabinet_MemeberCabinet" Member="MemeberCabinets" ThisKey="ID" OtherKey="CabinetID" Type="MemeberCabinet" />
     </Type>
   </Table>
-  <Table Name="" Member="Memeber_Cabinets">
-    <Type Name="Memeber_Cabinet">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="DateStart" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="DateEnd" Type="System.String" CanBeNull="false" />
+  <Table Name="" Member="MemeberCabinets">
+    <Type Name="MemeberCabinet">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="DateStart" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="DateEnd" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
       <Column Name="CabinetID" Type="System.Int32" CanBeNull="false" />
       <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
-      <Association Name="Member_Memeber_Cabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
-      <Association Name="Cabinet_Memeber_Cabinet" Member="Cabinet" ThisKey="CabinetID" OtherKey="ID" Type="Cabinet" IsForeignKey="true" />
+      <Association Name="Cabinet_MemeberCabinet" Member="Cabinet" ThisKey="CabinetID" OtherKey="ID" Type="Cabinet" IsForeignKey="true" />
+      <Association Name="Member_MemeberCabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Teachers">
     <Type Name="Teacher">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="FirstName" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="LastName" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="PricePublic" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="PricePrivate" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="FirstName" Type="System.String" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" CanBeNull="false" />
+      <Column Name="PricePublic" Type="System.String" CanBeNull="false" />
+      <Column Name="PricePrivate" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="" Member="Traninigs">
     <Type Name="Traninig">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
     </Type>
   </Table>
   <Table Name="" Member="PlayingBoards">
     <Type Name="PlayingBoard">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Type" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Number" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
+      <Association Name="PlayingBoard_RentPlayingBoard" Member="RentPlayingBoards" ThisKey="ID" OtherKey="PlayingBoardID" Type="RentPlayingBoard" />
+      <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoardTitle" ThisKey="PlayingBoardTitleID" OtherKey="ID" Type="PlayingBoardTitle" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Teams">
     <Type Name="Team">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="Team_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="TeamID" Type="TeamMember" />
     </Type>
   </Table>
-  <Table Name="" Member="Team_Members">
-    <Type Name="Team_Member">
+  <Table Name="" Member="TeamMembers">
+    <Type Name="TeamMember">
       <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="MemberID" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="TeamID" Type="System.String" CanBeNull="false" />
+      <Column Name="Status" AutoSync="Never" Type="System.Boolean" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStart" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="DateEnd" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="TeamID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Team_TeamMember" Member="Team" ThisKey="TeamID" OtherKey="ID" Type="Team" IsForeignKey="true" />
+      <Association Name="Member_TeamMember" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Contests">
     <Type Name="Contest">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Storage="_FirstName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="" Member="Shifts">
     <Type Name="Shift">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Percent" Type="System.String" CanBeNull="false" />
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="Percent" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="" Member="Emkanats">
-    <Type Name="Emkanat">
-      <Column Name="ID" AutoSync="OnInsert" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="" Member="Title" Type="System.String" CanBeNull="false" />
-      <Column Name="" Member="Price" Type="System.String" CanBeNull="false" />
+  <Table Name="" Member="Facilities">
+    <Type Name="Facilities">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" CanBeNull="false" />
+      <Column Name="Price" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="" Member="Class1s">
-    <Type Name="Class1" />
+  <Table Name="" Member="SocialNetworkTypes">
+    <Type Name="SocialNetworkType">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Storage="_FirstName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="SocialNetworkType_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="SocialNetworkTypeID" Type="SocialNetworkAccount" />
+    </Type>
   </Table>
-  <Table Name="" Member="Class2s">
-    <Type Name="Class2" />
+  <Table Name="" Member="Phones">
+    <Type Name="Phone">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Storage="_FirstName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="Phone_PhoneNumber" Member="PhoneNumbers" ThisKey="ID" OtherKey="PhoneID" Type="PhoneNumber" />
+    </Type>
+  </Table>
+  <Table Name="" Member="PhoneNumbers">
+    <Type Name="PhoneNumber">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Number" Storage="_FirstName" Type="System.String" DbType="nvarchar(15)" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="PhoneID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Phone_PhoneNumber" Member="Phone" ThisKey="PhoneID" OtherKey="ID" Type="Phone" IsForeignKey="true" />
+      <Association Name="Member_PhoneNumber" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="SocialNetworkAccounts">
+    <Type Name="SocialNetworkAccount">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Account" Storage="_FirstName" Type="System.String" DbType="nvarchar(50)" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="SocialNetworkTypeID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="SocialNetworkType_SocialNetworkAccount" Member="SocialNetworkType" ThisKey="SocialNetworkTypeID" OtherKey="ID" Type="SocialNetworkType" IsForeignKey="true" />
+      <Association Name="Member_SocialNetworkAccount" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="PlayingBoardTitles">
+    <Type Name="PlayingBoardTitle">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoards" ThisKey="ID" OtherKey="PlayingBoardTitleID" Type="PlayingBoard" />
+    </Type>
+  </Table>
+  <Table Name="" Member="PlayingBoardTypes">
+    <Type Name="PlayingBoardType">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Type" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" CanBeNull="false" />
+      <Column Name="PlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="RentPlayingBoards">
+    <Type Name="RentPlayingBoard">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="RegisterDate" Storage="_DateStart" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.String" DbType="nvarchar(5)" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.String" DbType="nvarchar(5)" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="PlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="RentPlayingBoard_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="RentPlayingBoardID" Type="MemberRentPlayingBoard" />
+      <Association Name="PlayingBoard_RentPlayingBoard" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="MemberRentPlayingBoards">
+    <Type Name="MemberRentPlayingBoard">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="Type" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="RentPlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="RentPlayingBoard_MemberRentPlayingBoard" Member="RentPlayingBoard" ThisKey="RentPlayingBoardID" OtherKey="ID" Type="RentPlayingBoard" IsForeignKey="true" />
+      <Association Name="Member_MemberRentPlayingBoard" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
+    </Type>
   </Table>
 </Database>
