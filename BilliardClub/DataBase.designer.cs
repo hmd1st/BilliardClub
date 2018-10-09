@@ -44,9 +44,9 @@ namespace BilliardClub
     partial void InsertCabinet(Cabinet instance);
     partial void UpdateCabinet(Cabinet instance);
     partial void DeleteCabinet(Cabinet instance);
-    partial void InsertMemeberCabinet(MemeberCabinet instance);
-    partial void UpdateMemeberCabinet(MemeberCabinet instance);
-    partial void DeleteMemeberCabinet(MemeberCabinet instance);
+    partial void InsertMemberCabinet(MemberCabinet instance);
+    partial void UpdateMemberCabinet(MemberCabinet instance);
+    partial void DeleteMemberCabinet(MemberCabinet instance);
     partial void InsertTeacher(Teacher instance);
     partial void UpdateTeacher(Teacher instance);
     partial void DeleteTeacher(Teacher instance);
@@ -161,11 +161,11 @@ namespace BilliardClub
 			}
 		}
 		
-		public System.Data.Linq.Table<MemeberCabinet> MemeberCabinets
+		public System.Data.Linq.Table<MemberCabinet> MemberCabinets
 		{
 			get
 			{
-				return this.GetTable<MemeberCabinet>();
+				return this.GetTable<MemberCabinet>();
 			}
 		}
 		
@@ -324,7 +324,7 @@ namespace BilliardClub
 		
 		private int _LevelID;
 		
-		private EntitySet<MemeberCabinet> _MemeberCabinets;
+		private EntitySet<MemberCabinet> _MemeberCabinets;
 		
 		private EntitySet<TeamMember> _TeamMembers;
 		
@@ -364,7 +364,7 @@ namespace BilliardClub
 		
 		public Member()
 		{
-			this._MemeberCabinets = new EntitySet<MemeberCabinet>(new Action<MemeberCabinet>(this.attach_MemeberCabinets), new Action<MemeberCabinet>(this.detach_MemeberCabinets));
+			this._MemeberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemeberCabinets), new Action<MemberCabinet>(this.detach_MemeberCabinets));
 			this._TeamMembers = new EntitySet<TeamMember>(new Action<TeamMember>(this.attach_TeamMembers), new Action<TeamMember>(this.detach_TeamMembers));
 			this._PhoneNumbers = new EntitySet<PhoneNumber>(new Action<PhoneNumber>(this.attach_PhoneNumbers), new Action<PhoneNumber>(this.detach_PhoneNumbers));
 			this._SocialNetworkAccounts = new EntitySet<SocialNetworkAccount>(new Action<SocialNetworkAccount>(this.attach_SocialNetworkAccounts), new Action<SocialNetworkAccount>(this.detach_SocialNetworkAccounts));
@@ -578,7 +578,7 @@ namespace BilliardClub
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemeberCabinet", Storage="_MemeberCabinets", ThisKey="ID", OtherKey="MemberID")]
-		public EntitySet<MemeberCabinet> MemeberCabinets
+		public EntitySet<MemberCabinet> MemberCabinets
 		{
 			get
 			{
@@ -696,13 +696,13 @@ namespace BilliardClub
 			}
 		}
 		
-		private void attach_MemeberCabinets(MemeberCabinet entity)
+		private void attach_MemeberCabinets(MemberCabinet entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = this;
 		}
 		
-		private void detach_MemeberCabinets(MemeberCabinet entity)
+		private void detach_MemeberCabinets(MemberCabinet entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
@@ -1149,7 +1149,7 @@ namespace BilliardClub
 		
 		private string _Title;
 		
-		private EntitySet<MemeberCabinet> _MemeberCabinets;
+		private EntitySet<MemberCabinet> _MemeberCabinets;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1163,7 +1163,7 @@ namespace BilliardClub
 		
 		public Cabinet()
 		{
-			this._MemeberCabinets = new EntitySet<MemeberCabinet>(new Action<MemeberCabinet>(this.attach_MemeberCabinets), new Action<MemeberCabinet>(this.detach_MemeberCabinets));
+			this._MemeberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemeberCabinets), new Action<MemberCabinet>(this.detach_MemeberCabinets));
 			OnCreated();
 		}
 		
@@ -1208,7 +1208,7 @@ namespace BilliardClub
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cabinet_MemeberCabinet", Storage="_MemeberCabinets", ThisKey="ID", OtherKey="CabinetID")]
-		public EntitySet<MemeberCabinet> MemeberCabinets
+		public EntitySet<MemberCabinet> MemberCabinets
 		{
 			get
 			{
@@ -1240,13 +1240,13 @@ namespace BilliardClub
 			}
 		}
 		
-		private void attach_MemeberCabinets(MemeberCabinet entity)
+		private void attach_MemeberCabinets(MemberCabinet entity)
 		{
 			this.SendPropertyChanging();
 			entity.Cabinet = this;
 		}
 		
-		private void detach_MemeberCabinets(MemeberCabinet entity)
+		private void detach_MemeberCabinets(MemberCabinet entity)
 		{
 			this.SendPropertyChanging();
 			entity.Cabinet = null;
@@ -1254,7 +1254,7 @@ namespace BilliardClub
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	public partial class MemeberCabinet : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class MemberCabinet : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -1293,7 +1293,7 @@ namespace BilliardClub
     partial void OnMemberIDChanged();
     #endregion
 		
-		public MemeberCabinet()
+		public MemberCabinet()
 		{
 			this._Cabinet = default(EntityRef<Cabinet>);
 			this._Member = default(EntityRef<Member>);
@@ -1445,12 +1445,12 @@ namespace BilliardClub
 					if ((previousValue != null))
 					{
 						this._Cabinet.Entity = null;
-						previousValue.MemeberCabinets.Remove(this);
+						previousValue.MemberCabinets.Remove(this);
 					}
 					this._Cabinet.Entity = value;
 					if ((value != null))
 					{
-						value.MemeberCabinets.Add(this);
+						value.MemberCabinets.Add(this);
 						this._CabinetID = value.ID;
 					}
 					else
@@ -1479,12 +1479,12 @@ namespace BilliardClub
 					if ((previousValue != null))
 					{
 						this._Member.Entity = null;
-						previousValue.MemeberCabinets.Remove(this);
+						previousValue.MemberCabinets.Remove(this);
 					}
 					this._Member.Entity = value;
 					if ((value != null))
 					{
-						value.MemeberCabinets.Add(this);
+						value.MemberCabinets.Add(this);
 						this._MemberID = value.ID;
 					}
 					else

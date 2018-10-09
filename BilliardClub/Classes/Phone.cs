@@ -8,9 +8,9 @@ using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
-    public partial class Level
+    public partial class Phone
     {
-        public Level(string title) : this()
+        public Phone(string title) : this()
         {
             this.Title = title;
         }
@@ -18,35 +18,35 @@ namespace BilliardClub
         {
             return this.Title;
         }
-        public static Level Insert(string title, DataBaseDataContext connection)
+        public static Phone Insert(string title, DataBaseDataContext connection)
         {
-            Level level = new Level(title);
+            Phone phone = new Phone(title);
 
-            connection.Levels.InsertOnSubmit(level);
+            connection.Phones.InsertOnSubmit(phone);
 
             connection.SubmitChanges();
 
-            return level;
+            return phone;
         }
-        public static void Edit(Level level, string title, DataBaseDataContext connection)
+        public static void Edit(Phone phone, string title, DataBaseDataContext connection)
         {
-            level.Title = title;
+            phone.Title = title;
 
             connection.SubmitChanges();
         }
-        public static void Delete(Level level, DataBaseDataContext connection)
+        public static void Delete(Phone phone, DataBaseDataContext connection)
         {
-            connection.Levels.DeleteOnSubmit(level);
+            connection.Phones.DeleteOnSubmit(phone);
 
             connection.SubmitChanges();
         }
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-            IQueryable<Level> myQuery = connection.Levels.Select(a => a);
+            IQueryable<Phone> myQuery = connection.Phones.Select(a => a);
 
             cmbBox.Items.Clear();
 
-            foreach (Level item in myQuery)
+            foreach (Phone item in myQuery)
             {
                 cmbBox.Items.Add(item);
             }
@@ -62,7 +62,7 @@ namespace BilliardClub
         }
         public static void LoadGrid(RadGridView gridView, DataBaseDataContext connection)
         {
-            var myQuery = connection.Levels.Select(a => new
+            var myQuery = connection.Phones.Select(a => new
             {
                 id = a.ID,
                 title = a.Title
@@ -84,11 +84,11 @@ namespace BilliardClub
 
         public static bool Validation(int id, DataBaseDataContext connection)
         {
-            return connection.Levels.Any(a => a.ID == id);
+            return connection.Phones.Any(a => a.ID == id);
         }
-        public static Level Get(int id, DataBaseDataContext connection)
+        public static Phone Get(int id, DataBaseDataContext connection)
         {
-            return connection.Levels.FirstOrDefault(a => a.ID == id);
+            return connection.Phones.FirstOrDefault(a => a.ID == id);
         }
     }
 }

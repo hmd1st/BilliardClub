@@ -11,7 +11,7 @@
       <Column Name="Sex" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
       <Column Name="Image" Type="System.Byte[]" DbType="varbinary(max)" CanBeNull="false" />
       <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
-      <Association Name="Member_MemeberCabinet" Member="MemeberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemeberCabinet" />
+      <Association Name="Member_MemeberCabinet" Member="MemberCabinets" Storage="_MemeberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemberCabinet" />
       <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
       <Association Name="Member_PhoneNumber" Member="PhoneNumbers" ThisKey="ID" OtherKey="MemberID" Type="PhoneNumber" />
       <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
@@ -46,11 +46,11 @@
     <Type Name="Cabinet">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
       <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
-      <Association Name="Cabinet_MemeberCabinet" Member="MemeberCabinets" ThisKey="ID" OtherKey="CabinetID" Type="MemeberCabinet" />
+      <Association Name="Cabinet_MemeberCabinet" Member="MemberCabinets" Storage="_MemeberCabinets" ThisKey="ID" OtherKey="CabinetID" Type="MemberCabinet" />
     </Type>
   </Table>
-  <Table Name="" Member="MemeberCabinets">
-    <Type Name="MemeberCabinet">
+  <Table Name="" Member="MemberCabinets">
+    <Type Name="MemberCabinet">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
       <Column Name="DateStart" Type="System.DateTime" CanBeNull="false" />
       <Column Name="DateEnd" Type="System.DateTime" CanBeNull="false" />
