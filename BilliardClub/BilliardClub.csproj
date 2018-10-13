@@ -55,32 +55,60 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Cabinet.cs" />
-    <Compile Include="DataBase.cs">
-      <DependentUpon>DataBase.dbml</DependentUpon>
-    </Compile>
     <Compile Include="Exception\DataValidationMessage.cs" />
     <Compile Include="DataBase.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Exception\FormsManagement.cs" />
     <Compile Include="Forms\FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\FrmTemplate.cs">
+    <Compile Include="Forms\FrmCabinet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmTemplate.Designer.cs">
+    <Compile Include="Forms\FrmCabinet.Designer.cs">
+      <DependentUpon>FrmCabinet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmTeam.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmTeam.Designer.cs">
+      <DependentUpon>FrmTeam.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPlayingBoardTitle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPlayingBoardTitle.Designer.cs">
+      <DependentUpon>FrmPlayingBoardTitle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmSocialNetworkType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmSocialNetworkType.Designer.cs">
+      <DependentUpon>FrmSocialNetworkType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmPhone.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPhone.Designer.cs">
+      <DependentUpon>FrmPhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmTemplate.Designer.cs">
       <DependentUpon>FrmTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Level.cs" />
-    <Compile Include="FrmLevel.cs">
+    <Compile Include="Forms\FrmLevel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmLevel.Designer.cs">
+    <Compile Include="Forms\FrmLevel.Designer.cs">
       <DependentUpon>FrmLevel.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmMember.cs">
@@ -111,10 +139,25 @@
     <EmbeddedResource Include="Forms\FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FrmTemplate.resx">
+    <EmbeddedResource Include="Forms\FrmCabinet.resx">
+      <DependentUpon>FrmCabinet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmTeam.resx">
+      <DependentUpon>FrmTeam.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPlayingBoardTitle.resx">
+      <DependentUpon>FrmPlayingBoardTitle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmSocialNetworkType.resx">
+      <DependentUpon>FrmSocialNetworkType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPhone.resx">
+      <DependentUpon>FrmPhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmTemplate.resx">
       <DependentUpon>FrmTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmLevel.resx">
+    <EmbeddedResource Include="Forms\FrmLevel.resx">
       <DependentUpon>FrmLevel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMember.resx">
@@ -123,13 +166,9 @@
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <None Include="DataBase.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataBase.designer.cs</LastGenOutput>
@@ -139,6 +178,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -151,7 +195,39 @@
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Save.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Yes1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\No.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\yes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Images-icon1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

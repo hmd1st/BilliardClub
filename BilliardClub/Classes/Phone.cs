@@ -72,7 +72,7 @@ namespace BilliardClub
 
             gridView.Columns[1].IsVisible = false;
 
-            gridView.Columns[2].Width = 200;
+            gridView.Columns[2].Width = 420;
 
             gridView.Columns[2].HeaderText = "عنوان";
 

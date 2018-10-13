@@ -39,7 +39,7 @@ namespace BilliardClub
             Member member = new Member(code, firstName, lastName, nationalCode,
                 birthDate, type,sex,image);
 
-            member.Level = Level.Get(level.ID, connection);
+          //  member.Level = Level.Get(level.ID, connection);
 
             connection.Members.InsertOnSubmit(member);
 
@@ -66,7 +66,7 @@ namespace BilliardClub
 
             member.Image = image;
 
-            member.Level = Level.Get(level.ID, connection);
+         //   member.Level = Level.Get(level.ID, connection);
 
             connection.SubmitChanges();
         }

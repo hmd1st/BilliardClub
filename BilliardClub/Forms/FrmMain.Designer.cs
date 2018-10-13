@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.radRibbonBar1 = new Telerik.WinControls.UI.RadRibbonBar();
             ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             this.SuspendLayout();
@@ -35,12 +36,17 @@
             // radRibbonBar1
             // 
             this.radRibbonBar1.CloseButton = false;
+            this.radRibbonBar1.EnableTabScrollingOnMouseWheel = true;
+            this.radRibbonBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.radRibbonBar1.Location = new System.Drawing.Point(0, 0);
+            this.radRibbonBar1.MaximizeButton = false;
+            this.radRibbonBar1.MinimizeButton = false;
             this.radRibbonBar1.Name = "radRibbonBar1";
             this.radRibbonBar1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radRibbonBar1.Size = new System.Drawing.Size(932, 148);
+            this.radRibbonBar1.Size = new System.Drawing.Size(932, 144);
             this.radRibbonBar1.TabIndex = 0;
-            this.radRibbonBar1.Text = "نرم افزار مدیریت باشگاه بیلیارد توپ هشت";
+            ((Telerik.WinControls.UI.RadRibbonBarElement)(this.radRibbonBar1.GetChildAt(0))).Text = "";
+            ((Telerik.WinControls.UI.RadQuickAccessToolBar)(this.radRibbonBar1.GetChildAt(0).GetChildAt(2))).Visibility = Telerik.WinControls.ElementVisibility.Hidden;
             // 
             // FrmMain
             // 
@@ -48,6 +54,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(932, 532);
             this.Controls.Add(this.radRibbonBar1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = true;
             this.Name = "FrmMain";
             this.Text = "نرم افزار مدیریت باشگاه بیلیارد توپ هشت";

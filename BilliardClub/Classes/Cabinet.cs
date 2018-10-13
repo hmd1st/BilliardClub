@@ -48,11 +48,11 @@ namespace BilliardClub
 
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-            IQueryable<Cabinet> myQuery = connection.Cabinets.Select(a => a);
+             var myQuery = connection.Cabinets.Select(a => a);
 
             cmbBox.Items.Clear();
 
-            foreach (Cabinet item in myQuery)
+            foreach (var item in myQuery)
             {
                 cmbBox.Items.Add(item);
             }
@@ -80,13 +80,33 @@ namespace BilliardClub
 
             gridView.Columns[2].HeaderText = "عنوان";
 
-            gridView.Columns[2].Width = 300;
+            gridView.Columns[2].Width = 431;
 
             for (int i = 0; i < gridView.RowCount; i++)
             {
                 gridView.Rows[i].Cells[0].Value = i + 1;
             }
 
+        }
+
+        public static void ShowList(ListView list, DataBaseDataContext connection)
+        {
+            IQueryable<Cabinet> myQuery = connection.Cabinets.Select(a => a);
+
+            list.Items.Clear();
+
+            foreach (Cabinet item in myQuery)
+            {
+                ListViewItem lst=new ListViewItem();
+
+                lst.Tag = item;
+
+                lst.Text = item.ID.ToString();
+
+                lst.SubItems.Add(item.Title);
+
+                list.Items.Add(lst);
+            }
         }
 
         public static bool Validation(int id,DataBaseDataContext connection)
@@ -96,7 +116,8 @@ namespace BilliardClub
 
         public static Cabinet Get(int id, DataBaseDataContext connection)
         {
-            return connection.Cabinets.FirstOrDefault(a=>a.ID==id);
+            return connection.Cabinets.FirstOrDefault(a => a.ID == id);
         }
+
     }
 }

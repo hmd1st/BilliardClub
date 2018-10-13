@@ -36,5 +36,25 @@ namespace BilliardClub
         {
 
         }
+
+        private void btnEdit_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnYes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNo_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

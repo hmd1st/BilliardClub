@@ -24,7 +24,7 @@ namespace BilliardClub
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLevel());
+            Application.Run(new FrmPhone());
         }
     }
 }

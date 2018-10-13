@@ -72,7 +72,7 @@ namespace BilliardClub
 
             gridView.Columns[1].IsVisible = false;
 
-            gridView.Columns[2].Width = 200;
+            gridView.Columns[2].Width = 431;
 
             gridView.Columns[2].HeaderText = "عنوان";
 
@@ -88,7 +88,7 @@ namespace BilliardClub
         }
         public static Level Get(int id, DataBaseDataContext connection)
         {
-            return connection.Levels.FirstOrDefault(a => a.ID == id);
+            return connection.Levels.First(a => a.ID == id);
         }
     }
 }

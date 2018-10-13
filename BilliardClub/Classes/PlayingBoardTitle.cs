@@ -83,7 +83,7 @@ namespace BilliardClub
 
             grid.Columns[2].HeaderText = "عنوان";
 
-            grid.Columns[2].Width = 300;
+            grid.Columns[2].Width = 420;
 
             for (int i = 0; i < grid.RowCount; i++)
             {
