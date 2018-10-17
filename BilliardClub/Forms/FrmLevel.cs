@@ -123,11 +123,12 @@ namespace BilliardClub
 
                 return;
             }
+            if (myConnection.Levels.Any(a => a.Title == txtTitle.Text.Trim() && a.ID != levelID))
+            {
+                DataValidationMesaage.DuplicateData(txtTitle.Text);
 
-            DataValidationMesaage.DuplicateData(txtTitle.Text);
-
-            return;
-
+                return;
+            }
             Level.Edit(level, txtTitle.Text.Trim(), myConnection);
 
             if (myConnection.Levels.Any(a => a.ID != levelID && a.Title == txtTitle.Text.Trim()))

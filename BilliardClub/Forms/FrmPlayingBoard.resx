@@ -117,26 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="No" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\no3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Delete.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Edit" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Edit.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="yes" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\yes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Images-icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Images-icon1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="board" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\board.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnNo.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        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
+        2gAAAABJRU5ErkJggg==
+</value>
   </data>
 </root>

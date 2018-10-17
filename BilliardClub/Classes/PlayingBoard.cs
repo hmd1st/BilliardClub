@@ -21,7 +21,7 @@ namespace BilliardClub
             return this.Number;
         }
 
-        public static PlayingBoard Insert(PlayingBoardTitle playingBoardTitle,string number, DataBaseDataContext connection)
+        public static PlayingBoard Insert(PlayingBoardTitle playingBoardTitle, string number, DataBaseDataContext connection)
         {
             PlayingBoard playingBoard = new PlayingBoard(number);
 
@@ -34,9 +34,9 @@ namespace BilliardClub
             return playingBoard;
         }
 
-        public static void Edit(PlayingBoard playingBoard, PlayingBoardTitle playingBoardTitle, 
+        public static void Edit(PlayingBoard playingBoard, PlayingBoardTitle playingBoardTitle,
             string number, DataBaseDataContext connection)
-        { 
+        {
             playingBoard.Number = number;
 
             playingBoard.PlayingBoardTitle = playingBoardTitle;
@@ -74,9 +74,9 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBox(ComboBox cmbBox, PlayingBoardTitle playingBoardTitle, DataBaseDataContext connection)
+        public static void LoadComboBoxByFilter(ComboBox cmbBox, PlayingBoardTitle playingBoardTitle, DataBaseDataContext connection)
         {
-            IQueryable<PlayingBoard> myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle==playingBoardTitle);
+            IQueryable<PlayingBoard> myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle);
 
             cmbBox.Items.Clear();
 
@@ -102,6 +102,7 @@ namespace BilliardClub
             var myQuery = connection.PlayingBoards.Select(a => new
             {
                 id = a.ID,
+                title = a.PlayingBoardTitle.Title,
                 number = a.Number
             });
 
@@ -109,9 +110,63 @@ namespace BilliardClub
 
             grid.Columns[1].IsVisible = false;
 
-            grid.Columns[2].HeaderText = "شماره";
+            grid.Columns[2].HeaderText = "عنوان";
 
             grid.Columns[2].Width = 300;
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = 300;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+
+
+
+        }
+        public static void LoadGrid_Join_PlayingBoardType(RadGridView grid,
+            DataBaseDataContext connection)
+        {
+            //var myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).Select(a => new
+            //{
+            //    id = a.ID,
+            //    title = a.PlayingBoardTitle.Title,
+            //    number = a.Number
+            //});
+
+            var query = connection.PlayingBoards.Join(connection.PlayingBoardTypes,
+                playingboard => playingboard.ID,
+                playingboardtype => playingboardtype.ID,
+                (a, b) => new
+                {
+                    id = a.ID,
+                    title = a.PlayingBoardTitle.Title,
+                    number = a.Number,
+                    type = b.Type,
+                    price = b.Price
+                });
+
+
+            grid.DataSource = query;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "عنوان";
+
+            grid.Columns[2].Width = 100;
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = 100;
+
+            grid.Columns[4].HeaderText = "نوع";
+            grid.Columns[4].Width = 100;
+
+            grid.Columns[5].HeaderText = "قیمت";
+            grid.Columns[5].Width = 100;
 
             for (int i = 0; i < grid.RowCount; i++)
             {
@@ -120,12 +175,61 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGrid(RadGridView grid, PlayingBoardTitle playingBoardTitle, DataBaseDataContext connection)
+        public static void LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(PlayingBoardTitle playingBoardTitle, RadGridView grid,
+            DataBaseDataContext connection)
         {
-            var myQuery = connection.PlayingBoards.Where(a=>a.PlayingBoardTitle==playingBoardTitle)
-                .Select(a => new
+            //var myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).Select(a => new
+            //{
+            //    id = a.ID,
+            //    title = a.PlayingBoardTitle.Title,
+            //    number = a.Number
+            //});
+
+            var query = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).
+                Join(connection.PlayingBoardTypes,
+                playingboard => playingboard.ID,
+                playingboardtype => playingboardtype.ID,
+                (a, b) => new
+                {
+                    id = a.ID,
+                    title = a.PlayingBoardTitle.Title,
+                    number = a.Number,
+                    type = b.Type,
+                    price = b.Price
+                });
+
+
+            grid.DataSource = query;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "عنوان";
+
+            grid.Columns[2].Width = 100;
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = 100;
+
+            grid.Columns[4].HeaderText = "نوع";
+            grid.Columns[4].Width = 100;
+
+            grid.Columns[5].HeaderText = "قیمت";
+            grid.Columns[5].Width = 100;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+        public static void LoadGridByFilter(PlayingBoardTitle playingBoardTitle, RadGridView grid,
+            DataBaseDataContext connection)
+        {
+            var myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).Select(a => new
             {
                 id = a.ID,
+                title = a.PlayingBoardTitle.Title,
                 number = a.Number
             });
 
@@ -133,9 +237,13 @@ namespace BilliardClub
 
             grid.Columns[1].IsVisible = false;
 
-            grid.Columns[2].HeaderText = "شماره";
+            grid.Columns[2].HeaderText = "عنوان";
 
             grid.Columns[2].Width = 300;
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = 300;
 
             for (int i = 0; i < grid.RowCount; i++)
             {

@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMember));
             this.label1 = new System.Windows.Forms.Label();
-            this.txtTitle = new System.Windows.Forms.TextBox();
+            this.txtFirstName = new System.Windows.Forms.TextBox();
             this.cmbLevel = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.txtBirthDate = new System.Windows.Forms.MaskedTextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCode = new System.Windows.Forms.TextBox();
             this.btnGetCode = new Telerik.WinControls.UI.RadButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtLastName = new System.Windows.Forms.TextBox();
@@ -47,8 +47,8 @@
             this.txtNationalCode = new System.Windows.Forms.TextBox();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.radButton2 = new Telerik.WinControls.UI.RadButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
+            this.cmbPhone = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gridMember = new Telerik.WinControls.UI.RadGridView();
             this.btnNo = new Telerik.WinControls.UI.RadButton();
@@ -56,6 +56,8 @@
             this.btnYes = new Telerik.WinControls.UI.RadButton();
             this.btnEdit = new Telerik.WinControls.UI.RadButton();
             this.btnSave = new Telerik.WinControls.UI.RadButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmbType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnGetCode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
@@ -79,21 +81,21 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "نام";
             // 
-            // txtTitle
+            // txtFirstName
             // 
-            this.txtTitle.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtTitle.Location = new System.Drawing.Point(534, 12);
-            this.txtTitle.Name = "txtTitle";
-            this.txtTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtTitle.Size = new System.Drawing.Size(118, 27);
-            this.txtTitle.TabIndex = 6;
-            this.txtTitle.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
+            this.txtFirstName.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.txtFirstName.Location = new System.Drawing.Point(534, 12);
+            this.txtFirstName.Name = "txtFirstName";
+            this.txtFirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.txtFirstName.Size = new System.Drawing.Size(118, 27);
+            this.txtFirstName.TabIndex = 6;
+            this.txtFirstName.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
             // 
             // cmbLevel
             // 
             this.cmbLevel.Font = new System.Drawing.Font("B Yekan", 9.75F);
             this.cmbLevel.FormattingEnabled = true;
-            this.cmbLevel.Location = new System.Drawing.Point(343, 48);
+            this.cmbLevel.Location = new System.Drawing.Point(309, 48);
             this.cmbLevel.Name = "cmbLevel";
             this.cmbLevel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cmbLevel.Size = new System.Drawing.Size(143, 28);
@@ -103,11 +105,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label2.Location = new System.Drawing.Point(491, 51);
+            this.label2.Location = new System.Drawing.Point(459, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(31, 20);
+            this.label2.Size = new System.Drawing.Size(66, 20);
             this.label2.TabIndex = 11;
-            this.label2.Text = "سطح";
+            this.label2.Text = "نوع عضویت";
             // 
             // txtBirthDate
             // 
@@ -138,15 +140,15 @@
             this.label4.TabIndex = 15;
             this.label4.Text = "کد";
             // 
-            // textBox1
+            // txtCode
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textBox1.Location = new System.Drawing.Point(725, 12);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox1.Size = new System.Drawing.Size(105, 27);
-            this.textBox1.TabIndex = 14;
+            this.txtCode.Enabled = false;
+            this.txtCode.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.txtCode.Location = new System.Drawing.Point(725, 12);
+            this.txtCode.Name = "txtCode";
+            this.txtCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.txtCode.Size = new System.Drawing.Size(105, 27);
+            this.txtCode.TabIndex = 14;
             // 
             // btnGetCode
             // 
@@ -235,25 +237,25 @@
             this.radButton2.TabIndex = 15;
             this.radButton2.Text = "+";
             // 
-            // textBox2
+            // txtPhoneNumber
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.textBox2.Location = new System.Drawing.Point(688, 79);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox2.Size = new System.Drawing.Size(105, 27);
-            this.textBox2.TabIndex = 16;
+            this.txtPhoneNumber.Enabled = false;
+            this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.txtPhoneNumber.Location = new System.Drawing.Point(688, 79);
+            this.txtPhoneNumber.Name = "txtPhoneNumber";
+            this.txtPhoneNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.txtPhoneNumber.Size = new System.Drawing.Size(105, 27);
+            this.txtPhoneNumber.TabIndex = 16;
             // 
-            // comboBox1
+            // cmbPhone
             // 
-            this.comboBox1.Font = new System.Drawing.Font("B Yekan", 9.75F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(539, 78);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox1.Size = new System.Drawing.Size(143, 28);
-            this.comboBox1.TabIndex = 24;
+            this.cmbPhone.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbPhone.FormattingEnabled = true;
+            this.cmbPhone.Location = new System.Drawing.Point(539, 78);
+            this.cmbPhone.Name = "cmbPhone";
+            this.cmbPhone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbPhone.Size = new System.Drawing.Size(143, 28);
+            this.cmbPhone.TabIndex = 24;
             // 
             // pictureBox1
             // 
@@ -281,11 +283,11 @@
             this.gridMember.MasterTemplate.AllowDragToGroup = false;
             this.gridMember.MasterTemplate.AllowEditRow = false;
             this.gridMember.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn2.HeaderText = "ردیف";
-            gridViewTextBoxColumn2.Name = "colCounter";
-            gridViewTextBoxColumn2.Width = 41;
+            gridViewTextBoxColumn1.HeaderText = "ردیف";
+            gridViewTextBoxColumn1.Name = "colCounter";
+            gridViewTextBoxColumn1.Width = 41;
             this.gridMember.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn2});
+            gridViewTextBoxColumn1});
             this.gridMember.MasterTemplate.EnableGrouping = false;
             this.gridMember.Name = "gridMember";
             this.gridMember.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -297,7 +299,7 @@
             // 
             this.btnNo.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnNo.Image = ((System.Drawing.Image)(resources.GetObject("btnNo.Image")));
-            this.btnNo.Location = new System.Drawing.Point(402, 184);
+            this.btnNo.Location = new System.Drawing.Point(412, 184);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(84, 34);
             this.btnNo.TabIndex = 29;
@@ -309,7 +311,7 @@
             // 
             this.btnDelete.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnDelete.Image = global::BilliardClub.Properties.Resources.Delete;
-            this.btnDelete.Location = new System.Drawing.Point(583, 184);
+            this.btnDelete.Location = new System.Drawing.Point(593, 184);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(84, 34);
             this.btnDelete.TabIndex = 27;
@@ -321,7 +323,7 @@
             // 
             this.btnYes.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnYes.Image = global::BilliardClub.Properties.Resources.yes;
-            this.btnYes.Location = new System.Drawing.Point(492, 184);
+            this.btnYes.Location = new System.Drawing.Point(502, 184);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(84, 34);
             this.btnYes.TabIndex = 28;
@@ -333,7 +335,7 @@
             // 
             this.btnEdit.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnEdit.Image = global::BilliardClub.Properties.Resources.Edit;
-            this.btnEdit.Location = new System.Drawing.Point(673, 184);
+            this.btnEdit.Location = new System.Drawing.Point(683, 184);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(84, 34);
             this.btnEdit.TabIndex = 26;
@@ -345,7 +347,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnSave.Image = global::BilliardClub.Properties.Resources.Save;
-            this.btnSave.Location = new System.Drawing.Point(763, 184);
+            this.btnSave.Location = new System.Drawing.Point(773, 184);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 34);
             this.btnSave.TabIndex = 25;
@@ -356,20 +358,42 @@
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).Text = "ذخیره";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label8.Location = new System.Drawing.Point(799, 81);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 20);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "شماره تماس";
+            // 
+            // cmbType
+            // 
+            this.cmbType.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbType.FormattingEnabled = true;
+            this.cmbType.Location = new System.Drawing.Point(309, 82);
+            this.cmbType.Name = "cmbType";
+            this.cmbType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbType.Size = new System.Drawing.Size(143, 28);
+            this.cmbType.TabIndex = 32;
+            // 
             // FrmMember
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(869, 487);
+            this.Controls.Add(this.cmbType);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.gridMember);
             this.Controls.Add(this.btnNo);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cmbPhone);
             this.Controls.Add(this.radButton2);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.radButton1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label7);
@@ -380,13 +404,13 @@
             this.Controls.Add(this.txtLastName);
             this.Controls.Add(this.btnGetCode);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtCode);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtBirthDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbLevel);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtTitle);
+            this.Controls.Add(this.txtFirstName);
             this.Name = "FrmMember";
             this.Text = "ثبت عضو";
             this.Load += new System.EventHandler(this.FrmMember_Load);
@@ -409,13 +433,13 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtTitle;
+        private System.Windows.Forms.TextBox txtFirstName;
         private System.Windows.Forms.ComboBox cmbLevel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.MaskedTextBox txtBirthDate;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCode;
         private Telerik.WinControls.UI.RadButton btnGetCode;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLastName;
@@ -426,13 +450,15 @@
         private Telerik.WinControls.UI.RadButton radButton1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private Telerik.WinControls.UI.RadButton radButton2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox txtPhoneNumber;
+        private System.Windows.Forms.ComboBox cmbPhone;
         private Telerik.WinControls.UI.RadGridView gridMember;
         private Telerik.WinControls.UI.RadButton btnNo;
         private Telerik.WinControls.UI.RadButton btnDelete;
         private Telerik.WinControls.UI.RadButton btnYes;
         private Telerik.WinControls.UI.RadButton btnEdit;
         private Telerik.WinControls.UI.RadButton btnSave;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ComboBox cmbType;
     }
 }

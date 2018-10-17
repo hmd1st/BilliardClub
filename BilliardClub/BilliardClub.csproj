@@ -62,10 +62,10 @@
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Exception\FormsManagement.cs" />
-    <Compile Include="Forms\FrmMain.cs">
+    <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\FrmMain.Designer.cs">
+    <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmCabinet.cs">
@@ -98,6 +98,12 @@
     <Compile Include="Forms\FrmPhone.Designer.cs">
       <DependentUpon>FrmPhone.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\FrmPlayingBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmPlayingBoard.Designer.cs">
+      <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,10 +117,10 @@
     <Compile Include="Forms\FrmLevel.Designer.cs">
       <DependentUpon>FrmLevel.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMember.cs">
+    <Compile Include="Forms\FrmMember.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMember.Designer.cs">
+    <Compile Include="Forms\FrmMember.Designer.cs">
       <DependentUpon>FrmMember.cs</DependentUpon>
     </Compile>
     <Compile Include="MainClasses\Program.cs" />
@@ -136,7 +142,7 @@
     <None Include="DataBase.dbml.layout">
       <DependentUpon>DataBase.dbml</DependentUpon>
     </None>
-    <EmbeddedResource Include="Forms\FrmMain.resx">
+    <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmCabinet.resx">
@@ -154,13 +160,16 @@
     <EmbeddedResource Include="Forms\FrmPhone.resx">
       <DependentUpon>FrmPhone.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmPlayingBoard.resx">
+      <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmTemplate.resx">
       <DependentUpon>FrmTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmLevel.resx">
       <DependentUpon>FrmLevel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMember.resx">
+    <EmbeddedResource Include="Forms\FrmMember.resx">
       <DependentUpon>FrmMember.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
@@ -227,6 +236,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Images-icon1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\board.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

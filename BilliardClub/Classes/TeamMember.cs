@@ -9,6 +9,7 @@ using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
+
     public partial class TeamMember
     {
         public TeamMember(bool status, DateTime dateStart, DateTime dateEnd) : this()
@@ -141,8 +142,8 @@ namespace BilliardClub
             {
                 id = a.ID,
                 status = a.Status,
-                dateStart=a.DateStart,
-                dateend=a.DateEnd
+                dateStart = a.DateStart,
+                dateend = a.DateEnd
             });
 
             grid.DataSource = myQuery;

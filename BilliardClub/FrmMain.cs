@@ -21,5 +21,19 @@ namespace BilliardClub.Forms
         {
 
         }
+
+        private void radRibbonBarGroup1_Click(object sender, EventArgs e)
+        {
+           FrmPlayingBoard frm=new FrmPlayingBoard();
+
+            frm.ShowDialog();
+        }
+
+        private void radRibbonBarGroup2_Click(object sender, EventArgs e)
+        {
+            FrmMember frm=new FrmMember();
+            
+            frm.ShowDialog();
+        }
     }
 }

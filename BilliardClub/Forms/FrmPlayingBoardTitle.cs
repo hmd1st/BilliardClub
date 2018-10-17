@@ -77,7 +77,6 @@ namespace BilliardClub
                 DataValidationMesaage.NoDataInBank();
 
                 return;
-
             }
 
             PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);

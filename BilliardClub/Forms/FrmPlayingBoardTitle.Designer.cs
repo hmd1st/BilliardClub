@@ -51,7 +51,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.label1.Location = new System.Drawing.Point(426, 12);
+            this.label1.Location = new System.Drawing.Point(432, 16);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(40, 21);
             this.label1.TabIndex = 82;
@@ -60,7 +60,7 @@
             // txtTitle
             // 
             this.txtTitle.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.txtTitle.Location = new System.Drawing.Point(162, 8);
+            this.txtTitle.Location = new System.Drawing.Point(168, 12);
             this.txtTitle.MaxLength = 30;
             this.txtTitle.Name = "txtTitle";
             this.txtTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -74,7 +74,7 @@
             this.gridPlayingBoardTitle.AutoSizeRows = true;
             this.gridPlayingBoardTitle.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoardTitle.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoardTitle.Location = new System.Drawing.Point(0, 98);
+            this.gridPlayingBoardTitle.Location = new System.Drawing.Point(0, 94);
             // 
             // 
             // 
@@ -93,7 +93,7 @@
             this.gridPlayingBoardTitle.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoardTitle.Name = "gridPlayingBoardTitle";
             this.gridPlayingBoardTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridPlayingBoardTitle.Size = new System.Drawing.Size(484, 263);
+            this.gridPlayingBoardTitle.Size = new System.Drawing.Size(484, 267);
             this.gridPlayingBoardTitle.TabIndex = 81;
             this.gridPlayingBoardTitle.Text = "لیست میزها";
             this.gridPlayingBoardTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPlayingBoardTitle_KeyDown);
