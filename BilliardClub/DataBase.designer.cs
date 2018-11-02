@@ -3165,9 +3165,9 @@ namespace BilliardClub
 		
 		private int _MemberID;
 		
-		private EntityRef<SocialNetworkType> _SocialNetworkType;
-		
 		private EntityRef<Member> _Member;
+		
+		private EntityRef<SocialNetworkType> _SocialNetworkType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -3187,8 +3187,8 @@ namespace BilliardClub
 		
 		public SocialNetworkAccount()
 		{
-			this._SocialNetworkType = default(EntityRef<SocialNetworkType>);
 			this._Member = default(EntityRef<Member>);
+			this._SocialNetworkType = default(EntityRef<SocialNetworkType>);
 			OnCreated();
 		}
 		
@@ -3300,40 +3300,6 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SocialNetworkType_SocialNetworkAccount", Storage="_SocialNetworkType", ThisKey="SocialNetworkTypeID", OtherKey="ID", IsForeignKey=true)]
-		public SocialNetworkType SocialNetworkType
-		{
-			get
-			{
-				return this._SocialNetworkType.Entity;
-			}
-			set
-			{
-				SocialNetworkType previousValue = this._SocialNetworkType.Entity;
-				if (((previousValue != value) 
-							|| (this._SocialNetworkType.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SocialNetworkType.Entity = null;
-						previousValue.SocialNetworkAccounts.Remove(this);
-					}
-					this._SocialNetworkType.Entity = value;
-					if ((value != null))
-					{
-						value.SocialNetworkAccounts.Add(this);
-						this._SocialNetworkTypeID = value.ID;
-					}
-					else
-					{
-						this._SocialNetworkTypeID = default(int);
-					}
-					this.SendPropertyChanged("SocialNetworkType");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_SocialNetworkAccount", Storage="_Member", ThisKey="MemberID", OtherKey="ID", IsForeignKey=true)]
 		public Member Member
 		{
@@ -3364,6 +3330,40 @@ namespace BilliardClub
 						this._MemberID = default(int);
 					}
 					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SocialNetworkType_SocialNetworkAccount", Storage="_SocialNetworkType", ThisKey="SocialNetworkTypeID", OtherKey="ID", IsForeignKey=true)]
+		public SocialNetworkType SocialNetworkType
+		{
+			get
+			{
+				return this._SocialNetworkType.Entity;
+			}
+			set
+			{
+				SocialNetworkType previousValue = this._SocialNetworkType.Entity;
+				if (((previousValue != value) 
+							|| (this._SocialNetworkType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SocialNetworkType.Entity = null;
+						previousValue.SocialNetworkAccounts.Remove(this);
+					}
+					this._SocialNetworkType.Entity = value;
+					if ((value != null))
+					{
+						value.SocialNetworkAccounts.Add(this);
+						this._SocialNetworkTypeID = value.ID;
+					}
+					else
+					{
+						this._SocialNetworkTypeID = default(int);
+					}
+					this.SendPropertyChanged("SocialNetworkType");
 				}
 			}
 		}
@@ -3492,7 +3492,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="SocialNetworkTypeID", Storage="_PhoneID")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PhoneID")]
 		public int PhoneID
 		{
 			get
@@ -3503,6 +3503,10 @@ namespace BilliardClub
 			{
 				if ((this._PhoneID != value))
 				{
+					if (this._Phone.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnPhoneIDChanging(value);
 					this.SendPropertyChanging();
 					this._PhoneID = value;
@@ -3651,15 +3655,15 @@ namespace BilliardClub
 		
 		private int _LevelID;
 		
+		private EntitySet<MemberRentPlayingBoard> _MemberRentPlayingBoards;
+		
 		private EntitySet<TeamMember> _TeamMembers;
+		
+		private EntitySet<MemberCabinet> _MemberCabinets;
 		
 		private EntitySet<SocialNetworkAccount> _SocialNetworkAccounts;
 		
 		private EntitySet<PhoneNumber> _PhoneNumbers;
-		
-		private EntitySet<MemberCabinet> _MemberCabinets;
-		
-		private EntitySet<MemberRentPlayingBoard> _MemberRentPlayingBoards;
 		
 		private EntityRef<Level> _Level;
 		
@@ -3691,11 +3695,11 @@ namespace BilliardClub
 		
 		public Member()
 		{
+			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
 			this._TeamMembers = new EntitySet<TeamMember>(new Action<TeamMember>(this.attach_TeamMembers), new Action<TeamMember>(this.detach_TeamMembers));
+			this._MemberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemberCabinets), new Action<MemberCabinet>(this.detach_MemberCabinets));
 			this._SocialNetworkAccounts = new EntitySet<SocialNetworkAccount>(new Action<SocialNetworkAccount>(this.attach_SocialNetworkAccounts), new Action<SocialNetworkAccount>(this.detach_SocialNetworkAccounts));
 			this._PhoneNumbers = new EntitySet<PhoneNumber>(new Action<PhoneNumber>(this.attach_PhoneNumbers), new Action<PhoneNumber>(this.detach_PhoneNumbers));
-			this._MemberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemberCabinets), new Action<MemberCabinet>(this.detach_MemberCabinets));
-			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
 			this._Level = default(EntityRef<Level>);
 			OnCreated();
 		}
@@ -3760,7 +3764,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="nvarchar(20)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LastName", DbType="nvarchar(50)", CanBeNull=false)]
 		public string LastName
 		{
 			get
@@ -3780,7 +3784,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NationalCode", DbType="nvarchar(10)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NationalCode", DbType="nvarchar(12)", CanBeNull=false)]
 		public string NationalCode
 		{
 			get
@@ -3820,7 +3824,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="nvarchar(10)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="nvarchar(20)", CanBeNull=false)]
 		public string Type
 		{
 			get
@@ -3840,7 +3844,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sex", DbType="nvarchar(10)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sex", DbType="nvarchar(20)", CanBeNull=false)]
 		public string Sex
 		{
 			get
@@ -3904,6 +3908,19 @@ namespace BilliardClub
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberRentPlayingBoard", Storage="_MemberRentPlayingBoards", ThisKey="ID", OtherKey="MemberID")]
+		public EntitySet<MemberRentPlayingBoard> MemberRentPlayingBoards
+		{
+			get
+			{
+				return this._MemberRentPlayingBoards;
+			}
+			set
+			{
+				this._MemberRentPlayingBoards.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_TeamMember", Storage="_TeamMembers", ThisKey="ID", OtherKey="MemberID")]
 		public EntitySet<TeamMember> TeamMembers
 		{
@@ -3914,6 +3931,19 @@ namespace BilliardClub
 			set
 			{
 				this._TeamMembers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_MemberCabinets", ThisKey="ID", OtherKey="MemberID")]
+		public EntitySet<MemberCabinet> MemberCabinets
+		{
+			get
+			{
+				return this._MemberCabinets;
+			}
+			set
+			{
+				this._MemberCabinets.Assign(value);
 			}
 		}
 		
@@ -3940,32 +3970,6 @@ namespace BilliardClub
 			set
 			{
 				this._PhoneNumbers.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_MemberCabinets", ThisKey="ID", OtherKey="MemberID")]
-		public EntitySet<MemberCabinet> MemberCabinets
-		{
-			get
-			{
-				return this._MemberCabinets;
-			}
-			set
-			{
-				this._MemberCabinets.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberRentPlayingBoard", Storage="_MemberRentPlayingBoards", ThisKey="ID", OtherKey="MemberID")]
-		public EntitySet<MemberRentPlayingBoard> MemberRentPlayingBoards
-		{
-			get
-			{
-				return this._MemberRentPlayingBoards;
-			}
-			set
-			{
-				this._MemberRentPlayingBoards.Assign(value);
 			}
 		}
 		
@@ -4023,6 +4027,18 @@ namespace BilliardClub
 			}
 		}
 		
+		private void attach_MemberRentPlayingBoards(MemberRentPlayingBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MemberRentPlayingBoards(MemberRentPlayingBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+		
 		private void attach_TeamMembers(TeamMember entity)
 		{
 			this.SendPropertyChanging();
@@ -4030,6 +4046,18 @@ namespace BilliardClub
 		}
 		
 		private void detach_TeamMembers(TeamMember entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+		
+		private void attach_MemberCabinets(MemberCabinet entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MemberCabinets(MemberCabinet entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
@@ -4054,30 +4082,6 @@ namespace BilliardClub
 		}
 		
 		private void detach_PhoneNumbers(PhoneNumber entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-		
-		private void attach_MemberCabinets(MemberCabinet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_MemberCabinets(MemberCabinet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-		
-		private void attach_MemberRentPlayingBoards(MemberRentPlayingBoard entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_MemberRentPlayingBoards(MemberRentPlayingBoard entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;

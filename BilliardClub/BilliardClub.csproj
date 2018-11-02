@@ -104,6 +104,18 @@
     <Compile Include="Forms\FrmPlayingBoard.Designer.cs">
       <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmMemberCabinet.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmMemberCabinet.Designer.cs">
+      <DependentUpon>FrmMemberCabinet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmProfile.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmProfile.Designer.cs">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmTemplate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +144,9 @@
     <Compile Include="Classes\MemberRentPlayingBoard.cs" />
     <Compile Include="Classes\MemberCabinet.cs" />
     <Compile Include="Classes\PhoneNumber.cs" />
+    <Compile Include="MainClasses\OvalPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainClasses\Setting.cs" />
     <Compile Include="Classes\Team.cs" />
@@ -162,6 +177,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmPlayingBoard.resx">
       <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmMemberCabinet.resx">
+      <DependentUpon>FrmMemberCabinet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmProfile.resx">
+      <DependentUpon>FrmProfile.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTemplate.resx">
       <DependentUpon>FrmTemplate.cs</DependentUpon>
@@ -235,10 +256,22 @@
     <None Include="Resources\no3.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Images-icon1.png" />
+    <None Include="Resources\profile.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\board.gif" />
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\erase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\socialnetworks.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\socialnetworks.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

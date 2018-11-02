@@ -22,18 +22,60 @@ namespace BilliardClub.Forms
 
         }
 
-        private void radRibbonBarGroup1_Click(object sender, EventArgs e)
+        private void radButtonElement1_Click(object sender, EventArgs e)
         {
-           FrmPlayingBoard frm=new FrmPlayingBoard();
+            FrmSocialNetworkType frm = new FrmSocialNetworkType();
 
             frm.ShowDialog();
         }
 
-        private void radRibbonBarGroup2_Click(object sender, EventArgs e)
+        private void radButtonElement2_Click(object sender, EventArgs e)
         {
-            FrmMember frm=new FrmMember();
-            
+            FrmPhone frm = new FrmPhone();
+
             frm.ShowDialog();
+        }
+
+        private void radButtonElement5_Click(object sender, EventArgs e)
+        {
+            FrmLevel frm = new FrmLevel();
+
+            frm.ShowDialog();
+
+        }
+
+        private void radButtonElement4_Click(object sender, EventArgs e)
+        {
+            FrmPlayingBoardTitle frm = new FrmPlayingBoardTitle();
+
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement8_Click(object sender, EventArgs e)
+        {
+            FrmCabinet frm = new FrmCabinet();
+
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement3_Click(object sender, EventArgs e)
+        {
+
+            FrmMember frm = new FrmMember();
+
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement7_Click(object sender, EventArgs e)
+        {
+            FrmPlayingBoard frm = new FrmPlayingBoard();
+
+            frm.ShowDialog();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -98,6 +98,7 @@ namespace BilliardClub
             this.gridCabinet.Size = new System.Drawing.Size(484, 263);
             this.gridCabinet.TabIndex = 65;
             this.gridCabinet.Text = "لیست صندوق امانات";
+            this.gridCabinet.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridCabinet_ContextMenuOpening);
             this.gridCabinet.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridCabinet_KeyDown);
             // 
             // btnNo

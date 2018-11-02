@@ -30,10 +30,9 @@ namespace BilliardClub
 
             Cabinet.LoadGrid(gridCabinet, myConnection);
 
+            myConnection.Dispose();
+
         }
-
-
-    
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -59,6 +58,8 @@ namespace BilliardClub
             clearTextBox();
             
             Cabinet.LoadGrid(gridCabinet,myConnection);
+
+            myConnection.Dispose();
 
         }
         private void btnEdit_Click(object sender, EventArgs e)
@@ -92,6 +93,8 @@ namespace BilliardClub
             FormManagement.EnableYesNo(this.Controls);
 
             txtTitle.Focus();
+
+            myConnection.Dispose();
 
         }
 
@@ -138,6 +141,7 @@ namespace BilliardClub
 
             }
 
+            myConnection.Dispose();
 
         }
 
@@ -184,6 +188,8 @@ namespace BilliardClub
 
             FormManagement.DisableYesNo(this.Controls);
 
+            myConnection.Dispose();
+
         }
         private void btnNo_Click(object sender, EventArgs e)
         {
@@ -205,6 +211,11 @@ namespace BilliardClub
         private void gridCabinet_KeyDown(object sender, KeyEventArgs e)
         {
             FormManagement.KeyDelToRemove(e,btnDelete);
+        }
+
+        private void gridCabinet_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        {
+            e.Cancel = true;
         }
     }
 }

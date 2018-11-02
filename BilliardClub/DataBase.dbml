@@ -163,8 +163,8 @@
       <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
       <Column Name="SocialNetworkTypeID" Type="System.Int32" CanBeNull="false" />
       <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
-      <Association Name="SocialNetworkType_SocialNetworkAccount" Member="SocialNetworkType" ThisKey="SocialNetworkTypeID" OtherKey="ID" Type="SocialNetworkType" IsForeignKey="true" />
       <Association Name="Member_SocialNetworkAccount" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
+      <Association Name="SocialNetworkType_SocialNetworkAccount" Member="SocialNetworkType" ThisKey="SocialNetworkTypeID" OtherKey="ID" Type="SocialNetworkType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="PhoneNumbers">
@@ -172,7 +172,7 @@
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Number" Storage="_Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
       <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
-      <Column Name="SocialNetworkTypeID" Member="PhoneID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="PhoneID" Type="System.Int32" CanBeNull="false" />
       <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
       <Association Name="Phone_PhoneNumber" Member="Phone" ThisKey="PhoneID" OtherKey="ID" Type="Phone" IsForeignKey="true" />
       <Association Name="Member_PhoneNumber" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
@@ -183,18 +183,18 @@
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Code" Type="System.String" DbType="nvarchar(15)" CanBeNull="false" />
       <Column Name="FirstName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
-      <Column Name="LastName" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
-      <Column Name="NationalCode" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="LastName" Type="System.String" DbType="nvarchar(50)" CanBeNull="false" />
+      <Column Name="NationalCode" Type="System.String" DbType="nvarchar(12)" CanBeNull="false" />
       <Column Name="BirthDate" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="Type" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
-      <Column Name="Sex" Type="System.String" DbType="nvarchar(10)" CanBeNull="false" />
+      <Column Name="Type" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="Sex" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
       <Column Name="Image" Type="System.Byte[]" DbType="varbinary(max)" CanBeNull="false" />
       <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
       <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
+      <Association Name="Member_MemberCabinet" Member="MemberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemberCabinet" />
       <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
       <Association Name="Member_PhoneNumber" Member="PhoneNumbers" ThisKey="ID" OtherKey="MemberID" Type="PhoneNumber" />
-      <Association Name="Member_MemberCabinet" Member="MemberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemberCabinet" />
-      <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
       <Association Name="Level_Member" Member="Level" ThisKey="LevelID" OtherKey="ID" Type="Level" IsForeignKey="true" />
     </Type>
   </Table>

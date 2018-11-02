@@ -11,7 +11,7 @@ namespace BilliardClub
     public partial class Member
     {
         public Member(string code, string firstName, string lastName, string nationalCode, DateTime birthDate,
-            string type,string sex,byte[] image) : this()
+            string type, string sex, byte[] image) : this()
         {
             this.Code = code;
 
@@ -29,17 +29,18 @@ namespace BilliardClub
 
             this.Image = image;
         }
+
         public override string ToString()
         {
             return this.FirstName + " " + this.LastName;
         }
         public static Member Insert(string code, string firstName, string lastName, string nationalCode,
-            DateTime birthDate, string type,string sex,byte[] image,Level level, DataBaseDataContext connection)
+            DateTime birthDate, string type, string sex, byte[] image, Level level, DataBaseDataContext connection)
         {
             Member member = new Member(code, firstName, lastName, nationalCode,
-                birthDate, type,sex,image);
+                birthDate, type, sex, image);
 
-            member.Level = Level.Get(level.ID, connection);
+            member.Level = level;
 
             connection.Members.InsertOnSubmit(member);
 
@@ -48,7 +49,7 @@ namespace BilliardClub
             return member;
         }
         public static void Edit(Member member, string code, string firstName, string lastName, string nationalCode,
-            DateTime birthDate, string type,string sex, byte[] image,Level level, DataBaseDataContext connection)
+            DateTime birthDate, string type, string sex, byte[] image, Level level, DataBaseDataContext connection)
         {
             member.Code = code;
 
@@ -66,7 +67,7 @@ namespace BilliardClub
 
             member.Image = image;
 
-         //   member.Level = Level.Get(level.ID, connection);
+            //   member.Level = Level.Get(level.ID, connection);
 
             connection.SubmitChanges();
         }
@@ -97,9 +98,9 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBoxByLevel(ComboBox cmbBox,Level level, DataBaseDataContext connection)
+        public static void LoadFilteredComboBoxByLevel(ComboBox cmbBox, Level level, DataBaseDataContext connection)
         {
-            IQueryable<Member> myQuery = connection.Members.Where(a => a.Level==level);
+            IQueryable<Member> myQuery = connection.Members.Where(a => a.Level == level);
 
             cmbBox.Items.Clear();
 
@@ -120,55 +121,6 @@ namespace BilliardClub
         public static void LoadGrid(RadGridView gridView, DataBaseDataContext connection)
         {
             var query = connection.Members.Select(a => new
-            {
-                id = a.ID,
-                code=a.Code,
-                fullName = a.FirstName + " " + a.LastName,
-                nationalCode = a.NationalCode,
-                birthDate = BTM.Date.ConvertToPersianDate(a.BirthDate),
-                sex=a.Sex,
-                level=a.Level.Title
-            });
-
-            gridView.DataSource = query;
-
-            gridView.Columns[1].IsVisible = false;
-
-            gridView.Columns[2].Width = 200;
-
-            gridView.Columns[2].HeaderText = "کد عضویت";
-
-            gridView.Columns[3].Width = 200;
-
-            gridView.Columns[3].HeaderText = "نام و نام خانوادگی";
-
-            gridView.Columns[4].Width = 100;
-
-            gridView.Columns[4].HeaderText = "شماره ملی";
-
-            gridView.Columns[5].Width = 100;
-
-            gridView.Columns[5].HeaderText = "تاریخ تولد";
-
-            gridView.Columns[6].Width = 100;
-
-            gridView.Columns[6].HeaderText = "جنیست";
-
-            gridView.Columns[7].Width = 100;
-
-            gridView.Columns[7].HeaderText = "نوع عضویت";
-
-            for (int i = 0; i < gridView.RowCount; i++)
-            {
-                gridView.Rows[i].Cells[0].Value = i + 1;
-            }
-
-        }
-
-        public static void LoadFilteredGridByLevel(RadGridView gridView, Level level, DataBaseDataContext connection)
-        {
-            var query = connection.Members.Where(a=>a.Level==level).
-                Select(a => new
             {
                 id = a.ID,
                 code = a.Code,
@@ -206,6 +158,181 @@ namespace BilliardClub
             gridView.Columns[7].Width = 100;
 
             gridView.Columns[7].HeaderText = "نوع عضویت";
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void SearchGridByMemberCode(string text, RadGridView gridView, DataBaseDataContext connection)
+        {
+            var query = connection.Members.OrderByDescending(a => a.ID).Where(a => a.Code.Contains(text)).Select(
+                a => new
+                {
+                    id = a.ID,
+                    code = a.Code,
+                    fullName = a.FirstName + " " + a.LastName,
+                    nationalCode = a.NationalCode,
+                    birthDate = BTM.Date.ConvertToPersianDate(a.BirthDate),
+                    sex = a.Sex,
+                    level = a.Level.Title
+                });
+
+            gridView.DataSource = query;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].Width = 200;
+
+            gridView.Columns[2].HeaderText = "کد عضویت";
+
+            gridView.Columns[3].Width = 200;
+
+            gridView.Columns[3].HeaderText = "نام و نام خانوادگی";
+
+            gridView.Columns[4].Width = 100;
+
+            gridView.Columns[4].HeaderText = "شماره ملی";
+
+            gridView.Columns[5].Width = 100;
+
+            gridView.Columns[5].HeaderText = "تاریخ تولد";
+
+            gridView.Columns[6].Width = 100;
+
+            gridView.Columns[6].HeaderText = "جنیست";
+
+            gridView.Columns[7].Width = 100;
+
+            gridView.Columns[7].HeaderText = "نوع عضویت";
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+            }
+        }
+
+        public static void LoadGrid_By_Filter_Level(RadGridView gridView, Level level, DataBaseDataContext connection)
+        {
+            var query = connection.Members.Where(a => a.Level == level).
+                Select(a => new
+                {
+                    id = a.ID,
+                    code = a.Code,
+                    fullName = a.FirstName + " " + a.LastName,
+                    nationalCode = a.NationalCode,
+                    birthDate = BTM.Date.ConvertToPersianDate(a.BirthDate),
+                    sex = a.Sex,
+                    level = a.Level.Title
+                });
+
+            gridView.DataSource = query;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].Width = 200;
+
+            gridView.Columns[2].HeaderText = "کد عضویت";
+
+            gridView.Columns[3].Width = 200;
+
+            gridView.Columns[3].HeaderText = "نام و نام خانوادگی";
+
+            gridView.Columns[4].Width = 100;
+
+            gridView.Columns[4].HeaderText = "شماره ملی";
+
+            gridView.Columns[5].Width = 100;
+
+            gridView.Columns[5].HeaderText = "تاریخ تولد";
+
+            gridView.Columns[6].Width = 100;
+
+            gridView.Columns[6].HeaderText = "جنیست";
+
+            gridView.Columns[7].Width = 100;
+
+            gridView.Columns[7].HeaderText = "نوع عضویت";
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+        public static void LoadGrid_Join_SocialNetworkAccount_PhoneNumber(RadGridView gridView, DataBaseDataContext connection)
+        {
+            var joinQuery = connection.Members.Join(
+                connection.SocialNetworkAccounts.Where(a => a.Status == true),
+                member => member.ID,
+                social_network_account => social_network_account.MemberID, (mem, account) => new
+                {
+                    mem,
+                    account
+                }).Join(connection.PhoneNumbers.Where(a => a.Status == true),
+                memsocial => memsocial.mem.ID, phone => phone.MemberID,
+                (memsocial, phone) => new
+                {
+                    id = memsocial.mem.ID,
+                    code = memsocial.mem.Code,
+                    fullName = memsocial.mem.FirstName + " " + memsocial.mem.LastName,
+                    nationalCode = memsocial.mem.NationalCode,
+                    birthDate = BTM.Date.ConvertToPersianDate(memsocial.mem.BirthDate),
+                    sex = memsocial.mem.Sex,
+                    level = memsocial.mem.Level.Title,
+                    socialNetAccount = memsocial.account.Account,
+                    phoneNum = phone.Number
+                });
+
+            //var query = connection.Members.Where(a => a.Level == level).
+            //    Select(a => new
+            //    {
+            //        id = a.ID,
+            //        code = a.Code,
+            //        fullName = a.FirstName + " " + a.LastName,
+            //        nationalCode = a.NationalCode,
+            //        birthDate = BTM.Date.ConvertToPersianDate(a.BirthDate),
+            //        sex = a.Sex,
+            //        level = a.Level.Title
+            //    });
+
+            gridView.DataSource = joinQuery;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].Width = 70;
+
+            gridView.Columns[2].HeaderText = "کد عضویت";
+
+            gridView.Columns[3].Width = 150;
+
+            gridView.Columns[3].HeaderText = "نام و نام خانوادگی";
+
+            gridView.Columns[4].Width = 100;
+
+            gridView.Columns[4].HeaderText = "شماره ملی";
+
+            gridView.Columns[5].Width = 100;
+
+            gridView.Columns[5].HeaderText = "تاریخ تولد";
+
+            gridView.Columns[6].Width = 110;
+
+            gridView.Columns[6].HeaderText = "جنیست";
+
+            gridView.Columns[7].Width = 90;
+
+            gridView.Columns[7].HeaderText = "نوع عضویت";
+
+            gridView.Columns[8].Width = 150;
+
+            gridView.Columns[8].HeaderText = "اکانت شبکه اجتماعی";
+
+            gridView.Columns[9].Width = 110;
+
+            gridView.Columns[9].HeaderText = "شماره تماس";
 
             for (int i = 0; i < gridView.RowCount; i++)
             {

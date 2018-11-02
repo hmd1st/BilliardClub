@@ -28,6 +28,7 @@ namespace BilliardClub
             {
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = true;
+
                 else if ((item is RadButton || item is RadGridView))
                     item.Enabled = false;
             }

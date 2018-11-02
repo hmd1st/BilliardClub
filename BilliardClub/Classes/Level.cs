@@ -18,6 +18,7 @@ namespace BilliardClub
         {
             return this.Title;
         }
+
         public static Level Insert(string title, DataBaseDataContext connection)
         {
             Level level = new Level(title);
@@ -42,7 +43,7 @@ namespace BilliardClub
         }
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-            IQueryable<Level> myQuery = connection.Levels.Select(a => a);
+            IQueryable<Level> myQuery = connection.Levels.OrderByDescending(a=>a.ID).Select(a => a);
 
             cmbBox.Items.Clear();
 

@@ -11,7 +11,7 @@ namespace BilliardClub
 {
     public partial class PlayingBoardTitle
     {
-        public PlayingBoardTitle(string title):this()
+        public PlayingBoardTitle(string title) : this()
         {
             this.Title = title;
         }
@@ -21,9 +21,9 @@ namespace BilliardClub
             return this.Title;
         }
 
-        public static PlayingBoardTitle Insert(string title,DataBaseDataContext connection)
+        public static PlayingBoardTitle Insert(string title, DataBaseDataContext connection)
         {
-            PlayingBoardTitle playingBoardTitle =new PlayingBoardTitle(title);
+            PlayingBoardTitle playingBoardTitle = new PlayingBoardTitle(title);
 
             connection.PlayingBoardTitles.InsertOnSubmit(playingBoardTitle);
 
@@ -48,7 +48,8 @@ namespace BilliardClub
 
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-            IQueryable<PlayingBoardTitle> myQuery = connection.PlayingBoardTitles.Select(a => a);
+            IQueryable<PlayingBoardTitle> myQuery =
+                connection.PlayingBoardTitles.OrderByDescending(a => a.ID).Select(a => a);
 
             cmbBox.Items.Clear();
 

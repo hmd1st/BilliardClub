@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,14 +17,12 @@ namespace BilliardClub
             this.Status = status;
 
             this.Account = account;
-
-
         }
 
-        //public override string ToString()
-        //{
-        //    return this.Status;
-        //}
+        public override string ToString()
+        {
+            return this.Account;
+        }
 
         public static SocialNetworkAccount Insert(SocialNetworkType socialNetworkType, Member member,
             bool status, string account, DataBaseDataContext connection)
@@ -85,7 +84,7 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBoxBySocialNetworkType(ComboBox cmbBox, SocialNetworkType socialNetworkType,
+        public static void LoadComboBoxBySocialNetworkType(ComboBox cmbBox, SocialNetworkType socialNetworkType,
             DataBaseDataContext connection)
         {
             IQueryable<SocialNetworkAccount> myQuery = connection.SocialNetworkAccounts.
@@ -110,7 +109,7 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBoxByMember(ComboBox cmbBox, Member member,
+        public static void LoadComboBoxByMember(ComboBox cmbBox, Member member,
             DataBaseDataContext connection)
         {
             IQueryable<SocialNetworkAccount> myQuery = connection.SocialNetworkAccounts.
@@ -162,7 +161,7 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGridBySocialNetworkType(RadGridView grid, SocialNetworkType socialNetworkType,
+        public static void LoadGridBySocialNetworkType(RadGridView grid, SocialNetworkType socialNetworkType,
             DataBaseDataContext connection)
         {
             var myQuery = connection.SocialNetworkAccounts.Where(a => a.SocialNetworkType == socialNetworkType)
@@ -193,7 +192,7 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGridByMember(RadGridView grid, Member member,
+        public static void LoadGridByMember(RadGridView grid, Member member,
             DataBaseDataContext connection)
         {
             var myQuery = connection.SocialNetworkAccounts.Where(a => a.Member == member)
@@ -222,6 +221,34 @@ namespace BilliardClub
             }
 
         }
+
+        public static void ShowListByMember(ListView listView, Member member, DataBaseDataContext connection)
+        {
+            IQueryable<SocialNetworkAccount> myQuery = connection.SocialNetworkAccounts.OrderByDescending(a => a.ID)
+                .Where(a => a.Member == member);
+
+            listView.Items.Clear();
+            int counter = 1;
+
+            foreach (SocialNetworkAccount item in myQuery)
+            {
+                ListViewItem listViewItem = new ListViewItem();
+
+                listViewItem.Tag = item;
+
+                listViewItem.BackColor = item.Status ? Color.LightGreen : Color.Gray;
+
+                listViewItem.Text = counter++.ToString();
+
+                listViewItem.SubItems.Add(item.Account);
+
+                listViewItem.SubItems.Add(item.SocialNetworkType.Title);
+
+                listView.Items.Add(listViewItem);
+
+            }
+        }
+
 
         public static bool Validation(int id, DataBaseDataContext connection)
         {

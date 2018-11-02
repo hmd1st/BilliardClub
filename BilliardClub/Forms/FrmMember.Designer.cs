@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMember));
             this.label1 = new System.Windows.Forms.Label();
@@ -38,44 +39,53 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.txtCode = new System.Windows.Forms.TextBox();
-            this.btnGetCode = new Telerik.WinControls.UI.RadButton();
             this.label5 = new System.Windows.Forms.Label();
             this.txtLastName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cmbSex = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtNationalCode = new System.Windows.Forms.TextBox();
-            this.radButton1 = new Telerik.WinControls.UI.RadButton();
-            this.radButton2 = new Telerik.WinControls.UI.RadButton();
-            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
+            this.btnImageSelect = new Telerik.WinControls.UI.RadButton();
             this.cmbPhone = new System.Windows.Forms.ComboBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gridMember = new Telerik.WinControls.UI.RadGridView();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.پروفایلکاربرToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbSocialNetworkType = new System.Windows.Forms.ComboBox();
+            this.btnSocialAccountTypeGet = new Telerik.WinControls.UI.RadButton();
+            this.txtSocialAccount = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbType = new System.Windows.Forms.ComboBox();
+            this.txtPhoneNumber = new System.Windows.Forms.MaskedTextBox();
+            this.txtNationalCode = new System.Windows.Forms.MaskedTextBox();
+            this.btnLevelGet = new Telerik.WinControls.UI.RadButton();
             this.btnNo = new Telerik.WinControls.UI.RadButton();
             this.btnDelete = new Telerik.WinControls.UI.RadButton();
             this.btnYes = new Telerik.WinControls.UI.RadButton();
             this.btnEdit = new Telerik.WinControls.UI.RadButton();
             this.btnSave = new Telerik.WinControls.UI.RadButton();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cmbType = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.btnGetCode)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.btnPhoneGet = new Telerik.WinControls.UI.RadButton();
+            this.picBox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImageSelect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridMember)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridMember.MasterTemplate)).BeginInit();
+            this.contextMenuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnSocialAccountTypeGet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnLevelGet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPhoneGet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label1.Location = new System.Drawing.Point(659, 15);
+            this.label1.Location = new System.Drawing.Point(657, 15);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 20);
             this.label1.TabIndex = 9;
@@ -84,47 +94,50 @@
             // txtFirstName
             // 
             this.txtFirstName.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtFirstName.Location = new System.Drawing.Point(534, 12);
+            this.txtFirstName.Location = new System.Drawing.Point(559, 12);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtFirstName.Size = new System.Drawing.Size(118, 27);
-            this.txtFirstName.TabIndex = 6;
-            this.txtFirstName.TextChanged += new System.EventHandler(this.txtTitle_TextChanged);
+            this.txtFirstName.Size = new System.Drawing.Size(95, 27);
+            this.txtFirstName.TabIndex = 0;
+            this.txtFirstName.Enter += new System.EventHandler(this.txtFirstName_Enter);
+            this.txtFirstName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFirstName_KeyDown);
+            this.txtFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFirstName_KeyPress);
             // 
             // cmbLevel
             // 
+            this.cmbLevel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLevel.Font = new System.Drawing.Font("B Yekan", 9.75F);
             this.cmbLevel.FormattingEnabled = true;
-            this.cmbLevel.Location = new System.Drawing.Point(309, 48);
+            this.cmbLevel.Location = new System.Drawing.Point(348, 44);
             this.cmbLevel.Name = "cmbLevel";
             this.cmbLevel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmbLevel.Size = new System.Drawing.Size(143, 28);
-            this.cmbLevel.TabIndex = 10;
+            this.cmbLevel.Size = new System.Drawing.Size(107, 28);
+            this.cmbLevel.TabIndex = 5;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label2.Location = new System.Drawing.Point(459, 51);
+            this.label2.Location = new System.Drawing.Point(459, 48);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 20);
+            this.label2.Size = new System.Drawing.Size(71, 20);
             this.label2.TabIndex = 11;
-            this.label2.Text = "نوع عضویت";
+            this.label2.Text = "سطح عضویت";
             // 
             // txtBirthDate
             // 
             this.txtBirthDate.Font = new System.Drawing.Font("B Yekan", 9.75F);
-            this.txtBirthDate.Location = new System.Drawing.Point(144, 14);
+            this.txtBirthDate.Location = new System.Drawing.Point(149, 44);
             this.txtBirthDate.Mask = "1300/00/00";
             this.txtBirthDate.Name = "txtBirthDate";
             this.txtBirthDate.Size = new System.Drawing.Size(83, 27);
-            this.txtBirthDate.TabIndex = 12;
+            this.txtBirthDate.TabIndex = 6;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label3.Location = new System.Drawing.Point(233, 17);
+            this.label3.Location = new System.Drawing.Point(238, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(56, 20);
             this.label3.TabIndex = 13;
@@ -134,7 +147,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label4.Location = new System.Drawing.Point(836, 15);
+            this.label4.Location = new System.Drawing.Point(854, 15);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(21, 20);
             this.label4.TabIndex = 15;
@@ -144,20 +157,11 @@
             // 
             this.txtCode.Enabled = false;
             this.txtCode.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtCode.Location = new System.Drawing.Point(725, 12);
+            this.txtCode.Location = new System.Drawing.Point(742, 12);
             this.txtCode.Name = "txtCode";
             this.txtCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtCode.Size = new System.Drawing.Size(105, 27);
-            this.txtCode.TabIndex = 14;
-            // 
-            // btnGetCode
-            // 
-            this.btnGetCode.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetCode.Location = new System.Drawing.Point(688, 14);
-            this.btnGetCode.Name = "btnGetCode";
-            this.btnGetCode.Size = new System.Drawing.Size(31, 23);
-            this.btnGetCode.TabIndex = 8;
-            this.btnGetCode.Text = "+";
+            this.txtCode.Size = new System.Drawing.Size(109, 27);
+            this.txtCode.TabIndex = 0;
             // 
             // label5
             // 
@@ -172,17 +176,17 @@
             // txtLastName
             // 
             this.txtLastName.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtLastName.Location = new System.Drawing.Point(295, 12);
+            this.txtLastName.Location = new System.Drawing.Point(313, 12);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtLastName.Size = new System.Drawing.Size(157, 27);
-            this.txtLastName.TabIndex = 16;
+            this.txtLastName.Size = new System.Drawing.Size(142, 27);
+            this.txtLastName.TabIndex = 1;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label6.Location = new System.Drawing.Point(811, 48);
+            this.label6.Location = new System.Drawing.Point(854, 48);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(46, 20);
             this.label6.TabIndex = 19;
@@ -195,84 +199,49 @@
             this.cmbSex.Items.AddRange(new object[] {
             "آقا",
             "خانم"});
-            this.cmbSex.Location = new System.Drawing.Point(725, 45);
+            this.cmbSex.Location = new System.Drawing.Point(742, 44);
             this.cmbSex.Name = "cmbSex";
             this.cmbSex.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmbSex.Size = new System.Drawing.Size(81, 28);
-            this.cmbSex.TabIndex = 18;
+            this.cmbSex.Size = new System.Drawing.Size(109, 28);
+            this.cmbSex.TabIndex = 3;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label7.Location = new System.Drawing.Point(663, 48);
+            this.label7.Location = new System.Drawing.Point(657, 48);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(58, 20);
             this.label7.TabIndex = 21;
             this.label7.Text = "شماره ملی";
             // 
-            // txtNationalCode
+            // btnImageSelect
             // 
-            this.txtNationalCode.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtNationalCode.Location = new System.Drawing.Point(538, 45);
-            this.txtNationalCode.Name = "txtNationalCode";
-            this.txtNationalCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtNationalCode.Size = new System.Drawing.Size(118, 27);
-            this.txtNationalCode.TabIndex = 20;
-            // 
-            // radButton1
-            // 
-            this.radButton1.Location = new System.Drawing.Point(12, 164);
-            this.radButton1.Name = "radButton1";
-            this.radButton1.Size = new System.Drawing.Size(126, 37);
-            this.radButton1.TabIndex = 23;
-            this.radButton1.Text = "انتخاب تصویر";
-            // 
-            // radButton2
-            // 
-            this.radButton2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radButton2.Location = new System.Drawing.Point(502, 78);
-            this.radButton2.Name = "radButton2";
-            this.radButton2.Size = new System.Drawing.Size(31, 23);
-            this.radButton2.TabIndex = 15;
-            this.radButton2.Text = "+";
-            // 
-            // txtPhoneNumber
-            // 
-            this.txtPhoneNumber.Enabled = false;
-            this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.txtPhoneNumber.Location = new System.Drawing.Point(688, 79);
-            this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.txtPhoneNumber.Size = new System.Drawing.Size(105, 27);
-            this.txtPhoneNumber.TabIndex = 16;
+            this.btnImageSelect.Location = new System.Drawing.Point(12, 164);
+            this.btnImageSelect.Name = "btnImageSelect";
+            this.btnImageSelect.Size = new System.Drawing.Size(126, 34);
+            this.btnImageSelect.TabIndex = 11;
+            this.btnImageSelect.Text = "انتخاب تصویر";
+            this.btnImageSelect.Click += new System.EventHandler(this.btnImageSelect_Click);
             // 
             // cmbPhone
             // 
+            this.cmbPhone.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPhone.Font = new System.Drawing.Font("B Yekan", 9.75F);
             this.cmbPhone.FormattingEnabled = true;
-            this.cmbPhone.Location = new System.Drawing.Point(539, 78);
+            this.cmbPhone.Location = new System.Drawing.Point(559, 77);
             this.cmbPhone.Name = "cmbPhone";
             this.cmbPhone.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmbPhone.Size = new System.Drawing.Size(143, 28);
-            this.cmbPhone.TabIndex = 24;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::BilliardClub.Properties.Resources.Images_icon;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(126, 146);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 22;
-            this.pictureBox1.TabStop = false;
+            this.cmbPhone.Size = new System.Drawing.Size(95, 28);
+            this.cmbPhone.TabIndex = 7;
             // 
             // gridMember
             // 
             this.gridMember.AutoSizeRows = true;
+            this.gridMember.ContextMenuStrip = this.contextMenuStrip1;
             this.gridMember.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridMember.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridMember.Location = new System.Drawing.Point(0, 224);
+            this.gridMember.Location = new System.Drawing.Point(0, 215);
             // 
             // 
             // 
@@ -291,30 +260,149 @@
             this.gridMember.MasterTemplate.EnableGrouping = false;
             this.gridMember.Name = "gridMember";
             this.gridMember.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridMember.Size = new System.Drawing.Size(869, 263);
-            this.gridMember.TabIndex = 30;
-            this.gridMember.Text = "radGridView1";
+            this.gridMember.Size = new System.Drawing.Size(934, 296);
+            this.gridMember.TabIndex = 17;
+            this.gridMember.Text = "لیست اعضا";
+            this.gridMember.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridMember_ContextMenuOpening);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.پروفایلکاربرToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(144, 28);
+            // 
+            // پروفایلکاربرToolStripMenuItem
+            // 
+            this.پروفایلکاربرToolStripMenuItem.Name = "پروفایلکاربرToolStripMenuItem";
+            this.پروفایلکاربرToolStripMenuItem.Size = new System.Drawing.Size(143, 24);
+            this.پروفایلکاربرToolStripMenuItem.Text = "پروفایل کاربر";
+            this.پروفایلکاربرToolStripMenuItem.Click += new System.EventHandler(this.پروفایلکاربرToolStripMenuItem_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label8.Location = new System.Drawing.Point(854, 81);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(68, 20);
+            this.label8.TabIndex = 31;
+            this.label8.Text = "شماره تماس";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label9.Location = new System.Drawing.Point(854, 115);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 20);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "شبکه اجتماعی";
+            // 
+            // cmbSocialNetworkType
+            // 
+            this.cmbSocialNetworkType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSocialNetworkType.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbSocialNetworkType.FormattingEnabled = true;
+            this.cmbSocialNetworkType.Location = new System.Drawing.Point(559, 111);
+            this.cmbSocialNetworkType.Name = "cmbSocialNetworkType";
+            this.cmbSocialNetworkType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbSocialNetworkType.Size = new System.Drawing.Size(95, 28);
+            this.cmbSocialNetworkType.TabIndex = 9;
+            // 
+            // btnSocialAccountTypeGet
+            // 
+            this.btnSocialAccountTypeGet.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSocialAccountTypeGet.Image = global::BilliardClub.Properties.Resources.add;
+            this.btnSocialAccountTypeGet.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnSocialAccountTypeGet.Location = new System.Drawing.Point(522, 111);
+            this.btnSocialAccountTypeGet.Name = "btnSocialAccountTypeGet";
+            this.btnSocialAccountTypeGet.Size = new System.Drawing.Size(28, 28);
+            this.btnSocialAccountTypeGet.TabIndex = 32;
+            // 
+            // txtSocialAccount
+            // 
+            this.txtSocialAccount.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtSocialAccount.Location = new System.Drawing.Point(707, 111);
+            this.txtSocialAccount.Name = "txtSocialAccount";
+            this.txtSocialAccount.Size = new System.Drawing.Size(145, 28);
+            this.txtSocialAccount.TabIndex = 10;
+            this.txtSocialAccount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label10.Location = new System.Drawing.Point(237, 15);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(66, 20);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "نوع عضویت";
+            // 
+            // cmbType
+            // 
+            this.cmbType.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbType.FormattingEnabled = true;
+            this.cmbType.Items.AddRange(new object[] {
+            "داخلی",
+            "خارجی"});
+            this.cmbType.Location = new System.Drawing.Point(149, 12);
+            this.cmbType.Name = "cmbType";
+            this.cmbType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbType.Size = new System.Drawing.Size(82, 28);
+            this.cmbType.TabIndex = 2;
+            // 
+            // txtPhoneNumber
+            // 
+            this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(742, 77);
+            this.txtPhoneNumber.Mask = "(\\0\\900) 000-0000";
+            this.txtPhoneNumber.Name = "txtPhoneNumber";
+            this.txtPhoneNumber.Size = new System.Drawing.Size(110, 28);
+            this.txtPhoneNumber.TabIndex = 8;
+            this.txtPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // txtNationalCode
+            // 
+            this.txtNationalCode.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtNationalCode.Location = new System.Drawing.Point(559, 44);
+            this.txtNationalCode.Mask = "000-000000-0";
+            this.txtNationalCode.Name = "txtNationalCode";
+            this.txtNationalCode.Size = new System.Drawing.Size(95, 28);
+            this.txtNationalCode.TabIndex = 37;
+            this.txtNationalCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
+            // 
+            // btnLevelGet
+            // 
+            this.btnLevelGet.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLevelGet.Image = global::BilliardClub.Properties.Resources.add;
+            this.btnLevelGet.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnLevelGet.Location = new System.Drawing.Point(312, 44);
+            this.btnLevelGet.Name = "btnLevelGet";
+            this.btnLevelGet.Size = new System.Drawing.Size(28, 28);
+            this.btnLevelGet.TabIndex = 9;
+            this.btnLevelGet.Click += new System.EventHandler(this.btnLevelGet_Click);
             // 
             // btnNo
             // 
             this.btnNo.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnNo.Image = ((System.Drawing.Image)(resources.GetObject("btnNo.Image")));
-            this.btnNo.Location = new System.Drawing.Point(412, 184);
+            this.btnNo.Location = new System.Drawing.Point(471, 164);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(84, 34);
-            this.btnNo.TabIndex = 29;
+            this.btnNo.TabIndex = 16;
             this.btnNo.Text = "خیر";
             this.btnNo.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNo.Click += new System.EventHandler(this.btnNo_Click);
             // 
             // btnDelete
             // 
             this.btnDelete.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnDelete.Image = global::BilliardClub.Properties.Resources.Delete;
-            this.btnDelete.Location = new System.Drawing.Point(593, 184);
+            this.btnDelete.Location = new System.Drawing.Point(652, 164);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(84, 34);
-            this.btnDelete.TabIndex = 27;
+            this.btnDelete.TabIndex = 14;
             this.btnDelete.Text = "حذف";
             this.btnDelete.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
@@ -323,10 +411,10 @@
             // 
             this.btnYes.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnYes.Image = global::BilliardClub.Properties.Resources.yes;
-            this.btnYes.Location = new System.Drawing.Point(502, 184);
+            this.btnYes.Location = new System.Drawing.Point(561, 164);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(84, 34);
-            this.btnYes.TabIndex = 28;
+            this.btnYes.TabIndex = 15;
             this.btnYes.Text = "بلی";
             this.btnYes.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             this.btnYes.Click += new System.EventHandler(this.btnYes_Click);
@@ -335,10 +423,10 @@
             // 
             this.btnEdit.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnEdit.Image = global::BilliardClub.Properties.Resources.Edit;
-            this.btnEdit.Location = new System.Drawing.Point(683, 184);
+            this.btnEdit.Location = new System.Drawing.Point(742, 164);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(84, 34);
-            this.btnEdit.TabIndex = 26;
+            this.btnEdit.TabIndex = 13;
             this.btnEdit.Text = "ویرایش";
             this.btnEdit.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
@@ -347,10 +435,10 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnSave.Image = global::BilliardClub.Properties.Resources.Save;
-            this.btnSave.Location = new System.Drawing.Point(773, 184);
+            this.btnSave.Location = new System.Drawing.Point(832, 164);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 34);
-            this.btnSave.TabIndex = 25;
+            this.btnSave.TabIndex = 12;
             this.btnSave.Text = "ذخیره";
             this.btnSave.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -358,32 +446,40 @@
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).Text = "ذخیره";
             // 
-            // label8
+            // btnPhoneGet
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label8.Location = new System.Drawing.Point(799, 81);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(68, 20);
-            this.label8.TabIndex = 31;
-            this.label8.Text = "شماره تماس";
+            this.btnPhoneGet.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPhoneGet.Image = global::BilliardClub.Properties.Resources.add;
+            this.btnPhoneGet.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.btnPhoneGet.Location = new System.Drawing.Point(522, 77);
+            this.btnPhoneGet.Name = "btnPhoneGet";
+            this.btnPhoneGet.Size = new System.Drawing.Size(28, 28);
+            this.btnPhoneGet.TabIndex = 15;
             // 
-            // cmbType
+            // picBox
             // 
-            this.cmbType.Font = new System.Drawing.Font("B Yekan", 9.75F);
-            this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(309, 82);
-            this.cmbType.Name = "cmbType";
-            this.cmbType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmbType.Size = new System.Drawing.Size(143, 28);
-            this.cmbType.TabIndex = 32;
+            this.picBox.Image = global::BilliardClub.Properties.Resources.profile;
+            this.picBox.Location = new System.Drawing.Point(12, 12);
+            this.picBox.Name = "picBox";
+            this.picBox.Size = new System.Drawing.Size(126, 146);
+            this.picBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picBox.TabIndex = 22;
+            this.picBox.TabStop = false;
             // 
             // FrmMember
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(869, 487);
+            this.ClientSize = new System.Drawing.Size(934, 511);
+            this.Controls.Add(this.btnLevelGet);
+            this.Controls.Add(this.txtNationalCode);
+            this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.cmbType);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.cmbSocialNetworkType);
+            this.Controls.Add(this.btnSocialAccountTypeGet);
+            this.Controls.Add(this.txtSocialAccount);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.gridMember);
             this.Controls.Add(this.btnNo);
@@ -392,17 +488,14 @@
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cmbPhone);
-            this.Controls.Add(this.radButton2);
-            this.Controls.Add(this.txtPhoneNumber);
-            this.Controls.Add(this.radButton1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.btnPhoneGet);
+            this.Controls.Add(this.btnImageSelect);
+            this.Controls.Add(this.picBox);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.txtNationalCode);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.cmbSex);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtLastName);
-            this.Controls.Add(this.btnGetCode);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtCode);
             this.Controls.Add(this.label3);
@@ -414,17 +507,19 @@
             this.Name = "FrmMember";
             this.Text = "ثبت عضو";
             this.Load += new System.EventHandler(this.FrmMember_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.btnGetCode)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.radButton2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnImageSelect)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridMember.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridMember)).EndInit();
+            this.contextMenuStrip1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnSocialAccountTypeGet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnLevelGet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnYes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnEdit)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPhoneGet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -440,17 +535,13 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtCode;
-        private Telerik.WinControls.UI.RadButton btnGetCode;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtLastName;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cmbSex;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtNationalCode;
-        private Telerik.WinControls.UI.RadButton radButton1;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private Telerik.WinControls.UI.RadButton radButton2;
-        private System.Windows.Forms.TextBox txtPhoneNumber;
+        private Telerik.WinControls.UI.RadButton btnImageSelect;
+        private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.ComboBox cmbPhone;
         private Telerik.WinControls.UI.RadGridView gridMember;
         private Telerik.WinControls.UI.RadButton btnNo;
@@ -459,6 +550,17 @@
         private Telerik.WinControls.UI.RadButton btnEdit;
         private Telerik.WinControls.UI.RadButton btnSave;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cmbSocialNetworkType;
+        private Telerik.WinControls.UI.RadButton btnSocialAccountTypeGet;
+        private System.Windows.Forms.TextBox txtSocialAccount;
+        private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cmbType;
+        private System.Windows.Forms.MaskedTextBox txtPhoneNumber;
+        private System.Windows.Forms.MaskedTextBox txtNationalCode;
+        private Telerik.WinControls.UI.RadButton btnLevelGet;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem پروفایلکاربرToolStripMenuItem;
+        private Telerik.WinControls.UI.RadButton btnPhoneGet;
     }
 }

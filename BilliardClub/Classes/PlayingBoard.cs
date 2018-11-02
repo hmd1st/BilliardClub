@@ -139,7 +139,7 @@ namespace BilliardClub
 
             var query = connection.PlayingBoards.Join(connection.PlayingBoardTypes,
                 playingboard => playingboard.ID,
-                playingboardtype => playingboardtype.ID,
+                playingboardtype => playingboardtype.PlayingBoardID,
                 (a, b) => new
                 {
                     id = a.ID,
@@ -156,7 +156,7 @@ namespace BilliardClub
 
             grid.Columns[2].HeaderText = "عنوان";
 
-            grid.Columns[2].Width = 100;
+            grid.Columns[2].Width = 107;
 
             grid.Columns[3].HeaderText = "شماره";
 

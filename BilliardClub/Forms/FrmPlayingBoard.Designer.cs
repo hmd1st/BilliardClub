@@ -58,11 +58,12 @@
             // btnAddPlayingboardTitle
             // 
             this.btnAddPlayingboardTitle.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.btnAddPlayingboardTitle.Image = global::BilliardClub.Properties.Resources.add;
+            this.btnAddPlayingboardTitle.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             this.btnAddPlayingboardTitle.Location = new System.Drawing.Point(205, 12);
             this.btnAddPlayingboardTitle.Name = "btnAddPlayingboardTitle";
-            this.btnAddPlayingboardTitle.Size = new System.Drawing.Size(34, 28);
+            this.btnAddPlayingboardTitle.Size = new System.Drawing.Size(28, 28);
             this.btnAddPlayingboardTitle.TabIndex = 1;
-            this.btnAddPlayingboardTitle.Text = "+";
             this.btnAddPlayingboardTitle.Click += new System.EventHandler(this.btnAddPlayingboardTitle_Click);
             // 
             // label1
@@ -161,7 +162,7 @@
             this.gridPlayingBoard.AutoSizeRows = true;
             this.gridPlayingBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoard.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 134);
+            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 131);
             // 
             // 
             // 
@@ -180,7 +181,7 @@
             this.gridPlayingBoard.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoard.Name = "gridPlayingBoard";
             this.gridPlayingBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridPlayingBoard.Size = new System.Drawing.Size(476, 380);
+            this.gridPlayingBoard.Size = new System.Drawing.Size(464, 380);
             this.gridPlayingBoard.TabIndex = 10;
             this.gridPlayingBoard.Text = "لیست میزها";
             this.gridPlayingBoard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPlayingBoard_KeyDown);
@@ -250,11 +251,11 @@
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).Text = "ذخیره";
             // 
-            // FrmPlayBoard
+            // FrmPlayingBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(476, 514);
+            this.ClientSize = new System.Drawing.Size(464, 511);
             this.Controls.Add(this.btnAddPlayingboardTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbType);
@@ -270,8 +271,8 @@
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSave);
-            this.Name = "FrmPlayBoard";
-            this.Text = "FrmPlayBoard";
+            this.Name = "FrmPlayingBoard";
+            this.Text = "ثبت میز بازی";
             this.Load += new System.EventHandler(this.FrmPlayBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard.MasterTemplate)).EndInit();

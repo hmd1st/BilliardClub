@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -16,14 +17,12 @@ namespace BilliardClub
             this.Status = status;
 
             this.Number = number;
-
-
         }
 
-        //public override string ToString()
-        //{
-        //    return this.Status;
-        //}
+        public override string ToString()
+        {
+            return this.Number;
+        }
 
         public static PhoneNumber Insert(Phone phone, Member member,
             bool status, string number, DataBaseDataContext connection)
@@ -57,6 +56,7 @@ namespace BilliardClub
 
         public static void Delete(PhoneNumber phoneNumber, DataBaseDataContext connection)
         {
+
             connection.PhoneNumbers.DeleteOnSubmit(phoneNumber);
 
             connection.SubmitChanges();
@@ -162,7 +162,7 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGridByPhone(RadGridView grid, Phone phone,
+        public static void LoadGridByPhone(RadGridView grid, Phone phone,
             DataBaseDataContext connection)
         {
             var myQuery = connection.PhoneNumbers.Where(a => a.Phone == phone)
@@ -232,5 +232,35 @@ namespace BilliardClub
         {
             return connection.PhoneNumbers.FirstOrDefault(a => a.ID == id);
         }
+
+        public static void ShowListByMember(ListView listView, Member member, DataBaseDataContext connection)
+        {
+
+            IQueryable<PhoneNumber> myQuery = connection.PhoneNumbers.OrderByDescending(a => a.ID)
+                .Where(a => a.Member == member);
+
+            listView.Items.Clear();
+            int counter = 1;
+
+            foreach (PhoneNumber item in myQuery)
+            {
+                ListViewItem listViewItem = new ListViewItem();
+
+                listViewItem.Tag = item;
+
+                listViewItem.BackColor = item.Status ? Color.LightGreen : Color.Gray;
+
+                listViewItem.Text = counter++.ToString();
+
+                listViewItem.SubItems.Add(item.Number);
+
+                listViewItem.SubItems.Add(item.Phone.Title);
+
+                listView.Items.Add(listViewItem);
+
+            }
+
+        }
+
     }
 }
