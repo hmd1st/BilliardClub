@@ -198,5 +198,9 @@ namespace BilliardClub
             FormManagement.KeyEnterToSaveChanges(e,btnYes,btnSave);
         }
 
+        private void gridLevel_ContextMenuOpening(object sender, ContextMenuOpeningEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

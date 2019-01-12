@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPlayingBoardTitle));
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
@@ -85,17 +85,18 @@
             this.gridPlayingBoardTitle.MasterTemplate.AllowDragToGroup = false;
             this.gridPlayingBoardTitle.MasterTemplate.AllowEditRow = false;
             this.gridPlayingBoardTitle.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn2.HeaderText = "ردیف";
-            gridViewTextBoxColumn2.Name = "colCounter";
-            gridViewTextBoxColumn2.Width = 41;
+            gridViewTextBoxColumn1.HeaderText = "ردیف";
+            gridViewTextBoxColumn1.Name = "colCounter";
+            gridViewTextBoxColumn1.Width = 41;
             this.gridPlayingBoardTitle.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn2});
+            gridViewTextBoxColumn1});
             this.gridPlayingBoardTitle.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoardTitle.Name = "gridPlayingBoardTitle";
             this.gridPlayingBoardTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.gridPlayingBoardTitle.Size = new System.Drawing.Size(484, 267);
             this.gridPlayingBoardTitle.TabIndex = 81;
             this.gridPlayingBoardTitle.Text = "لیست میزها";
+            this.gridPlayingBoardTitle.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridPlayingBoardTitle_ContextMenuOpening);
             this.gridPlayingBoardTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPlayingBoardTitle_KeyDown);
             // 
             // btnNo

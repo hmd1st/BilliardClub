@@ -96,6 +96,30 @@ namespace BilliardClub
             }
 
         }
+        public static void DataUsed(string title, string listName)
+        {
+            if (IsPersianCharacters(title) && !IsPersianCharacters(listName))
+            {
+                MessageBox.Show(string.Format("قبلا استفاده شده و قادر به حذف آن نمی باشید {1} کاربر گرامی مقدار {0} از", title, listName),
+                    "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (!IsPersianCharacters(title) && IsPersianCharacters(listName))
+            {
+                MessageBox.Show(string.Format("از {1} قبلا استفاده شده و قادر به حذف آن نمی باشید {0} کاربر گرامی مقدار", title, listName),
+                    "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (IsPersianCharacters(title) && IsPersianCharacters(listName))
+            {
+                MessageBox.Show(string.Format("کاربر گرامی مقدار {0} از {1} قبلا استفاده شده و قادر به حذف آن نمی باشید", title, listName),
+                    "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show(string.Format("از {1} قبلا استفاده شده و قادر به حذف آن نمی باشید {0} کاربر گرامی مقدار", title, listName),
+                    "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
 
         public static DialogResult ConfirmDeleteData(string text)
         {

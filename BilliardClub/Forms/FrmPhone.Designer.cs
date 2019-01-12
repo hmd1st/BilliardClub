@@ -96,6 +96,7 @@
             this.gridPhone.Size = new System.Drawing.Size(484, 263);
             this.gridPhone.TabIndex = 89;
             this.gridPhone.Text = "لیست اپراتور های تلفن";
+            this.gridPhone.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridPhone_ContextMenuOpening);
             this.gridPhone.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPhone_KeyDown);
             // 
             // btnNo

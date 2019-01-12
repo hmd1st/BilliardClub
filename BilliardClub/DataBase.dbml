@@ -53,6 +53,7 @@
     <Type Name="Cabinet">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Association Name="Cabinet_MemberCabinet" Member="MemberCabinets" ThisKey="ID" OtherKey="CabinetID" Type="MemberCabinet" />
     </Type>
   </Table>
@@ -95,6 +96,7 @@
     <Type Name="PlayingBoard">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Number" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
       <Association Name="PlayingBoard_RentPlayingBoard" Member="RentPlayingBoards" ThisKey="ID" OtherKey="PlayingBoardID" Type="RentPlayingBoard" />
@@ -114,8 +116,8 @@
     <Type Name="RentPlayingBoard">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RegisterDate" Storage="_Title" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="StartTime" Type="System.String" DbType="nvarchar(5)" CanBeNull="false" />
-      <Column Name="EndTime" Type="System.String" DbType="nvarchar(5)" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.String" DbType="nvarchar(8)" CanBeNull="false" />
+      <Column Name="EndTime" Type="System.String" DbType="nvarchar(8)" CanBeNull="false" />
       <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
       <Column Name="PlayingBoardID" Type="System.Int32" CanBeNull="false" />
       <Association Name="RentPlayingBoard_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="RentPlayingBoardID" Type="MemberRentPlayingBoard" />
@@ -126,7 +128,7 @@
     <Type Name="MemberRentPlayingBoard">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Type" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
-      <Column Name="PlayingBoardID" Member="RentPlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="RentPlayingBoardID" Type="System.Int32" CanBeNull="false" />
       <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
       <Association Name="RentPlayingBoard_MemberRentPlayingBoard" Member="RentPlayingBoard" ThisKey="RentPlayingBoardID" OtherKey="ID" Type="RentPlayingBoard" IsForeignKey="true" />
       <Association Name="Member_MemberRentPlayingBoard" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
@@ -142,18 +144,6 @@
       <Column Name="TeamID" Type="System.Int32" CanBeNull="false" />
       <Association Name="Team_TeamMember" Member="Team" ThisKey="TeamID" OtherKey="ID" Type="Team" IsForeignKey="true" />
       <Association Name="Member_TeamMember" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="" Member="MemberCabinets">
-    <Type Name="MemberCabinet">
-      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
-      <Column Name="DateStart" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="DateEnd" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
-      <Column Name="CabinetID" Type="System.Int32" CanBeNull="false" />
-      <Association Name="Cabinet_MemberCabinet" Member="Cabinet" ThisKey="CabinetID" OtherKey="ID" Type="Cabinet" IsForeignKey="true" />
-      <Association Name="Member_MemberCabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="SocialNetworkAccounts">
@@ -192,10 +182,22 @@
       <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
       <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
       <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
-      <Association Name="Member_MemberCabinet" Member="MemberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemberCabinet" />
       <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
       <Association Name="Member_PhoneNumber" Member="PhoneNumbers" ThisKey="ID" OtherKey="MemberID" Type="PhoneNumber" />
+      <Association Name="Member_MemberCabinet" Member="MemberCabinets" ThisKey="ID" OtherKey="MemberID" Type="MemberCabinet" />
       <Association Name="Level_Member" Member="Level" ThisKey="LevelID" OtherKey="ID" Type="Level" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="MemberCabinets">
+    <Type Name="MemberCabinet">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="DateStart" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="DateEnd" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="MemberID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="CabinetID" Storage="_TeamID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
+      <Association Name="Cabinet_MemberCabinet" Member="Cabinet" ThisKey="CabinetID" OtherKey="ID" Type="Cabinet" IsForeignKey="true" />
+      <Association Name="Member_MemberCabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

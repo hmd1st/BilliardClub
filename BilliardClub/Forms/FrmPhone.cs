@@ -209,5 +209,10 @@ namespace BilliardClub
         {
             FormManagement.KeyDelToRemove(e, btnDelete);
         }
+
+        private void gridPhone_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

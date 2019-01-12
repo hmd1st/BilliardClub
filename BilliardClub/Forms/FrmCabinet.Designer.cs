@@ -76,7 +76,7 @@ namespace BilliardClub
             this.gridCabinet.AutoSizeRows = true;
             this.gridCabinet.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridCabinet.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridCabinet.Location = new System.Drawing.Point(0, 98);
+            this.gridCabinet.Location = new System.Drawing.Point(0, 82);
             // 
             // 
             // 
@@ -95,7 +95,7 @@ namespace BilliardClub
             this.gridCabinet.MasterTemplate.EnableGrouping = false;
             this.gridCabinet.Name = "gridCabinet";
             this.gridCabinet.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridCabinet.Size = new System.Drawing.Size(484, 263);
+            this.gridCabinet.Size = new System.Drawing.Size(484, 279);
             this.gridCabinet.TabIndex = 65;
             this.gridCabinet.Text = "لیست صندوق امانات";
             this.gridCabinet.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridCabinet_ContextMenuOpening);
@@ -106,7 +106,7 @@ namespace BilliardClub
             this.btnNo.Enabled = false;
             this.btnNo.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnNo.Image = ((System.Drawing.Image)(resources.GetObject("btnNo.Image")));
-            this.btnNo.Location = new System.Drawing.Point(19, 54);
+            this.btnNo.Location = new System.Drawing.Point(21, 42);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(84, 34);
             this.btnNo.TabIndex = 64;
@@ -118,7 +118,7 @@ namespace BilliardClub
             // 
             this.btnDelete.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnDelete.Image = global::BilliardClub.Properties.Resources.Delete;
-            this.btnDelete.Location = new System.Drawing.Point(200, 54);
+            this.btnDelete.Location = new System.Drawing.Point(202, 42);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(84, 34);
             this.btnDelete.TabIndex = 62;
@@ -131,7 +131,7 @@ namespace BilliardClub
             this.btnYes.Enabled = false;
             this.btnYes.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnYes.Image = global::BilliardClub.Properties.Resources.yes;
-            this.btnYes.Location = new System.Drawing.Point(109, 54);
+            this.btnYes.Location = new System.Drawing.Point(111, 42);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(84, 34);
             this.btnYes.TabIndex = 63;
@@ -143,7 +143,7 @@ namespace BilliardClub
             // 
             this.btnEdit.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnEdit.Image = global::BilliardClub.Properties.Resources.Edit;
-            this.btnEdit.Location = new System.Drawing.Point(290, 54);
+            this.btnEdit.Location = new System.Drawing.Point(292, 42);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(84, 34);
             this.btnEdit.TabIndex = 61;
@@ -155,7 +155,7 @@ namespace BilliardClub
             // 
             this.btnSave.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnSave.Image = global::BilliardClub.Properties.Resources.Save;
-            this.btnSave.Location = new System.Drawing.Point(380, 54);
+            this.btnSave.Location = new System.Drawing.Point(382, 42);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 34);
             this.btnSave.TabIndex = 60;

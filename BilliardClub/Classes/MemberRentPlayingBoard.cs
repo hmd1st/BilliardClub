@@ -11,6 +11,15 @@ namespace BilliardClub
 {
     public partial class MemberRentPlayingBoard
     {
+        private int _notification;
+
+        public int Notification
+        {
+            get { return _notification; }
+            set { _notification = Notification; }
+
+        }
+
         public MemberRentPlayingBoard(string type) : this()
         {
             this.Type = type;

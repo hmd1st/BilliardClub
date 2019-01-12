@@ -60,9 +60,9 @@
             this.btnAddPlayingboardTitle.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnAddPlayingboardTitle.Image = global::BilliardClub.Properties.Resources.add;
             this.btnAddPlayingboardTitle.ImageAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnAddPlayingboardTitle.Location = new System.Drawing.Point(205, 12);
+            this.btnAddPlayingboardTitle.Location = new System.Drawing.Point(212, 15);
             this.btnAddPlayingboardTitle.Name = "btnAddPlayingboardTitle";
-            this.btnAddPlayingboardTitle.Size = new System.Drawing.Size(28, 28);
+            this.btnAddPlayingboardTitle.Size = new System.Drawing.Size(21, 21);
             this.btnAddPlayingboardTitle.TabIndex = 1;
             this.btnAddPlayingboardTitle.Click += new System.EventHandler(this.btnAddPlayingboardTitle_Click);
             // 
@@ -78,6 +78,7 @@
             // 
             // cmbType
             // 
+            this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.Font = new System.Drawing.Font("B Yekan", 10F);
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Items.AddRange(new object[] {
@@ -128,10 +129,10 @@
             this.cmbPlayingBoardTitle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPlayingBoardTitle.Font = new System.Drawing.Font("B Yekan", 10F);
             this.cmbPlayingBoardTitle.FormattingEnabled = true;
-            this.cmbPlayingBoardTitle.Location = new System.Drawing.Point(246, 12);
+            this.cmbPlayingBoardTitle.Location = new System.Drawing.Point(239, 12);
             this.cmbPlayingBoardTitle.Name = "cmbPlayingBoardTitle";
             this.cmbPlayingBoardTitle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.cmbPlayingBoardTitle.Size = new System.Drawing.Size(121, 28);
+            this.cmbPlayingBoardTitle.Size = new System.Drawing.Size(128, 28);
             this.cmbPlayingBoardTitle.TabIndex = 0;
             this.cmbPlayingBoardTitle.SelectedIndexChanged += new System.EventHandler(this.cmbPlayingBoardTitle_SelectedIndexChanged);
             // 
@@ -162,7 +163,7 @@
             this.gridPlayingBoard.AutoSizeRows = true;
             this.gridPlayingBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoard.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 131);
+            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 120);
             // 
             // 
             // 
@@ -181,9 +182,10 @@
             this.gridPlayingBoard.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoard.Name = "gridPlayingBoard";
             this.gridPlayingBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridPlayingBoard.Size = new System.Drawing.Size(464, 380);
+            this.gridPlayingBoard.Size = new System.Drawing.Size(464, 391);
             this.gridPlayingBoard.TabIndex = 10;
             this.gridPlayingBoard.Text = "لیست میزها";
+            this.gridPlayingBoard.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridPlayingBoard_ContextMenuOpening);
             this.gridPlayingBoard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPlayingBoard_KeyDown);
             // 
             // btnNo
@@ -191,7 +193,7 @@
             this.btnNo.Enabled = false;
             this.btnNo.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnNo.Image = ((System.Drawing.Image)(resources.GetObject("btnNo.Image")));
-            this.btnNo.Location = new System.Drawing.Point(12, 94);
+            this.btnNo.Location = new System.Drawing.Point(12, 80);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(84, 34);
             this.btnNo.TabIndex = 9;
@@ -203,7 +205,7 @@
             // 
             this.btnDelete.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnDelete.Image = global::BilliardClub.Properties.Resources.Delete;
-            this.btnDelete.Location = new System.Drawing.Point(193, 94);
+            this.btnDelete.Location = new System.Drawing.Point(193, 80);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(84, 34);
             this.btnDelete.TabIndex = 7;
@@ -216,7 +218,7 @@
             this.btnYes.Enabled = false;
             this.btnYes.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnYes.Image = global::BilliardClub.Properties.Resources.yes;
-            this.btnYes.Location = new System.Drawing.Point(102, 94);
+            this.btnYes.Location = new System.Drawing.Point(102, 80);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(84, 34);
             this.btnYes.TabIndex = 8;
@@ -228,7 +230,7 @@
             // 
             this.btnEdit.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnEdit.Image = global::BilliardClub.Properties.Resources.Edit;
-            this.btnEdit.Location = new System.Drawing.Point(283, 94);
+            this.btnEdit.Location = new System.Drawing.Point(283, 80);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(84, 34);
             this.btnEdit.TabIndex = 6;
@@ -240,7 +242,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnSave.Image = global::BilliardClub.Properties.Resources.Save;
-            this.btnSave.Location = new System.Drawing.Point(373, 94);
+            this.btnSave.Location = new System.Drawing.Point(373, 80);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 34);
             this.btnSave.TabIndex = 5;

@@ -83,7 +83,7 @@
             this.lblNationalCode.AutoSize = true;
             this.lblNationalCode.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblNationalCode.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblNationalCode.Location = new System.Drawing.Point(506, 159);
+            this.lblNationalCode.Location = new System.Drawing.Point(647, 164);
             this.lblNationalCode.Name = "lblNationalCode";
             this.lblNationalCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblNationalCode.Size = new System.Drawing.Size(33, 32);
@@ -96,7 +96,7 @@
             this.lblBirthDate.AutoSize = true;
             this.lblBirthDate.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblBirthDate.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblBirthDate.Location = new System.Drawing.Point(506, 115);
+            this.lblBirthDate.Location = new System.Drawing.Point(647, 120);
             this.lblBirthDate.Name = "lblBirthDate";
             this.lblBirthDate.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblBirthDate.Size = new System.Drawing.Size(33, 32);
@@ -109,7 +109,7 @@
             this.lblLastName.AutoSize = true;
             this.lblLastName.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblLastName.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblLastName.Location = new System.Drawing.Point(506, 79);
+            this.lblLastName.Location = new System.Drawing.Point(647, 84);
             this.lblLastName.Name = "lblLastName";
             this.lblLastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblLastName.Size = new System.Drawing.Size(33, 32);
@@ -122,7 +122,7 @@
             this.lblFirstName.AutoSize = true;
             this.lblFirstName.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblFirstName.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblFirstName.Location = new System.Drawing.Point(506, 44);
+            this.lblFirstName.Location = new System.Drawing.Point(647, 49);
             this.lblFirstName.Name = "lblFirstName";
             this.lblFirstName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblFirstName.Size = new System.Drawing.Size(33, 32);
@@ -135,7 +135,7 @@
             this.lblCode.AutoSize = true;
             this.lblCode.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblCode.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblCode.Location = new System.Drawing.Point(506, 13);
+            this.lblCode.Location = new System.Drawing.Point(647, 18);
             this.lblCode.Name = "lblCode";
             this.lblCode.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblCode.Size = new System.Drawing.Size(33, 32);
@@ -403,7 +403,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label6.Location = new System.Drawing.Point(661, 19);
+            this.label6.Location = new System.Drawing.Point(802, 24);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(61, 20);
             this.label6.TabIndex = 40;
@@ -413,7 +413,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label4.Location = new System.Drawing.Point(666, 121);
+            this.label4.Location = new System.Drawing.Point(807, 126);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(56, 20);
             this.label4.TabIndex = 39;
@@ -423,7 +423,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label1.Location = new System.Drawing.Point(699, 50);
+            this.label1.Location = new System.Drawing.Point(840, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 20);
             this.label1.TabIndex = 38;
@@ -433,7 +433,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label3.Location = new System.Drawing.Point(664, 165);
+            this.label3.Location = new System.Drawing.Point(805, 170);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 20);
             this.label3.TabIndex = 37;
@@ -443,7 +443,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label5.Location = new System.Drawing.Point(653, 85);
+            this.label5.Location = new System.Drawing.Point(794, 90);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 20);
             this.label5.TabIndex = 25;
@@ -464,7 +464,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label2.Location = new System.Drawing.Point(696, 200);
+            this.label2.Location = new System.Drawing.Point(837, 205);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 20);
             this.label2.TabIndex = 49;
@@ -475,7 +475,7 @@
             this.lblTeam.AutoSize = true;
             this.lblTeam.Font = new System.Drawing.Font("B Yekan", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.lblTeam.ForeColor = System.Drawing.Color.DarkGreen;
-            this.lblTeam.Location = new System.Drawing.Point(506, 194);
+            this.lblTeam.Location = new System.Drawing.Point(647, 199);
             this.lblTeam.Name = "lblTeam";
             this.lblTeam.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.lblTeam.Size = new System.Drawing.Size(33, 32);
@@ -505,7 +505,6 @@
             this.Controls.Add(this.PicBox);
             this.Controls.Add(this.label5);
             this.Name = "FrmProfile";
-            this.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.Text = "پروفایل کاربر";
             this.Load += new System.EventHandler(this.FrmProfile_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();

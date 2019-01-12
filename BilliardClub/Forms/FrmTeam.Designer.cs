@@ -96,6 +96,7 @@
             this.gridTeam.Size = new System.Drawing.Size(484, 263);
             this.gridTeam.TabIndex = 73;
             this.gridTeam.Text = "لیست تیم ها";
+            this.gridTeam.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridTeam_ContextMenuOpening);
             this.gridTeam.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridTeam_KeyDown);
             // 
             // btnNo

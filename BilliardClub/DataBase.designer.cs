@@ -83,9 +83,6 @@ namespace BilliardClub
     partial void InsertTeamMember(TeamMember instance);
     partial void UpdateTeamMember(TeamMember instance);
     partial void DeleteTeamMember(TeamMember instance);
-    partial void InsertMemberCabinet(MemberCabinet instance);
-    partial void UpdateMemberCabinet(MemberCabinet instance);
-    partial void DeleteMemberCabinet(MemberCabinet instance);
     partial void InsertSocialNetworkAccount(SocialNetworkAccount instance);
     partial void UpdateSocialNetworkAccount(SocialNetworkAccount instance);
     partial void DeleteSocialNetworkAccount(SocialNetworkAccount instance);
@@ -95,6 +92,9 @@ namespace BilliardClub
     partial void InsertMember(Member instance);
     partial void UpdateMember(Member instance);
     partial void DeleteMember(Member instance);
+    partial void InsertMemberCabinet(MemberCabinet instance);
+    partial void UpdateMemberCabinet(MemberCabinet instance);
+    partial void DeleteMemberCabinet(MemberCabinet instance);
     #endregion
 		
 		public DataBaseDataContext(string connection) : 
@@ -265,14 +265,6 @@ namespace BilliardClub
 			}
 		}
 		
-		public System.Data.Linq.Table<MemberCabinet> MemberCabinets
-		{
-			get
-			{
-				return this.GetTable<MemberCabinet>();
-			}
-		}
-		
 		public System.Data.Linq.Table<SocialNetworkAccount> SocialNetworkAccounts
 		{
 			get
@@ -294,6 +286,14 @@ namespace BilliardClub
 			get
 			{
 				return this.GetTable<Member>();
+			}
+		}
+		
+		public System.Data.Linq.Table<MemberCabinet> MemberCabinets
+		{
+			get
+			{
+				return this.GetTable<MemberCabinet>();
 			}
 		}
 	}
@@ -1102,6 +1102,8 @@ namespace BilliardClub
 		
 		private string _Title;
 		
+		private bool _IsAvailable;
+		
 		private EntitySet<MemberCabinet> _MemberCabinets;
 		
     #region Extensibility Method Definitions
@@ -1112,6 +1114,8 @@ namespace BilliardClub
     partial void OnIDChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
+    partial void OnIsAvailableChanging(bool value);
+    partial void OnIsAvailableChanged();
     #endregion
 		
 		public Cabinet()
@@ -1156,6 +1160,26 @@ namespace BilliardClub
 					this._Title = value;
 					this.SendPropertyChanged("Title");
 					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvailable")]
+		public bool IsAvailable
+		{
+			get
+			{
+				return this._IsAvailable;
+			}
+			set
+			{
+				if ((this._IsAvailable != value))
+				{
+					this.OnIsAvailableChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvailable = value;
+					this.SendPropertyChanged("IsAvailable");
+					this.OnIsAvailableChanged();
 				}
 			}
 		}
@@ -1786,6 +1810,8 @@ namespace BilliardClub
 		
 		private string _Title;
 		
+		private bool _IsAvailable;
+		
 		private int _PlayingBoardTitleID;
 		
 		private EntitySet<PlayingBoardType> _PlayingBoardTypes;
@@ -1802,6 +1828,8 @@ namespace BilliardClub
     partial void OnIDChanged();
     partial void OnNumberChanging(string value);
     partial void OnNumberChanged();
+    partial void OnIsAvailableChanging(bool value);
+    partial void OnIsAvailableChanged();
     partial void OnPlayingBoardTitleIDChanging(int value);
     partial void OnPlayingBoardTitleIDChanged();
     #endregion
@@ -1850,6 +1878,26 @@ namespace BilliardClub
 					this._Title = value;
 					this.SendPropertyChanged("Number");
 					this.OnNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvailable")]
+		public bool IsAvailable
+		{
+			get
+			{
+				return this._IsAvailable;
+			}
+			set
+			{
+				if ((this._IsAvailable != value))
+				{
+					this.OnIsAvailableChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvailable = value;
+					this.SendPropertyChanged("IsAvailable");
+					this.OnIsAvailableChanged();
 				}
 			}
 		}
@@ -2245,7 +2293,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="nvarchar(5)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_StartTime", DbType="nvarchar(8)", CanBeNull=false)]
 		public string StartTime
 		{
 			get
@@ -2265,7 +2313,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="nvarchar(5)", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EndTime", DbType="nvarchar(8)", CanBeNull=false)]
 		public string EndTime
 		{
 			get
@@ -2488,7 +2536,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PlayingBoardID", Storage="_RentPlayingBoardID")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RentPlayingBoardID")]
 		public int RentPlayingBoardID
 		{
 			get
@@ -2499,6 +2547,10 @@ namespace BilliardClub
 			{
 				if ((this._RentPlayingBoardID != value))
 				{
+					if (this._RentPlayingBoard.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnRentPlayingBoardIDChanging(value);
 					this.SendPropertyChanging();
 					this._RentPlayingBoardID = value;
@@ -2853,270 +2905,6 @@ namespace BilliardClub
 					if ((value != null))
 					{
 						value.TeamMembers.Add(this);
-						this._MemberID = value.ID;
-					}
-					else
-					{
-						this._MemberID = default(int);
-					}
-					this.SendPropertyChanged("Member");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	public partial class MemberCabinet : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private bool _Status;
-		
-		private System.DateTime _DateStart;
-		
-		private System.DateTime _DateEnd;
-		
-		private int _MemberID;
-		
-		private int _CabinetID;
-		
-		private EntityRef<Cabinet> _Cabinet;
-		
-		private EntityRef<Member> _Member;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnStatusChanging(bool value);
-    partial void OnStatusChanged();
-    partial void OnDateStartChanging(System.DateTime value);
-    partial void OnDateStartChanged();
-    partial void OnDateEndChanging(System.DateTime value);
-    partial void OnDateEndChanged();
-    partial void OnMemberIDChanging(int value);
-    partial void OnMemberIDChanged();
-    partial void OnCabinetIDChanging(int value);
-    partial void OnCabinetIDChanged();
-    #endregion
-		
-		public MemberCabinet()
-		{
-			this._Cabinet = default(EntityRef<Cabinet>);
-			this._Member = default(EntityRef<Member>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status")]
-		public bool Status
-		{
-			get
-			{
-				return this._Status;
-			}
-			set
-			{
-				if ((this._Status != value))
-				{
-					this.OnStatusChanging(value);
-					this.SendPropertyChanging();
-					this._Status = value;
-					this.SendPropertyChanged("Status");
-					this.OnStatusChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStart")]
-		public System.DateTime DateStart
-		{
-			get
-			{
-				return this._DateStart;
-			}
-			set
-			{
-				if ((this._DateStart != value))
-				{
-					this.OnDateStartChanging(value);
-					this.SendPropertyChanging();
-					this._DateStart = value;
-					this.SendPropertyChanged("DateStart");
-					this.OnDateStartChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateEnd")]
-		public System.DateTime DateEnd
-		{
-			get
-			{
-				return this._DateEnd;
-			}
-			set
-			{
-				if ((this._DateEnd != value))
-				{
-					this.OnDateEndChanging(value);
-					this.SendPropertyChanging();
-					this._DateEnd = value;
-					this.SendPropertyChanged("DateEnd");
-					this.OnDateEndChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID")]
-		public int MemberID
-		{
-			get
-			{
-				return this._MemberID;
-			}
-			set
-			{
-				if ((this._MemberID != value))
-				{
-					if (this._Member.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnMemberIDChanging(value);
-					this.SendPropertyChanging();
-					this._MemberID = value;
-					this.SendPropertyChanged("MemberID");
-					this.OnMemberIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CabinetID")]
-		public int CabinetID
-		{
-			get
-			{
-				return this._CabinetID;
-			}
-			set
-			{
-				if ((this._CabinetID != value))
-				{
-					if (this._Cabinet.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnCabinetIDChanging(value);
-					this.SendPropertyChanging();
-					this._CabinetID = value;
-					this.SendPropertyChanged("CabinetID");
-					this.OnCabinetIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cabinet_MemberCabinet", Storage="_Cabinet", ThisKey="CabinetID", OtherKey="ID", IsForeignKey=true)]
-		public Cabinet Cabinet
-		{
-			get
-			{
-				return this._Cabinet.Entity;
-			}
-			set
-			{
-				Cabinet previousValue = this._Cabinet.Entity;
-				if (((previousValue != value) 
-							|| (this._Cabinet.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Cabinet.Entity = null;
-						previousValue.MemberCabinets.Remove(this);
-					}
-					this._Cabinet.Entity = value;
-					if ((value != null))
-					{
-						value.MemberCabinets.Add(this);
-						this._CabinetID = value.ID;
-					}
-					else
-					{
-						this._CabinetID = default(int);
-					}
-					this.SendPropertyChanged("Cabinet");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_Member", ThisKey="MemberID", OtherKey="ID", IsForeignKey=true)]
-		public Member Member
-		{
-			get
-			{
-				return this._Member.Entity;
-			}
-			set
-			{
-				Member previousValue = this._Member.Entity;
-				if (((previousValue != value) 
-							|| (this._Member.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Member.Entity = null;
-						previousValue.MemberCabinets.Remove(this);
-					}
-					this._Member.Entity = value;
-					if ((value != null))
-					{
-						value.MemberCabinets.Add(this);
 						this._MemberID = value.ID;
 					}
 					else
@@ -3659,11 +3447,11 @@ namespace BilliardClub
 		
 		private EntitySet<TeamMember> _TeamMembers;
 		
-		private EntitySet<MemberCabinet> _MemberCabinets;
-		
 		private EntitySet<SocialNetworkAccount> _SocialNetworkAccounts;
 		
 		private EntitySet<PhoneNumber> _PhoneNumbers;
+		
+		private EntitySet<MemberCabinet> _MemberCabinets;
 		
 		private EntityRef<Level> _Level;
 		
@@ -3697,9 +3485,9 @@ namespace BilliardClub
 		{
 			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
 			this._TeamMembers = new EntitySet<TeamMember>(new Action<TeamMember>(this.attach_TeamMembers), new Action<TeamMember>(this.detach_TeamMembers));
-			this._MemberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemberCabinets), new Action<MemberCabinet>(this.detach_MemberCabinets));
 			this._SocialNetworkAccounts = new EntitySet<SocialNetworkAccount>(new Action<SocialNetworkAccount>(this.attach_SocialNetworkAccounts), new Action<SocialNetworkAccount>(this.detach_SocialNetworkAccounts));
 			this._PhoneNumbers = new EntitySet<PhoneNumber>(new Action<PhoneNumber>(this.attach_PhoneNumbers), new Action<PhoneNumber>(this.detach_PhoneNumbers));
+			this._MemberCabinets = new EntitySet<MemberCabinet>(new Action<MemberCabinet>(this.attach_MemberCabinets), new Action<MemberCabinet>(this.detach_MemberCabinets));
 			this._Level = default(EntityRef<Level>);
 			OnCreated();
 		}
@@ -3934,19 +3722,6 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_MemberCabinets", ThisKey="ID", OtherKey="MemberID")]
-		public EntitySet<MemberCabinet> MemberCabinets
-		{
-			get
-			{
-				return this._MemberCabinets;
-			}
-			set
-			{
-				this._MemberCabinets.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_SocialNetworkAccount", Storage="_SocialNetworkAccounts", ThisKey="ID", OtherKey="MemberID")]
 		public EntitySet<SocialNetworkAccount> SocialNetworkAccounts
 		{
@@ -3970,6 +3745,19 @@ namespace BilliardClub
 			set
 			{
 				this._PhoneNumbers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_MemberCabinets", ThisKey="ID", OtherKey="MemberID")]
+		public EntitySet<MemberCabinet> MemberCabinets
+		{
+			get
+			{
+				return this._MemberCabinets;
+			}
+			set
+			{
+				this._MemberCabinets.Assign(value);
 			}
 		}
 		
@@ -4051,18 +3839,6 @@ namespace BilliardClub
 			entity.Member = null;
 		}
 		
-		private void attach_MemberCabinets(MemberCabinet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = this;
-		}
-		
-		private void detach_MemberCabinets(MemberCabinet entity)
-		{
-			this.SendPropertyChanging();
-			entity.Member = null;
-		}
-		
 		private void attach_SocialNetworkAccounts(SocialNetworkAccount entity)
 		{
 			this.SendPropertyChanging();
@@ -4085,6 +3861,282 @@ namespace BilliardClub
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
+		}
+		
+		private void attach_MemberCabinets(MemberCabinet entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_MemberCabinets(MemberCabinet entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class MemberCabinet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.DateTime _DateStart;
+		
+		private System.DateTime _DateEnd;
+		
+		private int _MemberID;
+		
+		private int _TeamID;
+		
+		private bool _Status;
+		
+		private EntityRef<Cabinet> _Cabinet;
+		
+		private EntityRef<Member> _Member;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnDateStartChanging(System.DateTime value);
+    partial void OnDateStartChanged();
+    partial void OnDateEndChanging(System.DateTime value);
+    partial void OnDateEndChanged();
+    partial void OnMemberIDChanging(int value);
+    partial void OnMemberIDChanged();
+    partial void OnCabinetIDChanging(int value);
+    partial void OnCabinetIDChanged();
+    partial void OnStatusChanging(bool value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public MemberCabinet()
+		{
+			this._Cabinet = default(EntityRef<Cabinet>);
+			this._Member = default(EntityRef<Member>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStart")]
+		public System.DateTime DateStart
+		{
+			get
+			{
+				return this._DateStart;
+			}
+			set
+			{
+				if ((this._DateStart != value))
+				{
+					this.OnDateStartChanging(value);
+					this.SendPropertyChanging();
+					this._DateStart = value;
+					this.SendPropertyChanged("DateStart");
+					this.OnDateStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateEnd")]
+		public System.DateTime DateEnd
+		{
+			get
+			{
+				return this._DateEnd;
+			}
+			set
+			{
+				if ((this._DateEnd != value))
+				{
+					this.OnDateEndChanging(value);
+					this.SendPropertyChanging();
+					this._DateEnd = value;
+					this.SendPropertyChanged("DateEnd");
+					this.OnDateEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberID")]
+		public int MemberID
+		{
+			get
+			{
+				return this._MemberID;
+			}
+			set
+			{
+				if ((this._MemberID != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberIDChanging(value);
+					this.SendPropertyChanging();
+					this._MemberID = value;
+					this.SendPropertyChanged("MemberID");
+					this.OnMemberIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TeamID")]
+		public int CabinetID
+		{
+			get
+			{
+				return this._TeamID;
+			}
+			set
+			{
+				if ((this._TeamID != value))
+				{
+					if (this._Cabinet.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnCabinetIDChanging(value);
+					this.SendPropertyChanging();
+					this._TeamID = value;
+					this.SendPropertyChanged("CabinetID");
+					this.OnCabinetIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status")]
+		public bool Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Cabinet_MemberCabinet", Storage="_Cabinet", ThisKey="CabinetID", OtherKey="ID", IsForeignKey=true)]
+		public Cabinet Cabinet
+		{
+			get
+			{
+				return this._Cabinet.Entity;
+			}
+			set
+			{
+				Cabinet previousValue = this._Cabinet.Entity;
+				if (((previousValue != value) 
+							|| (this._Cabinet.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Cabinet.Entity = null;
+						previousValue.MemberCabinets.Remove(this);
+					}
+					this._Cabinet.Entity = value;
+					if ((value != null))
+					{
+						value.MemberCabinets.Add(this);
+						this._TeamID = value.ID;
+					}
+					else
+					{
+						this._TeamID = default(int);
+					}
+					this.SendPropertyChanged("Cabinet");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberCabinet", Storage="_Member", ThisKey="MemberID", OtherKey="ID", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.MemberCabinets.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.MemberCabinets.Add(this);
+						this._MemberID = value.ID;
+					}
+					else
+					{
+						this._MemberID = default(int);
+					}
+					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

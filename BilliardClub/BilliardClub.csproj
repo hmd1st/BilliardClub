@@ -36,6 +36,7 @@
     <Reference Include="BTM">
       <HintPath>..\..\SecuritySystem\SystemSecurity\SystemSecurity\bin\Debug\BTM.dll</HintPath>
     </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=10.4.0.1, Culture=neutral, PublicKeyToken=c39c3242a43eee2b, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
@@ -104,10 +105,10 @@
     <Compile Include="Forms\FrmPlayingBoard.Designer.cs">
       <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmMemberCabinet.cs">
+    <Compile Include="Forms\FrmMemberCabinet.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmMemberCabinet.Designer.cs">
+    <Compile Include="Forms\FrmMemberCabinet.Designer.cs">
       <DependentUpon>FrmMemberCabinet.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\FrmProfile.cs">
@@ -115,6 +116,18 @@
     </Compile>
     <Compile Include="Forms\FrmProfile.Designer.cs">
       <DependentUpon>FrmProfile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FrmMembersCabinetsManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FrmMembersCabinetsManagement.Designer.cs">
+      <DependentUpon>FrmMembersCabinetsManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmRent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmRent.Designer.cs">
+      <DependentUpon>FrmRent.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmTemplate.cs">
       <SubType>Form</SubType>
@@ -178,11 +191,17 @@
     <EmbeddedResource Include="Forms\FrmPlayingBoard.resx">
       <DependentUpon>FrmPlayingBoard.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmMemberCabinet.resx">
+    <EmbeddedResource Include="Forms\FrmMemberCabinet.resx">
       <DependentUpon>FrmMemberCabinet.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FrmProfile.resx">
       <DependentUpon>FrmProfile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FrmMembersCabinetsManagement.resx">
+      <DependentUpon>FrmMembersCabinetsManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmRent.resx">
+      <DependentUpon>FrmRent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmTemplate.resx">
       <DependentUpon>FrmTemplate.cs</DependentUpon>
@@ -272,6 +291,48 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\socialnetworks.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\socialnetwork.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\phone-icons.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\membership.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\games.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cabinet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\members-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tblnumber.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bill.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bill2.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bill3.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\search2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cabinet1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

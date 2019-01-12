@@ -11,29 +11,24 @@ namespace BilliardClub
 {
     public partial class MemberCabinet
     {
-        public MemberCabinet(bool status, DateTime dateStart, DateTime dateEnd) : this()
+        public MemberCabinet(DateTime dateStart, DateTime dateEnd, bool status) : this()
         {
-            this.Status = status;
-
             this.DateStart = dateStart;
 
             this.DateEnd = dateEnd;
 
+            this.Status = status;
+
         }
 
-        //public override string ToString()
-        //{
-        //    return this.Status;
-        //}
-
-        public static MemberCabinet Insert(Cabinet cabinet, Member member,
-            bool status, DateTime dateStart, DateTime dateEnd, DataBaseDataContext connection)
+        public static MemberCabinet Insert(Cabinet cabinet, Member member, DateTime dateStart, DateTime dateEnd, bool status,
+            DataBaseDataContext connection)
         {
-            MemberCabinet memberCabinet = new MemberCabinet(status, dateStart, dateEnd);
+            MemberCabinet memberCabinet = new MemberCabinet(dateStart, dateEnd, status);
 
-            memberCabinet.Cabinet = cabinet;
+            memberCabinet.Member = Member.Get(member.ID, connection);
 
-            memberCabinet.Member = member;
+            memberCabinet.Cabinet = Cabinet.Get(cabinet.ID, connection);
 
             connection.MemberCabinets.InsertOnSubmit(memberCabinet);
 
@@ -43,10 +38,8 @@ namespace BilliardClub
         }
 
         public static void Edit(MemberCabinet memberCabinet, Cabinet cabinet, Member member,
-            bool status, DateTime dateStart, DateTime dateEnd, DataBaseDataContext connection)
+            DateTime dateStart, DateTime dateEnd, DataBaseDataContext connection)
         {
-            memberCabinet.Status = status;
-
             memberCabinet.DateStart = dateStart;
 
             memberCabinet.DateEnd = dateEnd;
@@ -88,7 +81,7 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBoxByCabinet(ComboBox cmbBox, Cabinet cabinet,
+        public static void LoadComboBoxByCabinet(ComboBox cmbBox, Cabinet cabinet,
             DataBaseDataContext connection)
         {
             IQueryable<MemberCabinet> myQuery = connection.MemberCabinets.
@@ -113,7 +106,7 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBoxByMember(ComboBox cmbBox, Member member,
+        public static void LoadComboBoxByMember(ComboBox cmbBox, Member member,
             DataBaseDataContext connection)
         {
             IQueryable<MemberCabinet> myQuery = connection.MemberCabinets.
@@ -142,7 +135,6 @@ namespace BilliardClub
             var myQuery = connection.MemberCabinets.Select(a => new
             {
                 id = a.ID,
-                status = a.Status,
                 dateStart = a.DateStart,
                 dateend = a.DateEnd
             });
@@ -151,17 +143,13 @@ namespace BilliardClub
 
             grid.Columns[1].IsVisible = false;
 
-            grid.Columns[2].HeaderText = "وضعیت";
+            grid.Columns[2].HeaderText = "تاریخ شروع";
 
-            grid.Columns[2].Width = 300;
+            grid.Columns[2].Width = 100;
 
-            grid.Columns[3].HeaderText = "تاریخ شروع";
+            grid.Columns[3].HeaderText = "تاریخ پایان";
 
             grid.Columns[3].Width = 100;
-
-            grid.Columns[4].HeaderText = "تاریخ پایان";
-
-            grid.Columns[4].Width = 100;
 
             for (int i = 0; i < grid.RowCount; i++)
             {
@@ -170,16 +158,45 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGridByCabinet(RadGridView grid, Cabinet cabinet,
+        public static void LoadGridMemberCabinet(RadGridView grid,
+            DataBaseDataContext connection)
+        {
+            var myQuery = connection.MemberCabinets.OrderByDescending(a => a.ID).Where(a => a.Status).Select(a => new
+            {
+                id = a.ID,
+                memberFullName = a.Member.FirstName + " " + a.Member.LastName,
+                cabinet = a.Cabinet.Title
+            });
+
+            grid.DataSource = myQuery;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "نام و نام خانوادگی";
+
+            grid.Columns[2].Width = 300;
+
+            grid.Columns[3].HeaderText = "صندوق";
+
+            grid.Columns[3].Width = 100;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void LoadGridByCabinet(RadGridView grid, Cabinet cabinet,
             DataBaseDataContext connection)
         {
             var myQuery = connection.MemberCabinets.Where(a => a.Cabinet == cabinet)
                 .Select(a => new
                 {
                     id = a.ID,
-                    status = a.Status,
+                    memberFullName = a.Member.FirstName + " " + a.Member.LastName,
                     dateStart = a.DateStart,
-                    dateend = a.DateEnd
+                    dateEnd = a.DateEnd
 
                 });
 
@@ -187,9 +204,9 @@ namespace BilliardClub
 
             grid.Columns[1].IsVisible = false;
 
-            grid.Columns[2].HeaderText = "وضعیت";
+            grid.Columns[2].HeaderText = "نام و نام خانوادگی";
 
-            grid.Columns[2].Width = 300;
+            grid.Columns[2].Width = 200;
 
             grid.Columns[3].HeaderText = "تاریخ شروع";
 
@@ -206,14 +223,15 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGridByMember(RadGridView grid, Member member,
+
+        public static void LoadGridByMember(RadGridView grid, Member member,
             DataBaseDataContext connection)
         {
             var myQuery = connection.MemberCabinets.Where(a => a.Member == member)
                 .Select(a => new
                 {
                     id = a.ID,
-                    status = a.Status,
+                    cabinetTitle = a.Cabinet.Title,
                     dateStart = a.DateStart,
                     dateend = a.DateEnd
                 });
@@ -222,9 +240,9 @@ namespace BilliardClub
 
             grid.Columns[1].IsVisible = false;
 
-            grid.Columns[2].HeaderText = "وضعیت";
+            grid.Columns[2].HeaderText = "شماره صندوق";
 
-            grid.Columns[2].Width = 300;
+            grid.Columns[2].Width = 200;
 
             grid.Columns[3].HeaderText = "تاریخ شروع";
 
@@ -241,6 +259,65 @@ namespace BilliardClub
 
         }
 
+        public static void SearchGridMemberCabinetByMemberName(string text, RadGridView grid,
+            DataBaseDataContext connection)
+        {
+            var myQuery = connection.MemberCabinets.Where(a => a.Member.FirstName.Contains(text))
+                .Select(a => new
+                {
+                    id = a.ID,
+                    memberFullName = a.Member.FirstName + " " + a.Member.LastName,
+                    cabinet = a.Cabinet.Title
+                });
+
+            grid.DataSource = myQuery;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "نام و نام خانوادگی";
+
+            grid.Columns[2].Width = 300;
+
+            grid.Columns[3].HeaderText = "صندوق";
+
+            grid.Columns[3].Width = 100;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+        public static void SearchGridMemberCabinetByCabinetTitle(string text, RadGridView grid,
+            DataBaseDataContext connection)
+        {
+            var myQuery = connection.MemberCabinets
+                .Where(a => a.Cabinet.Title.Contains(text))
+                .Select(a => new
+                {
+                    id = a.ID,
+                    memberFullName = a.Member.FirstName + " " + a.Member.LastName,
+                    cabinet = a.Cabinet.Title
+                });
+
+            grid.DataSource = myQuery;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "نام و نام خانوادگی";
+
+            grid.Columns[2].Width = 300;
+
+            grid.Columns[3].HeaderText = "صندوق";
+
+            grid.Columns[3].Width = 100;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
         public static bool Validation(int id, DataBaseDataContext connection)
         {
             return connection.MemberCabinets.Any(a => a.ID == id);

@@ -96,6 +96,7 @@
             this.gridLevel.Size = new System.Drawing.Size(484, 263);
             this.gridLevel.TabIndex = 6;
             this.gridLevel.Text = "لیست نوع عضویت";
+            this.gridLevel.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridLevel_ContextMenuOpening);
             // 
             // btnNo
             // 

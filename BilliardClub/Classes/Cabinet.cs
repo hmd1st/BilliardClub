@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -9,11 +10,12 @@ using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
-   public partial class Cabinet
+    public partial class Cabinet
     {
-        public Cabinet(string title): this()
+        public Cabinet(string title, bool isAvailable) : this()
         {
             this.Title = title;
+            this.IsAvailable = isAvailable;
         }
 
         public override string ToString()
@@ -21,9 +23,9 @@ namespace BilliardClub
             return this.Title;
         }
 
-        public static Cabinet Insert(string title,DataBaseDataContext connection)
+        public static Cabinet Insert(string title, bool isAvailable, DataBaseDataContext connection)
         {
-            Cabinet cabinet = new Cabinet(title);
+            Cabinet cabinet = new Cabinet(title, isAvailable);
 
             connection.Cabinets.InsertOnSubmit(cabinet);
 
@@ -32,14 +34,16 @@ namespace BilliardClub
             return cabinet;
         }
 
-        public static void Edit(Cabinet cabinet, string title, DataBaseDataContext connection)
+        public static void Edit(Cabinet cabinet, string title,bool isAvailable, DataBaseDataContext connection)
         {
             cabinet.Title = title;
+
+            cabinet.IsAvailable = isAvailable;
 
             connection.SubmitChanges();
         }
 
-        public static void Delete(Cabinet cabinet,DataBaseDataContext connection)
+        public static void Delete(Cabinet cabinet, DataBaseDataContext connection)
         {
             connection.Cabinets.DeleteOnSubmit(cabinet);
 
@@ -48,7 +52,7 @@ namespace BilliardClub
 
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-             var myQuery = connection.Cabinets.Select(a => a);
+            var myQuery = connection.Cabinets.Select(a => a);
 
             cmbBox.Items.Clear();
 
@@ -72,6 +76,7 @@ namespace BilliardClub
             {
                 id = a.ID,
                 title = a.Title,
+                
             });
 
             gridView.DataSource = myQuery;
@@ -80,7 +85,96 @@ namespace BilliardClub
 
             gridView.Columns[2].HeaderText = "عنوان";
 
-            gridView.Columns[2].Width = 431;
+            gridView.Columns[2].Width = 422;
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void LoadGridColorful(RadGridView gridView, DataBaseDataContext connection)
+        {
+            var myQuery = connection.Cabinets.Select(a => new
+            {
+                id = a.ID,
+                title = a.Title,
+                isAvailable=a.IsAvailable
+            });
+
+            gridView.DataSource = myQuery;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].HeaderText = "عنوان";
+
+            gridView.Columns[2].Width = 422;
+
+            gridView.Columns[3].IsVisible = false;
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+
+                for (int j = 0; j < gridView.Rows[i].Cells.Count; j++)
+                {
+                    gridView.Rows[i].Cells[j].Style.CustomizeFill = true;
+
+                    gridView.Rows[i].Cells[j].Style.DrawFill = true;
+
+                    gridView.Rows[i].Cells[j].Style.BackColor = (bool) gridView.Rows[i].Cells[3].Value
+                        ? Color.LightGreen
+                        : Color.Gray;
+                }
+
+            }
+
+        }
+
+        public static void LoadGridAvailables(RadGridView gridView, DataBaseDataContext connection)
+        {
+            var myQuery = connection.Cabinets.Where(a=>a.IsAvailable).Select(a => new
+            {
+                id = a.ID,
+                title = a.Title,
+            });
+
+            gridView.DataSource = myQuery;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].HeaderText = "عنوان";
+
+            gridView.Columns[2].Width = (int)Math.Ceiling(0.91 * gridView.Width); ;
+
+            for (int i = 0; i < gridView.RowCount; i++)
+            {
+                gridView.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void SearchGridByTitle_LoadGridAvailables(string text, RadGridView gridView,
+            DataBaseDataContext connection)
+        {
+            var myQuery =
+                connection.Cabinets.OrderByDescending(a => a.ID)
+                    .Where(a => a.IsAvailable && a.Title.Contains(text))
+                    .Select(a => new
+                    {
+                        id = a.ID,
+                        title = a.Title,
+                    });
+
+            gridView.DataSource = myQuery;
+
+            gridView.Columns[1].IsVisible = false;
+
+            gridView.Columns[2].HeaderText = "عنوان";
+
+            gridView.Columns[2].Width = (int) Math.Ceiling(0.91*gridView.Width);
+            ;
 
             for (int i = 0; i < gridView.RowCount; i++)
             {
@@ -97,7 +191,7 @@ namespace BilliardClub
 
             foreach (Cabinet item in myQuery)
             {
-                ListViewItem lst=new ListViewItem();
+                ListViewItem lst = new ListViewItem();
 
                 lst.Tag = item;
 
@@ -109,9 +203,9 @@ namespace BilliardClub
             }
         }
 
-        public static bool Validation(int id,DataBaseDataContext connection)
+        public static bool Validation(int id, DataBaseDataContext connection)
         {
-            return connection.Cabinets.Any(a=>a.ID == id);
+            return connection.Cabinets.Any(a => a.ID == id);
         }
 
         public static Cabinet Get(int id, DataBaseDataContext connection)

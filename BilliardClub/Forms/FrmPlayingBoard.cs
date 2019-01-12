@@ -93,7 +93,7 @@ namespace BilliardClub
 
             #endregion
 
-            PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text.Trim(), myConnection);
+            PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text.Trim(), true, myConnection);
 
             PlayingBoardType playingBoardType = PlayingBoardType.Insert(playingBoard, cmbType.Text.Trim(),
                 int.Parse(txtPrice.Text.Trim()), myConnection);
@@ -108,19 +108,22 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            int playingBoardTitleID = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
-
-            if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
+            if (myConnection.PlayingBoardTitles.Any())
             {
-                DataValidationMesaage.NoDataInBank();
+                int playingBoardTitleID = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
 
-                return;
+                if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
+                {
+                    DataValidationMesaage.NoDataInBank();
+
+                    return;
+                }
+
+                PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
+
+                PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
+                    gridPlayingBoard, myConnection);
             }
-
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
-
-            PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                gridPlayingBoard, myConnection);
         }
 
         private void btnAddPlayingboardTitle_Click(object sender, EventArgs e)
@@ -131,6 +134,7 @@ namespace BilliardClub
 
             PlayingBoardTitle.LoadComboBox(cmbPlayingBoardTitle, Setting.DataBase);
 
+            Setting.DataBase.Dispose();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -164,9 +168,9 @@ namespace BilliardClub
 
             txtNumber.Text = playingBoard.Number;
 
-            cmbPlayingBoardTitle.SelectedItem = playingBoard.PlayingBoardTitle;
+            cmbPlayingBoardTitle.Text = playingBoard.PlayingBoardTitle.Title;
 
-            cmbType.SelectedItem = gridPlayingBoard.SelectedRows[0].Cells[4].Value;
+            cmbType.Text = playingBoardType.Type;
 
             txtPrice.Text = playingBoardType.Price.ToString();
 
@@ -281,7 +285,7 @@ namespace BilliardClub
                 return;
             }
 
-            PlayingBoardTitle.Edit(playingBoardTitle, cmbType.Text.Trim(), myConnection);
+            PlayingBoardTitle.Edit(playingBoardTitle, cmbPlayingBoardTitle.Text.Trim(), myConnection);
 
             PlayingBoard.Edit(playingBoard, playingBoardTitle, txtNumber.Text.Trim(), myConnection);
 
@@ -333,6 +337,12 @@ namespace BilliardClub
             {
                 FormManagement.KeyEnterToSaveChanges(e, btnYes, btnSave);
             }
+        }
+
+        private void gridPlayingBoard_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        {
+            e.Cancel = true;
+
         }
     }
 }

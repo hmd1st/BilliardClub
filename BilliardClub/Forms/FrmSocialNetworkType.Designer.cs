@@ -96,6 +96,7 @@
             this.gridSocialNetworkType.Size = new System.Drawing.Size(484, 263);
             this.gridSocialNetworkType.TabIndex = 89;
             this.gridSocialNetworkType.Text = "لیست عنوان شبکه های اجتماعی";
+            this.gridSocialNetworkType.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridSocialNetworkType_ContextMenuOpening);
             this.gridSocialNetworkType.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridSocialNetworkType_KeyDown);
             // 
             // btnNo

@@ -11,9 +11,11 @@ namespace BilliardClub
 {
     public partial class PlayingBoard
     {
-        public PlayingBoard(string number) : this()
+        public PlayingBoard(string number, bool isAvailable) : this()
         {
             this.Number = number;
+
+            this.IsAvailable = isAvailable;
         }
 
         public override string ToString()
@@ -21,9 +23,9 @@ namespace BilliardClub
             return this.Number;
         }
 
-        public static PlayingBoard Insert(PlayingBoardTitle playingBoardTitle, string number, DataBaseDataContext connection)
+        public static PlayingBoard Insert(PlayingBoardTitle playingBoardTitle, string number, bool isAvailable, DataBaseDataContext connection)
         {
-            PlayingBoard playingBoard = new PlayingBoard(number);
+            PlayingBoard playingBoard = new PlayingBoard(number, isAvailable);
 
             playingBoard.PlayingBoardTitle = playingBoardTitle;
 
@@ -123,8 +125,32 @@ namespace BilliardClub
                 grid.Rows[i].Cells[0].Value = i + 1;
             }
 
+        }
+        public static void LoadGridAvailables(RadGridView grid, DataBaseDataContext connection)
+        {
+            var myQuery = connection.PlayingBoards.Where(a => a.IsAvailable).Select(a => new
+            {
+                id = a.ID,
+                title = a.PlayingBoardTitle.Title,
+                number = a.Number
+            });
 
+            grid.DataSource = myQuery;
 
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "عنوان";
+
+            grid.Columns[2].Width = (int)Math.Ceiling(0.5*grid.Width);
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = (int)Math.Ceiling(0.4 * grid.Width);
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
 
         }
         public static void LoadGrid_Join_PlayingBoardType(RadGridView grid,

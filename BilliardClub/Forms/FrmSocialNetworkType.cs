@@ -208,5 +208,10 @@ namespace BilliardClub
         {
             FormManagement.KeyDelToRemove(e, btnDelete);
         }
+
+        private void gridSocialNetworkType_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        {
+            e.Cancel = true;
+        }
     }
 }

@@ -28,7 +28,7 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            Cabinet.LoadGrid(gridCabinet, myConnection);
+            Cabinet.LoadGridColorful(gridCabinet, myConnection);
 
             myConnection.Dispose();
 
@@ -44,20 +44,20 @@ namespace BilliardClub
 
                 return;
             }
-            if (myConnection.Cabinets.Any(a=>a.Title==txtTitle.Text.Trim()))
+            if (myConnection.Cabinets.Any(a => a.Title == txtTitle.Text.Trim()))
             {
                 DataValidationMesaage.DuplicateData("عنوان");
 
                 return;
             }
 
-            Cabinet cabinet = Cabinet.Insert(txtTitle.Text, myConnection);
+            Cabinet cabinet = Cabinet.Insert(txtTitle.Text, true, myConnection);
 
             DataValidationMesaage.AcceptMessage(cabinet.Title);
 
             clearTextBox();
-            
-            Cabinet.LoadGrid(gridCabinet,myConnection);
+
+            Cabinet.LoadGridColorful(gridCabinet, myConnection);
 
             myConnection.Dispose();
 
@@ -77,14 +77,14 @@ namespace BilliardClub
 
             int cabinetID = int.Parse(gridCabinet.SelectedRows[0].Cells[1].Value.ToString());
 
-            if (!Cabinet.Validation(cabinetID,myConnection))
+            if (!Cabinet.Validation(cabinetID, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
-                
+
                 return;
             }
 
-            Cabinet cabinet=Cabinet.Get(cabinetID,myConnection);
+            Cabinet cabinet = Cabinet.Get(cabinetID, myConnection);
 
             #endregion
 
@@ -112,20 +112,27 @@ namespace BilliardClub
 
             int cabinetID = int.Parse(gridCabinet.SelectedRows[0].Cells[1].Value.ToString());
 
-            if (!Cabinet.Validation(cabinetID,myConnection))
+            if (!Cabinet.Validation(cabinetID, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
 
                 return;
             }
 
-            Cabinet cabinet=Cabinet.Get(cabinetID,myConnection);
+            Cabinet cabinet = Cabinet.Get(cabinetID, myConnection);
 
             #endregion
 
-            if (cabinet.MemberCabinets.Any())
+            if (cabinet.MemberCabinets.Any(a => a.Status))
             {
-                DataValidationMesaage.DataInUse(cabinet.Title,gridCabinet.Text);
+                DataValidationMesaage.DataInUse(cabinet.Title, gridCabinet.Text);
+
+                return;
+            }
+
+            if (cabinet.MemberCabinets.Any(a => !a.Status))
+            {
+                DataValidationMesaage.DataUsed(cabinet.Title, gridCabinet.Text);
 
                 return;
             }
@@ -137,7 +144,7 @@ namespace BilliardClub
 
                 DataValidationMesaage.DeleteMessage();
 
-                Cabinet.LoadGrid(gridCabinet, myConnection);
+                Cabinet.LoadGridColorful(gridCabinet, myConnection);
 
             }
 
@@ -171,20 +178,20 @@ namespace BilliardClub
                 return;
             }
 
-            if (myConnection.Cabinets.Any(a=>a.Title==txtTitle.Text.Trim() && a.ID!=cabinet.ID))
+            if (myConnection.Cabinets.Any(a => a.Title == txtTitle.Text.Trim() && a.ID != cabinet.ID))
             {
                 DataValidationMesaage.DuplicateData(txtTitle.Text);
 
                 return;
             }
 
-            Cabinet.Edit(cabinet,txtTitle.Text.Trim(), myConnection);
+            Cabinet.Edit(cabinet, txtTitle.Text.Trim(), cabinet.IsAvailable, myConnection);
 
             DataValidationMesaage.EditMessage();
 
             clearTextBox();
 
-            Cabinet.LoadGrid(gridCabinet,myConnection);
+            Cabinet.LoadGridColorful(gridCabinet, myConnection);
 
             FormManagement.DisableYesNo(this.Controls);
 
@@ -200,7 +207,7 @@ namespace BilliardClub
 
         private void txtTitle_KeyDown(object sender, KeyEventArgs e)
         {
-            FormManagement.KeyEnterToSaveChanges(e,btnYes,btnSave);
+            FormManagement.KeyEnterToSaveChanges(e, btnYes, btnSave);
         }
 
         private void txtTitle_Enter(object sender, EventArgs e)
@@ -210,7 +217,7 @@ namespace BilliardClub
 
         private void gridCabinet_KeyDown(object sender, KeyEventArgs e)
         {
-            FormManagement.KeyDelToRemove(e,btnDelete);
+            FormManagement.KeyDelToRemove(e, btnDelete);
         }
 
         private void gridCabinet_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
