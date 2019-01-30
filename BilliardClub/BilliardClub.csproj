@@ -63,6 +63,12 @@
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Exception\FormsManagement.cs" />
+    <Compile Include="FrmClosePlayingBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmClosePlayingBoard.Designer.cs">
+      <DependentUpon>FrmClosePlayingBoard.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,6 +176,9 @@
     <None Include="DataBase.dbml.layout">
       <DependentUpon>DataBase.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="FrmClosePlayingBoard.resx">
+      <DependentUpon>FrmClosePlayingBoard.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </EmbeddedResource>

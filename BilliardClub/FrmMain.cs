@@ -22,6 +22,8 @@ namespace BilliardClub.Forms
 
         }
 
+        public RentPlayingBoard rentPlayingBoard;
+
         void PreviewDragOver(object sender, Telerik.WinControls.RadDragOverEventArgs e)
         {
             Point mousePos = MousePosition;
@@ -45,26 +47,9 @@ namespace BilliardClub.Forms
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-           
-            //timerTime.Tick += new EventHandler(TimerTime_Tick);
 
-            //timerTime.Interval = 1000;
-
-            //timerTime.Start();
         }
-        //private void TimerTime_Tick(object sender, EventArgs e)
-        //{
-        //   // DateTime dt = DateTime.Now;
 
-        //    //PersianCalendar ps = new PersianCalendar();
-
-        //    //tssTime.Text = $"{dt.Hour.ToString("00")}:{dt.Minute.ToString("00")}:{dt.Second.ToString("00")}";
-
-        //    lblTime.Text = DateTime.Now.ToString("HH:mm:ss");
-
-        //   // tssDate.Text = ps.GetYear(DateTime.Now).ToString("00") + "/" + ps.GetMonth(DateTime.Now).ToString("00") + "/" +
-        //                  // ps.GetDayOfMonth(DateTime.Now).ToString("00");
-        //}
         private void radButtonElement1_Click(object sender, EventArgs e)
         {
             FrmSocialNetworkType frm = new FrmSocialNetworkType();
@@ -155,36 +140,56 @@ namespace BilliardClub.Forms
 
             List<TileGroupElement> tileGroupElements = new List<TileGroupElement>();
 
-
             if (myConnection.RentPlayingBoards.Any(a => a.Status))
             {
                 var myQuery = myConnection.RentPlayingBoards.Where(a => a.Status);
 
-                //var myQuery = myConnection.RentPlayingBoards.First(a => a.ID == FrmRent.MyRentPlayingBoard.ID);
+                var myJoin =
+                    Queryable.Join(myConnection.RentPlayingBoards.Where(a => a.Status), myConnection.PlayingBoardTypes,
+                        playingboard => playingboard.PlayingBoardID, playingboardtype => playingboardtype.ID,
+                        (a, b) => new
+                        {
+                            rentPlayingBoardID = a.ID,
+                            type = b.Type,
+                            price = b.Price
+                        });
 
                 foreach (var query in myQuery.Select(a => a.PlayingBoard.PlayingBoardTitle).Distinct())
-                {
-                    
-
-                    tileGroupElements.Add(RentPlayingBoard.AddTileGroupElement("PlayingBoardGroup" + query.ID,
+                    tileGroupElements.Add(MemberRentPlayingBoard.AddTileGroupElement("PlayingBoard_Group_" + query.ID,
                         query.Title));
 
-
-
-                }
-                foreach (var query in myQuery)
+                foreach (var item in myQuery)
                 {
+                    DateTime oDate = item.RegisterDate;
+
+                    TimeSpan timeSpan = DateTime.Now.Subtract(item.RegisterDate);
+
+                    int second = timeSpan.Seconds;
+                    int minute = timeSpan.Minutes;
+                    int hour = timeSpan.Hours;
+                    int day = timeSpan.Days;
+
                     foreach (var tileGroupElement in tileGroupElements)
                     {
-                        if (query.PlayingBoard.PlayingBoardTitle.ToString() == tileGroupElement.Text)
+                        if (item.PlayingBoard.PlayingBoardTitle.ToString() == tileGroupElement.Text)
                         {
-                            RentPlayingBoard.AddPanoramaTile(tileGroupElement, panUsingPlayingBoards, "PlayingBoard" + query.ID,
-                            query.PlayingBoard.PlayingBoardTitle.Title + " " + query.PlayingBoard.Number);
-                        }
+                            foreach (var itemJoin in myJoin)
+                            {
+                                MemberRentPlayingBoard memberRentPlayingBoard = new MemberRentPlayingBoard();
 
+                                memberRentPlayingBoard.RentPlayingBoard = item;
+
+                                if (itemJoin != null && itemJoin.rentPlayingBoardID == item.ID)
+                                    memberRentPlayingBoard.AddPanoramaTile(memberRentPlayingBoard, tileGroupElement,
+                                        panUsingPlayingBoards,
+                                        "PlayingBoard_Tile_" + item.ID,
+                                        item.PlayingBoard.PlayingBoardTitle.Title + " " + item.PlayingBoard.Number,
+                                        second, minute, hour, day, (double) itemJoin.price/3600);
+
+                            }
+                        }
                     }
                 }
-
             }
         }
     }

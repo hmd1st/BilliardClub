@@ -200,4 +200,10 @@
       <Association Name="Member_MemberCabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
+  <Table Name="" Member="PlayingBoardSubTitles">
+    <Type Name="PlayingBoardSubTitle">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="SubTitle" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+    </Type>
+  </Table>
 </Database>

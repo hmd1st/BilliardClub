@@ -6,12 +6,15 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BilliardClub.Forms;
 using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
     public partial class RentPlayingBoard
     {
+       
+
 
         public RentPlayingBoard(DateTime registerDate,
             string startTime, string endTime, bool status) : this()
@@ -197,49 +200,6 @@ namespace BilliardClub
             return connection.RentPlayingBoards.FirstOrDefault(a => a.ID == id);
         }
 
-        public static TileGroupElement AddTileGroupElement(string name, string text)
-        {
-            TileGroupElement tileGroupElement = new Telerik.WinControls.UI.TileGroupElement();
-
-            tileGroupElement.Font = new System.Drawing.Font("B Yekan", 20F);
-            tileGroupElement.Name = name;
-            tileGroupElement.Text = text;
-            tileGroupElement.RowsCount = 4;
-
-            return tileGroupElement;
-        }
-
-        public static void AddPanoramaTile(TileGroupElement tileGroupElement, RadPanorama radPanorama, string name, string text)
-        {
-
-            Timer timer=new Timer();
-
-            timer.Enabled = true;
-            timer.Interval = 1000;
-            timer.Start();
-            
-            RadTileElement radTileElement = new Telerik.WinControls.UI.RadTileElement();
-            tileGroupElement.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            radTileElement});
-            radTileElement.Font = new System.Drawing.Font("B Yekan", 10F);
-            radTileElement.Name = name;
-            radTileElement.RightToLeft = true;
-            radTileElement.Text = text;
-            radTileElement.ColSpan = 1;
-            radTileElement.TextAlignment=ContentAlignment.TopCenter;
-            //radTileElement.AllowDrag = false;
-
-            if (text.Length > 13)
-                radTileElement.ColSpan = 2;
-
-
-            //radTileElement.TextWrap = true;
-
-            radTileElement.Text += Environment.NewLine + DateTime.Now.ToString("HH:mm");
-            radTileElement.Text += Environment.NewLine ;
-
-            radPanorama.Groups.AddRange(new Telerik.WinControls.RadItem[] {
-            tileGroupElement});
-        }
+       
     }
 }

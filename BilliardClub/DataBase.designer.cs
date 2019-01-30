@@ -95,6 +95,9 @@ namespace BilliardClub
     partial void InsertMemberCabinet(MemberCabinet instance);
     partial void UpdateMemberCabinet(MemberCabinet instance);
     partial void DeleteMemberCabinet(MemberCabinet instance);
+    partial void InsertPlayingBoardSubTitle(PlayingBoardSubTitle instance);
+    partial void UpdatePlayingBoardSubTitle(PlayingBoardSubTitle instance);
+    partial void DeletePlayingBoardSubTitle(PlayingBoardSubTitle instance);
     #endregion
 		
 		public DataBaseDataContext(string connection) : 
@@ -294,6 +297,14 @@ namespace BilliardClub
 			get
 			{
 				return this.GetTable<MemberCabinet>();
+			}
+		}
+		
+		public System.Data.Linq.Table<PlayingBoardSubTitle> PlayingBoardSubTitles
+		{
+			get
+			{
+				return this.GetTable<PlayingBoardSubTitle>();
 			}
 		}
 	}
@@ -4115,6 +4126,92 @@ namespace BilliardClub
 						this._MemberID = default(int);
 					}
 					this.SendPropertyChanged("Member");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class PlayingBoardSubTitle : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _Title;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnSubTitleChanging(string value);
+    partial void OnSubTitleChanged();
+    #endregion
+		
+		public PlayingBoardSubTitle()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(30)", CanBeNull=false)]
+		public string SubTitle
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnSubTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("SubTitle");
+					this.OnSubTitleChanged();
 				}
 			}
 		}

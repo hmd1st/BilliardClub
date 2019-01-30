@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -9,16 +10,25 @@ using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
+
     public partial class MemberRentPlayingBoard
     {
-        private int _notification;
+        private RadTileElement _radTileElement;
 
-        public int Notification
-        {
-            get { return _notification; }
-            set { _notification = Notification; }
+        public int Day { get; private set; }
 
-        }
+        public int Hour { get; private set; }
+
+        public int Minute { get; private set; }
+
+        public int Second { get; private set; }
+
+        public double Price { get; private set; }
+
+        public double Payment { get; private set; }
+
+
+        private string _radTileText = "";
 
         public MemberRentPlayingBoard(string type) : this()
         {
@@ -137,6 +147,7 @@ namespace BilliardClub
 
             cmbBox.SelectedIndex = 0;
         }
+
         public static void LoadGrid(RadGridView grid, DataBaseDataContext connection)
         {
             var myQuery = connection.MemberRentPlayingBoards.Select(a => new
@@ -167,7 +178,7 @@ namespace BilliardClub
                 .Select(a => new
                 {
                     id = a.ID,
-                    type=a.Type
+                    type = a.Type
                 });
 
             grid.DataSource = myQuery;
@@ -214,6 +225,134 @@ namespace BilliardClub
         public static MemberRentPlayingBoard Get(int id, DataBaseDataContext connection)
         {
             return connection.MemberRentPlayingBoards.FirstOrDefault(a => a.ID == id);
+        }
+
+        public static TileGroupElement AddTileGroupElement(string name, string text)
+        {
+            TileGroupElement tileGroupElement = new Telerik.WinControls.UI.TileGroupElement();
+
+            tileGroupElement.Font = new System.Drawing.Font("B Yekan", 20F);
+            tileGroupElement.Name = name;
+            tileGroupElement.Text = text;
+            tileGroupElement.RowsCount = 4;
+
+            return tileGroupElement;
+        }
+
+        public void AddPanoramaTile(MemberRentPlayingBoard memberRent, TileGroupElement tileGroupElement,
+            RadPanorama radPanorama, string name, string text, int second, int minute, int hour, int day, double price)
+        {
+
+            Timer timer = new Timer();
+
+            timer.Enabled = true;
+            timer.Interval = 1000;
+            timer.Tick += Timer_Tick;
+            timer.Start();
+
+            this.Second = second;
+
+            this.Minute = minute;
+
+            this.Hour = hour;
+
+            this.Day = day;
+
+            this.Price = price;
+
+            _radTileElement = new Telerik.WinControls.UI.RadTileElement();
+            tileGroupElement.Items.AddRange(new Telerik.WinControls.RadItem[]
+            {
+                _radTileElement
+            });
+
+
+            _radTileElement.Font = new System.Drawing.Font("B Yekan", 10F);
+            _radTileElement.Tag = memberRent;
+            _radTileElement.Name = name;
+            _radTileElement.RightToLeft = true;
+            _radTileElement.Text = text;
+            _radTileElement.ColSpan = 1;
+            _radTileElement.TextAlignment = ContentAlignment.TopCenter;
+
+           //radTileElement.AllowDrag = false;
+
+            if (text.Length > 13)
+                _radTileElement.ColSpan = 2;
+
+            _radTileText = text;
+
+            radPanorama.Groups.AddRange(new Telerik.WinControls.RadItem[]
+            {
+                tileGroupElement
+            });
+
+            _radTileElement.Click += _radTileElement_Click;
+
+        }
+
+        private void _radTileElement_Click(object sender, EventArgs e)
+        {
+            FrmClosePlayingBoard frmClosePlayingBoard = new FrmClosePlayingBoard((MemberRentPlayingBoard)_radTileElement.Tag);
+
+            frmClosePlayingBoard.ShowDialog();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            _radTileElement.Text = _radTileText;
+            this.Second++;
+            if (this.Second > 60)
+            {
+                this.Minute++;
+                this.Second = 0;
+            }
+            if (this.Minute > 60)
+            {
+                this.Hour++;
+                this.Minute = 0;
+                this.Second = 0;
+            }
+
+            if (this.Hour > 23 && this.Minute > 59 && this.Second > 59)
+            {
+                this.Day++;
+                this.Hour = 0;
+                this.Minute = 0;
+                this.Second = 0;
+            }
+            // radTileElement.Text += Environment.NewLine + DateTime.Now.ToString("HH:mm:ss");
+            if (this.Day > 30)
+            {
+                _radTileElement.Text += Environment.NewLine + "متوقف کنید";
+            }
+            else if (this.Day > 0)
+            {
+                _radTileElement.Text += Environment.NewLine + this.Day.ToString() + ":" + this.Hour.ToString("d2") +
+                                        ":" + this.Minute.ToString("d2") + ":" +
+                                        this.Second.ToString("d2");
+            }
+            else
+            {
+                _radTileElement.Text += Environment.NewLine + this.Hour.ToString("d2") +
+                                        ":" + this.Minute.ToString("d2") + ":" +
+                                        this.Second.ToString("d2");
+            }
+
+
+            int mySec = this.Second;
+            int myMin = this.Minute;
+            int myhour = this.Hour;
+            int myDay = this.Day;
+
+            myMin *= 60;
+            myhour *= 3600;
+            myDay *= 86400;
+
+            this.Payment = Math.Round(((myDay + myhour + myMin + mySec) * this.Price));
+
+            _radTileElement.Text += Environment.NewLine + this.Payment;
+
         }
     }
 }

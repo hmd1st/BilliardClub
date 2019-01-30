@@ -293,7 +293,7 @@ namespace BilliardClub
 
             gridView.Columns[3].HeaderText = "نام و نام خانوادگی";
 
-            gridView.Columns[4].Width = (int)Math.Ceiling(0.2 * gridView.Width); ;
+            gridView.Columns[4].Width = (int)Math.Ceiling(0.215 * gridView.Width); ;
 
             gridView.Columns[4].HeaderText = "کد ملی";
 

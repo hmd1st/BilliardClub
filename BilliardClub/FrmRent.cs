@@ -87,10 +87,10 @@ namespace BilliardClub
             Member member = Member.Get(memberId, myConnection);
             #endregion
 
-            RentPlayingBoard rentPlayingBoard = RentPlayingBoard.Insert(playingBoard, DateTime.Now,
-                DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
+            MyRentPlayingBoard = RentPlayingBoard.Insert(playingBoard, DateTime.Now,
+                 DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
 
-            MemberRentPlayingBoard.Insert(rentPlayingBoard, member, "opener", myConnection);
+            MemberRentPlayingBoard.Insert(MyRentPlayingBoard, member, "opener", myConnection);
 
             playingBoard.IsAvailable = false;
 
@@ -100,9 +100,6 @@ namespace BilliardClub
 
             MessageBox.Show("بازی شروع شد.", "کاربر گرامی", MessageBoxButtons.OK,
                 MessageBoxIcon.Asterisk);
-
-
-
 
             myConnection.Dispose();
 
@@ -137,8 +134,8 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            if (cmbSearchMemberBy.SelectedIndex==0)
-                Member.SearchGridByMemberCode_LoadGridBriefly(txtSearchMember.Text,gridMember,myConnection);
+            if (cmbSearchMemberBy.SelectedIndex == 0)
+                Member.SearchGridByMemberCode_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
             else if (cmbSearchMemberBy.SelectedIndex == 1)
                 Member.SearchGridByMemberFullName_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
             else if (cmbSearchMemberBy.SelectedIndex == 2)
