@@ -87,10 +87,25 @@ namespace BilliardClub
             Member member = Member.Get(memberId, myConnection);
             #endregion
 
+            #region RaspberryPi Cast
+
+            if (!RaspberryPi.Validation(playingBoardId, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            RaspberryPi raspberryPi = RaspberryPi.Get(playingBoardId, myConnection);
+
+            #endregion
+
             MyRentPlayingBoard = RentPlayingBoard.Insert(playingBoard, DateTime.Now,
                  DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
 
             MemberRentPlayingBoard.Insert(MyRentPlayingBoard, member, "opener", myConnection);
+
+            MemberRentPlayingBoard.PowerOnOff(raspberryPi,"1", Setting.RaspberryIPAddress,Setting.RaspberryPortNumber);
 
             playingBoard.IsAvailable = false;
 

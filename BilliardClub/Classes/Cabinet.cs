@@ -75,8 +75,7 @@ namespace BilliardClub
             var myQuery = connection.Cabinets.Select(a => new
             {
                 id = a.ID,
-                title = a.Title,
-                
+                title = a.Title
             });
 
             gridView.DataSource = myQuery;
@@ -85,7 +84,7 @@ namespace BilliardClub
 
             gridView.Columns[2].HeaderText = "عنوان";
 
-            gridView.Columns[2].Width = 422;
+            gridView.Columns[2].Width = (int)Math.Ceiling(0.91 * gridView.Width);
 
             for (int i = 0; i < gridView.RowCount; i++)
             {

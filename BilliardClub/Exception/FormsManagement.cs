@@ -34,6 +34,18 @@ namespace BilliardClub
             }
         }
 
+        public static void EnableYesNoIncludingComboBox(Control.ControlCollection controls)
+        {
+            foreach (Control item in controls)
+            {
+                if (item.Name == "btnYes" || item.Name == "btnNo")
+                    item.Enabled = true;
+
+                else if ((item is RadButton || item is RadGridView || item is ComboBox))
+                    item.Enabled = false;
+            }
+        }
+
         public static void DisableYesNo(Control.ControlCollection controls)
         {
             foreach (Control item in controls)
@@ -41,15 +53,23 @@ namespace BilliardClub
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = false;
                 else if ((item is RadButton || item is RadGridView))
-                {
                     item.Enabled =true;
-                }
 
             }
 
-
         }
 
+        public static void DisableYesNoIncludingComboBox(Control.ControlCollection controls)
+        {
+            foreach (Control item in controls)
+            {
+                if (item.Name == "btnYes" || item.Name == "btnNo")
+                    item.Enabled = false;
+                else if ((item is RadButton || item is RadGridView || item is ComboBox))
+                    item.Enabled = true;
+            }
+
+        }
         public static void DisableYesNo(RadButton btnSave, RadButton btnEdit, RadButton btnDelete, RadButton btnYes,
             RadButton btnNo, RadGridView radGridView)
         {

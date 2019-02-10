@@ -40,6 +40,12 @@ namespace BilliardClub
                     : string.Format(" با موفقیت در بانک اطلاعاتی ذخیره گردید {0} مقدار", text), "کاربر گرامی",
                 MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
+        public static void RaspberryEmptyPinError()
+        {
+            MessageBox.Show(" فعالسازی کنترل سیستمی برای این میز ممکن نیست. تعداد تجهیزات به منظور کنترل سیستمی محدود میباشد. ", "کاربر گرامی",
+                MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
         public static void NoSelectedItemFromList(string listName)
         {
             MessageBox.Show(
@@ -53,13 +59,21 @@ namespace BilliardClub
             MessageBox.Show(" کاربر گرامی  مقدار انتخاب شده در بانک اطلاعاتی موجود نمی باشد ", "اخطار", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
-
         public static void BlankTextBox(string text)
         {
             MessageBox.Show(
                 IsPersianCharacters(text)
                     ? string.Format("کاربر گرامی لطفا مقدار {0} را کامل کنید", text)
                     : string.Format("را کامل کنید {0} کاربر گرامی لطفا مقدار ", text),
+                "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void BlankComboBox(string text)
+        {
+            MessageBox.Show(
+                IsPersianCharacters(text)
+                    ? string.Format("کاربر گرامی لطفا مقدار {0} به ثبت برسانید و مجددا تلاش کنید", text)
+                    : string.Format("به ثبت برسانید و مجددا تلاش کنید {0} کاربر گرامی لطفا مقدار ", text),
                 "اخطار", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 

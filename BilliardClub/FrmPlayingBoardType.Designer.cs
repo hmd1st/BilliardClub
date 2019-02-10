@@ -1,6 +1,6 @@
 ﻿namespace BilliardClub
 {
-    partial class FrmPlayingBoard
+    partial class FrmPlayingBoardType
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPlayingBoard));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPlayingBoardType));
             this.btnAddPlayingboardTitle = new Telerik.WinControls.UI.RadButton();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbType = new System.Windows.Forms.ComboBox();
@@ -45,6 +45,7 @@
             this.btnYes = new Telerik.WinControls.UI.RadButton();
             this.btnEdit = new Telerik.WinControls.UI.RadButton();
             this.btnSave = new Telerik.WinControls.UI.RadButton();
+            this.chkRaspberryPi = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard.MasterTemplate)).BeginInit();
@@ -123,6 +124,7 @@
             this.label3.Size = new System.Drawing.Size(84, 21);
             this.label3.TabIndex = 93;
             this.label3.Text = "عنوان  دستگاه";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // cmbPlayingBoardTitle
             // 
@@ -163,7 +165,7 @@
             this.gridPlayingBoard.AutoSizeRows = true;
             this.gridPlayingBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoard.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 120);
+            this.gridPlayingBoard.Location = new System.Drawing.Point(0, 153);
             // 
             // 
             // 
@@ -182,7 +184,7 @@
             this.gridPlayingBoard.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoard.Name = "gridPlayingBoard";
             this.gridPlayingBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.gridPlayingBoard.Size = new System.Drawing.Size(464, 391);
+            this.gridPlayingBoard.Size = new System.Drawing.Size(464, 358);
             this.gridPlayingBoard.TabIndex = 10;
             this.gridPlayingBoard.Text = "لیست میزها";
             this.gridPlayingBoard.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridPlayingBoard_ContextMenuOpening);
@@ -193,7 +195,7 @@
             this.btnNo.Enabled = false;
             this.btnNo.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnNo.Image = ((System.Drawing.Image)(resources.GetObject("btnNo.Image")));
-            this.btnNo.Location = new System.Drawing.Point(12, 80);
+            this.btnNo.Location = new System.Drawing.Point(12, 113);
             this.btnNo.Name = "btnNo";
             this.btnNo.Size = new System.Drawing.Size(84, 34);
             this.btnNo.TabIndex = 9;
@@ -205,7 +207,7 @@
             // 
             this.btnDelete.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnDelete.Image = global::BilliardClub.Properties.Resources.Delete;
-            this.btnDelete.Location = new System.Drawing.Point(193, 80);
+            this.btnDelete.Location = new System.Drawing.Point(193, 113);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(84, 34);
             this.btnDelete.TabIndex = 7;
@@ -218,7 +220,7 @@
             this.btnYes.Enabled = false;
             this.btnYes.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnYes.Image = global::BilliardClub.Properties.Resources.yes;
-            this.btnYes.Location = new System.Drawing.Point(102, 80);
+            this.btnYes.Location = new System.Drawing.Point(102, 113);
             this.btnYes.Name = "btnYes";
             this.btnYes.Size = new System.Drawing.Size(84, 34);
             this.btnYes.TabIndex = 8;
@@ -230,7 +232,7 @@
             // 
             this.btnEdit.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnEdit.Image = global::BilliardClub.Properties.Resources.Edit;
-            this.btnEdit.Location = new System.Drawing.Point(283, 80);
+            this.btnEdit.Location = new System.Drawing.Point(283, 113);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(84, 34);
             this.btnEdit.TabIndex = 6;
@@ -242,7 +244,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnSave.Image = global::BilliardClub.Properties.Resources.Save;
-            this.btnSave.Location = new System.Drawing.Point(373, 80);
+            this.btnSave.Location = new System.Drawing.Point(373, 113);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(84, 34);
             this.btnSave.TabIndex = 5;
@@ -253,11 +255,24 @@
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
             ((Telerik.WinControls.UI.RadButtonElement)(this.btnSave.GetChildAt(0))).Text = "ذخیره";
             // 
-            // FrmPlayingBoard
+            // chkRaspberryPi
+            // 
+            this.chkRaspberryPi.AutoSize = true;
+            this.chkRaspberryPi.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.chkRaspberryPi.Location = new System.Drawing.Point(12, 80);
+            this.chkRaspberryPi.Name = "chkRaspberryPi";
+            this.chkRaspberryPi.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.chkRaspberryPi.Size = new System.Drawing.Size(109, 25);
+            this.chkRaspberryPi.TabIndex = 0;
+            this.chkRaspberryPi.Text = "کنترل سیستمی";
+            this.chkRaspberryPi.UseVisualStyleBackColor = true;
+            // 
+            // FrmPlayingBoardType
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(464, 511);
+            this.Controls.Add(this.chkRaspberryPi);
             this.Controls.Add(this.btnAddPlayingboardTitle);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbType);
@@ -273,7 +288,7 @@
             this.Controls.Add(this.btnYes);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnSave);
-            this.Name = "FrmPlayingBoard";
+            this.Name = "FrmPlayingBoardType";
             this.Text = "ثبت میز بازی";
             this.Load += new System.EventHandler(this.FrmPlayBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardTitle)).EndInit();
@@ -306,5 +321,6 @@
         private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.ComboBox cmbPlayingBoardTitle;
         private Telerik.WinControls.UI.RadButton btnAddPlayingboardTitle;
+        private System.Windows.Forms.CheckBox chkRaspberryPi;
     }
 }

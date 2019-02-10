@@ -71,11 +71,11 @@
       <Association Name="Team_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="TeamID" Type="TeamMember" />
     </Type>
   </Table>
-  <Table Name="" Member="PlayingBoardTitles">
-    <Type Name="PlayingBoardTitle">
+  <Table Name="" Member="PlayingBoardGroupTitles">
+    <Type Name="PlayingBoardGroupTitle">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
-      <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoards" ThisKey="ID" OtherKey="PlayingBoardTitleID" Type="PlayingBoard" />
+      <Column Name="Title" Member="GroupTitle" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Association Name="PlayingBoardGroupTitle_PlayingBoardTitle" Member="PlayingBoardTitles" ThisKey="ID" OtherKey="PlayingBoardGroupTitleID" Type="PlayingBoardTitle" />
     </Type>
   </Table>
   <Table Name="" Member="SocialNetworkTypes">
@@ -100,6 +100,7 @@
       <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
       <Association Name="PlayingBoard_RentPlayingBoard" Member="RentPlayingBoards" ThisKey="ID" OtherKey="PlayingBoardID" Type="RentPlayingBoard" />
+      <Association Name="PlayingBoard_RaspberryPi" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspberryPi" Cardinality="One" />
       <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoardTitle" ThisKey="PlayingBoardTitleID" OtherKey="ID" Type="PlayingBoardTitle" IsForeignKey="true" />
     </Type>
   </Table>
@@ -200,10 +201,20 @@
       <Association Name="Member_MemberCabinet" Member="Member" ThisKey="MemberID" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="" Member="PlayingBoardSubTitles">
-    <Type Name="PlayingBoardSubTitle">
+  <Table Name="" Member="PlayingBoardTitles">
+    <Type Name="PlayingBoardTitle">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="SubTitle" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Column Name="PlayingBoardTitleID" Member="PlayingBoardGroupTitleID" Storage="_PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoards" ThisKey="ID" OtherKey="PlayingBoardTitleID" Type="PlayingBoard" />
+      <Association Name="PlayingBoardGroupTitle_PlayingBoardTitle" Member="PlayingBoardGroupTitle" ThisKey="PlayingBoardGroupTitleID" OtherKey="ID" Type="PlayingBoardGroupTitle" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="RaspberryPis">
+    <Type Name="RaspberryPi">
+      <Column Name="PlayingBoardID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="PinNumber" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Association Name="PlayingBoard_RaspberryPi" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

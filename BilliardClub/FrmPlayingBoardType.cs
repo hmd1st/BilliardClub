@@ -10,9 +10,10 @@ using System.Windows.Forms;
 
 namespace BilliardClub
 {
-    public partial class FrmPlayingBoard : FrmTemplate
+    public partial class FrmPlayingBoardType : FrmTemplate
     {
-        public FrmPlayingBoard()
+
+        public FrmPlayingBoardType()
         {
             InitializeComponent();
         }
@@ -37,7 +38,6 @@ namespace BilliardClub
             PlayingBoard.LoadGrid_Join_PlayingBoardType(
                 gridPlayingBoard, myConnection);
 
-
         }
 
         private void txtPrice_KeyPress(object sender, KeyPressEventArgs e)
@@ -56,7 +56,7 @@ namespace BilliardClub
                 return;
             }
 
-            #region PlayingBoard Casting
+            #region PlayingBoardTitle Casting
 
             int playingBoardTitleID = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
 
@@ -68,6 +68,8 @@ namespace BilliardClub
             }
 
             PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
+
+            #endregion
 
             bool query = myConnection.PlayingBoards.Join(myConnection.PlayingBoardTypes,
                 playingboard => playingboard.ID,
@@ -91,7 +93,6 @@ namespace BilliardClub
             }
 
 
-            #endregion
 
             PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text.Trim(), true, myConnection);
 
@@ -100,8 +101,14 @@ namespace BilliardClub
 
             DataValidationMesaage.AcceptMessage("میز");
 
-            PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                gridPlayingBoard, myConnection);
+            //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
+            // gridPlayingBoard, myConnection);
+            //if (chkRaspberryPi.Checked && RaspberryPi.allocatedGpioPinsCounter < 24)
+            //{
+            //    RaspberryPi.Insert(RaspberryPi.GpioPins[RaspberryPi.allocatedGpioPinsCounter].ToString(), playingBoard, myConnection);
+
+            //    RaspberryPi.allocatedGpioPinsCounter ++;
+            //}
         }
 
         private void cmbPlayingBoardTitle_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,8 +128,8 @@ namespace BilliardClub
 
                 PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
 
-                PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                    gridPlayingBoard, myConnection);
+                //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
+                //gridPlayingBoard, myConnection);
             }
         }
 
@@ -221,8 +228,8 @@ namespace BilliardClub
 
                 PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoard.PlayingBoardTitleID, myConnection);
 
-                PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                    gridPlayingBoard, myConnection);
+                //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
+                //    gridPlayingBoard, myConnection);
 
             }
 
@@ -285,9 +292,9 @@ namespace BilliardClub
                 return;
             }
 
-            PlayingBoardTitle.Edit(playingBoardTitle, cmbPlayingBoardTitle.Text.Trim(), myConnection);
+            //PlayingBoardTitle.Edit(playingBoardTitle, cmbPlayingBoardTitle.Text.Trim(), myConnection);
 
-            PlayingBoard.Edit(playingBoard, playingBoardTitle, txtNumber.Text.Trim(), myConnection);
+            PlayingBoard.Edit(playingBoard, playingBoardTitle, txtNumber.Text.Trim(), true, myConnection);
 
             PlayingBoardType.Edit(playingBoardType, playingBoard, cmbType.Text.Trim(), int.Parse(txtPrice.Text),
                 myConnection);
@@ -342,6 +349,11 @@ namespace BilliardClub
         private void gridPlayingBoard_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
         {
             e.Cancel = true;
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
 
         }
     }

@@ -17,7 +17,9 @@ namespace BilliardClub
             InitializeComponent();
         }
 
-        private void clearTextBox()
+        public static bool ActivatePlayingBoardTitle = false;
+
+        private void ClearTextBox()
         {
             txtTitle.Clear();
 
@@ -26,34 +28,55 @@ namespace BilliardClub
 
         private void FrmPlayingBoardTitle_Load(object sender, EventArgs e)
         {
-            PlayingBoardTitle.LoadGrid(gridPlayingBoardTitle, Setting.DataBase);
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
+                FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
+
+            myConnection.Dispose();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            if (string.IsNullOrEmpty(txtTitle.Text) || string.IsNullOrWhiteSpace(txtTitle.Text))
+            if (string.IsNullOrWhiteSpace(txtTitle.Text.Trim()) || string.IsNullOrEmpty(txtTitle.Text.Trim()))
             {
-                DataValidationMesaage.BlankTextBox("عنوان");
+                DataValidationMesaage.BlankTextBox("عنوان دستگاه");
 
                 return;
             }
+
+            #region PlayingBoardGroupTitle Cast
+
+            int id = FrmPlayingBoard.MyPlayingBoardGroupTitle.ID;
+
+            if (!PlayingBoardGroupTitle.Validation(id, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            PlayingBoardGroupTitle playingBoardGroupTitle = PlayingBoardGroupTitle.Get(id, myConnection);
+
+            #endregion
+
             if (myConnection.PlayingBoardTitles.Any(a => a.Title == txtTitle.Text.Trim()))
             {
-                DataValidationMesaage.DuplicateData(txtTitle.Text);
+                DataValidationMesaage.DuplicateData("عنوان دستگاه");
 
                 return;
             }
 
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Insert(txtTitle.Text.Trim(), myConnection);
+            PlayingBoardTitle.Insert(txtTitle.Text.Trim(), playingBoardGroupTitle, myConnection);
 
-            clearTextBox();
+            PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle, playingBoardGroupTitle,
+                myConnection);
 
-            DataValidationMesaage.AcceptMessage(playingBoardTitle.Title);
+            ClearTextBox();
 
-            PlayingBoardTitle.LoadGrid(gridPlayingBoardTitle, myConnection);
-
+            //myConnection.Dispose();
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
@@ -70,16 +93,16 @@ namespace BilliardClub
 
             #region PlayingBoardTitle Casting
 
-            int playingBoardTitleID = int.Parse(gridPlayingBoardTitle.SelectedRows[0].Cells[1].Value.ToString());
+            int playingBoardTitleId = int.Parse(gridPlayingBoardTitle.SelectedRows[0].Cells[1].Value.ToString());
 
-            if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
+            if (!PlayingBoardTitle.Validation(playingBoardTitleId, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
 
                 return;
             }
 
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
+            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleId, myConnection);
 
             #endregion
 
@@ -88,6 +111,8 @@ namespace BilliardClub
             FormManagement.EnableYesNo(this.Controls);
 
             txtTitle.Focus();
+
+            //myConnection.Dispose();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -103,9 +128,9 @@ namespace BilliardClub
 
             #region PlayingBoardTitle Casting
 
-            int playingBoardTitleID = int.Parse(gridPlayingBoardTitle.SelectedRows[0].Cells[1].Value.ToString());
+            int playingBoardTitleId = int.Parse(gridPlayingBoardTitle.SelectedRows[0].Cells[1].Value.ToString());
 
-            if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
+            if (!PlayingBoardTitle.Validation(playingBoardTitleId, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
 
@@ -113,7 +138,7 @@ namespace BilliardClub
 
             }
 
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
+            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleId, myConnection);
 
             #endregion
 
@@ -131,11 +156,11 @@ namespace BilliardClub
 
                 DataValidationMesaage.DeleteMessage();
 
-                PlayingBoardTitle.LoadGrid(gridPlayingBoardTitle, myConnection);
+                PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
+                    FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
 
             }
-
-
+            //myConnection.Dispose();
 
         }
 
@@ -173,17 +198,21 @@ namespace BilliardClub
                 return;
             }
 
-            PlayingBoardTitle.Edit(playingBoardTitle, txtTitle.Text.Trim(), myConnection);
+            PlayingBoardTitle.Edit(playingBoardTitle, txtTitle.Text.Trim(),
+                myConnection);
 
             DataValidationMesaage.EditMessage();
 
-            clearTextBox();
+            ClearTextBox();
 
             txtTitle.Focus();
 
-            PlayingBoardTitle.LoadGrid(gridPlayingBoardTitle, myConnection);
+            PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
+                FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
 
             FormManagement.DisableYesNo(this.Controls);
+
+            //myConnection.Dispose();
 
         }
 
@@ -193,6 +222,7 @@ namespace BilliardClub
 
             txtTitle.Focus();
         }
+
         private void txtTitle_KeyDown(object sender, KeyEventArgs e)
         {
             FormManagement.KeyEnterToSaveChanges(e, btnYes, btnSave);
@@ -212,6 +242,11 @@ namespace BilliardClub
         {
             e.Cancel = true;
 
+        }
+
+        private void FrmPlayingBoardTitle_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            ActivatePlayingBoardTitle = true;
         }
     }
 }

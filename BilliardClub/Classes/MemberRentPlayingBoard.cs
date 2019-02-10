@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -353,6 +355,22 @@ namespace BilliardClub
 
             _radTileElement.Text += Environment.NewLine + this.Payment;
 
+        }
+
+        public static void PowerOnOff(RaspberryPi raspberryPi,string message, string ipAddress, int portNumber)
+        {
+            Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
+                ProtocolType.Udp);
+
+            IPAddress serverIPAddr = IPAddress.Parse(ipAddress);
+
+            IPEndPoint endPoint = new IPEndPoint(serverIPAddr, portNumber);
+
+            byte[] send_buffer =
+                Encoding.ASCII.GetBytes(message + "," +
+                                        RaspberryPi.GpioPins.FindIndex(a => a == int.Parse(raspberryPi.PinNumber)));
+
+            sock.SendTo(send_buffer, endPoint);
         }
     }
 }

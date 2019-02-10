@@ -47,6 +47,8 @@ namespace BilliardClub.Forms
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
+            RaspberryPi r=new RaspberryPi("1");
+
 
         }
 
@@ -191,6 +193,20 @@ namespace BilliardClub.Forms
                     }
                 }
             }
+        }
+
+        private void radButtonElement10_Click(object sender, EventArgs e)
+        {
+            FrmPlayingBoardGroupTitle frm=new FrmPlayingBoardGroupTitle();
+
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement11_Click(object sender, EventArgs e)
+        {
+            FrmSetRaspberryRelays frm=new FrmSetRaspberryRelays();
+
+            frm.ShowDialog();
         }
     }
 }

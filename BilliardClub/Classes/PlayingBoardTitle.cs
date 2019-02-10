@@ -21,9 +21,12 @@ namespace BilliardClub
             return this.Title;
         }
 
-        public static PlayingBoardTitle Insert(string title, DataBaseDataContext connection)
+        public static PlayingBoardTitle Insert(string title, PlayingBoardGroupTitle playingBoardGroupTitle,
+            DataBaseDataContext connection)
         {
             PlayingBoardTitle playingBoardTitle = new PlayingBoardTitle(title);
+
+            playingBoardTitle.PlayingBoardGroupTitle = playingBoardGroupTitle;
 
             connection.PlayingBoardTitles.InsertOnSubmit(playingBoardTitle);
 
@@ -32,7 +35,8 @@ namespace BilliardClub
             return playingBoardTitle;
         }
 
-        public static void Edit(PlayingBoardTitle playingBoardTitle, string title, DataBaseDataContext connection)
+        public static void Edit(PlayingBoardTitle playingBoardTitle, string title,
+            DataBaseDataContext connection)
         {
             playingBoardTitle.Title = title;
 
@@ -49,7 +53,33 @@ namespace BilliardClub
         public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
             IQueryable<PlayingBoardTitle> myQuery =
-                connection.PlayingBoardTitles.OrderByDescending(a => a.ID).Select(a => a);
+                connection.PlayingBoardTitles.Select(a => a);
+
+            cmbBox.Items.Clear();
+
+            foreach (var item in myQuery)
+            {
+                cmbBox.Items.Add(item);
+            }
+
+            if (!myQuery.Any())
+            {
+                cmbBox.Items.Add("یک آیتم به ثبت برسانید");
+
+                cmbBox.SelectedIndex = 0;
+
+                return;
+            }
+
+            cmbBox.SelectedIndex = 0;
+        }
+
+        public static void LoadComboBox_By_PlayingBoardGroupTitle(ComboBox cmbBox,
+            PlayingBoardGroupTitle playingBoardGroupTitle, DataBaseDataContext connection)
+        {
+            IQueryable<PlayingBoardTitle> myQuery =
+                connection.PlayingBoardTitles.OrderByDescending(a => a.ID).Where(a => a.PlayingBoardGroupTitle == playingBoardGroupTitle)
+                    .Select(a => a);
 
             cmbBox.Items.Clear();
 
@@ -77,6 +107,33 @@ namespace BilliardClub
                 id = a.ID,
                 title = a.Title
             });
+
+            grid.DataSource = myQuery;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "عنوان";
+
+            grid.Columns[2].Width = 420;
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void LoadGrid_By_PlayingBoardGroupTitle(RadGridView grid,
+            PlayingBoardGroupTitle playingBoardGroupTitle, DataBaseDataContext connection)
+        {
+            var myQuery =
+                connection.PlayingBoardTitles.OrderByDescending(a => a.ID)
+                    .Where(a => a.PlayingBoardGroupTitle == playingBoardGroupTitle)
+                    .Select(a => new
+                    {
+                        id = a.ID,
+                        title = a.Title
+                    });
 
             grid.DataSource = myQuery;
 
