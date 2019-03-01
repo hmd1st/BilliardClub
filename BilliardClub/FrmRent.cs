@@ -25,7 +25,11 @@ namespace BilliardClub
 
             Member.LoadGridBriefly(gridMember, myConnection);
 
+            PlayingBoardType.LoadComboBox(cmbPlayingBoardType, myConnection);
+
             PlayingBoard.LoadGridAvailables(gridPlayingBoard, myConnection);
+
+
 
             cmbSearchMemberBy.SelectedIndex = 0;
 
@@ -100,12 +104,18 @@ namespace BilliardClub
 
             #endregion
 
-            MyRentPlayingBoard = RentPlayingBoard.Insert(playingBoard, DateTime.Now,
+            ///TODO Cast PlayingBoardType
+
+            PlayingBoardType playingBoardType = myConnection.PlayingBoardTypes.First(a => a.PlayingBoard == playingBoard);
+            
+            ///
+
+            MyRentPlayingBoard = RentPlayingBoard.Insert(playingBoardType, DateTime.Now,
                  DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
 
             MemberRentPlayingBoard.Insert(MyRentPlayingBoard, member, "opener", myConnection);
 
-            MemberRentPlayingBoard.PowerOnOff(raspberryPi,"1", Setting.RaspberryIPAddress,Setting.RaspberryPortNumber);
+            MemberRentPlayingBoard.PowerOnOff(raspberryPi, "1", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
 
             playingBoard.IsAvailable = false;
 

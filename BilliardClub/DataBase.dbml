@@ -99,7 +99,6 @@
       <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
-      <Association Name="PlayingBoard_RentPlayingBoard" Member="RentPlayingBoards" ThisKey="ID" OtherKey="PlayingBoardID" Type="RentPlayingBoard" />
       <Association Name="PlayingBoard_RaspberryPi" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspberryPi" Cardinality="One" />
       <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoardTitle" ThisKey="PlayingBoardTitleID" OtherKey="ID" Type="PlayingBoardTitle" IsForeignKey="true" />
     </Type>
@@ -110,6 +109,7 @@
       <Column Name="Type" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
       <Column Name="Price" Type="System.Int32" CanBeNull="false" />
       <Column Name="PlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="PlayingBoardType_RentPlayingBoard" Member="RentPlayingBoards" ThisKey="ID" OtherKey="PlayingBoardTypeID" Type="RentPlayingBoard" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
     </Type>
   </Table>
@@ -120,9 +120,9 @@
       <Column Name="StartTime" Type="System.String" DbType="nvarchar(8)" CanBeNull="false" />
       <Column Name="EndTime" Type="System.String" DbType="nvarchar(8)" CanBeNull="false" />
       <Column Name="Status" Type="System.Boolean" CanBeNull="false" />
-      <Column Name="PlayingBoardID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="PlayingBoardTypeID" Storage="_PlayingBoardID" Type="System.Int32" CanBeNull="false" />
       <Association Name="RentPlayingBoard_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="RentPlayingBoardID" Type="MemberRentPlayingBoard" />
-      <Association Name="PlayingBoard_RentPlayingBoard" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
+      <Association Name="PlayingBoardType_RentPlayingBoard" Member="PlayingBoardType" ThisKey="PlayingBoardTypeID" OtherKey="ID" Type="PlayingBoardType" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="MemberRentPlayingBoards">
@@ -205,7 +205,7 @@
     <Type Name="PlayingBoardTitle">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
-      <Column Name="PlayingBoardTitleID" Member="PlayingBoardGroupTitleID" Storage="_PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="PlayingBoardGroupTitleID" Storage="_PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoards" ThisKey="ID" OtherKey="PlayingBoardTitleID" Type="PlayingBoard" />
       <Association Name="PlayingBoardGroupTitle_PlayingBoardTitle" Member="PlayingBoardGroupTitle" ThisKey="PlayingBoardGroupTitleID" OtherKey="ID" Type="PlayingBoardGroupTitle" IsForeignKey="true" />
     </Type>

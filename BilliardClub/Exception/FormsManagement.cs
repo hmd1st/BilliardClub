@@ -29,7 +29,7 @@ namespace BilliardClub
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = true;
 
-                else if ((item is RadButton || item is RadGridView))
+                else if ((item is RadButton || item is RadGridView || item is ListView))
                     item.Enabled = false;
             }
         }
@@ -41,7 +41,7 @@ namespace BilliardClub
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = true;
 
-                else if ((item is RadButton || item is RadGridView || item is ComboBox))
+                else if ((item is RadButton || item is RadGridView || item is ListView || item is ComboBox))
                     item.Enabled = false;
             }
         }
@@ -52,7 +52,7 @@ namespace BilliardClub
             {
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = false;
-                else if ((item is RadButton || item is RadGridView))
+                else if ((item is RadButton || item is RadGridView || item is ListView))
                     item.Enabled =true;
 
             }
@@ -65,7 +65,7 @@ namespace BilliardClub
             {
                 if (item.Name == "btnYes" || item.Name == "btnNo")
                     item.Enabled = false;
-                else if ((item is RadButton || item is RadGridView || item is ComboBox))
+                else if ((item is RadButton || item is RadGridView || item is ListView || item is ComboBox))
                     item.Enabled = true;
             }
 

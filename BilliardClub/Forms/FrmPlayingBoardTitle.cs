@@ -31,7 +31,7 @@ namespace BilliardClub
             DataBaseDataContext myConnection = Setting.DataBase;
 
             PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
-                FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
+                FrmPlayingBoard.SelectedPlayingBoardGroupTitle, myConnection);
 
             myConnection.Dispose();
         }
@@ -49,7 +49,7 @@ namespace BilliardClub
 
             #region PlayingBoardGroupTitle Cast
 
-            int id = FrmPlayingBoard.MyPlayingBoardGroupTitle.ID;
+            int id = FrmPlayingBoard.SelectedPlayingBoardGroupTitle.ID;
 
             if (!PlayingBoardGroupTitle.Validation(id, myConnection))
             {
@@ -157,7 +157,7 @@ namespace BilliardClub
                 DataValidationMesaage.DeleteMessage();
 
                 PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
-                    FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
+                    FrmPlayingBoard.SelectedPlayingBoardGroupTitle, myConnection);
 
             }
             //myConnection.Dispose();
@@ -208,7 +208,7 @@ namespace BilliardClub
             txtTitle.Focus();
 
             PlayingBoardTitle.LoadGrid_By_PlayingBoardGroupTitle(gridPlayingBoardTitle,
-                FrmPlayingBoard.MyPlayingBoardGroupTitle, myConnection);
+                FrmPlayingBoard.SelectedPlayingBoardGroupTitle, myConnection);
 
             FormManagement.DisableYesNo(this.Controls);
 

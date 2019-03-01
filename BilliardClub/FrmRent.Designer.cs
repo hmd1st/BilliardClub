@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn3 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnSave = new Telerik.WinControls.UI.RadButton();
@@ -37,6 +37,8 @@
             this.cmbSearchMemberBy = new System.Windows.Forms.ComboBox();
             this.gridMember = new Telerik.WinControls.UI.RadGridView();
             this.radGroupBox2 = new Telerik.WinControls.UI.RadGroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.cmbPlayingBoardType = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.radButton1 = new Telerik.WinControls.UI.RadButton();
             this.txtSearchPlayingBoard = new System.Windows.Forms.TextBox();
@@ -72,8 +74,8 @@
             this.radGroupBox1.Controls.Add(this.cmbSearchMemberBy);
             this.radGroupBox1.Controls.Add(this.gridMember);
             this.radGroupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radGroupBox1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.radGroupBox1.HeaderText = "اعضا";
+            this.radGroupBox1.Font = new System.Drawing.Font("B Yekan", 12F);
+            this.radGroupBox1.HeaderText = "انتخاب عضو";
             this.radGroupBox1.Location = new System.Drawing.Point(0, 0);
             this.radGroupBox1.Name = "radGroupBox1";
             this.radGroupBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -83,15 +85,15 @@
             this.radGroupBox1.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 0, 200, 100);
             this.radGroupBox1.Size = new System.Drawing.Size(634, 207);
             this.radGroupBox1.TabIndex = 0;
-            this.radGroupBox1.Text = "اعضا";
+            this.radGroupBox1.Text = "انتخاب عضو";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label9.Font = new System.Drawing.Font("B Yekan", 10F);
             this.label9.Location = new System.Drawing.Point(533, 28);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(90, 20);
+            this.label9.Size = new System.Drawing.Size(94, 21);
             this.label9.TabIndex = 40;
             this.label9.Text = "جستجو بر اساس";
             // 
@@ -106,7 +108,7 @@
             // 
             // 
             this.btnSave.RootElement.ControlBounds = new System.Drawing.Rectangle(12, 24, 110, 24);
-            this.btnSave.Size = new System.Drawing.Size(123, 28);
+            this.btnSave.Size = new System.Drawing.Size(70, 28);
             this.btnSave.TabIndex = 38;
             this.btnSave.Text = "انتخاب";
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -153,11 +155,11 @@
             this.gridMember.MasterTemplate.AllowDragToGroup = false;
             this.gridMember.MasterTemplate.AllowEditRow = false;
             this.gridMember.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn1.HeaderText = "ردیف";
-            gridViewTextBoxColumn1.Name = "colCounter";
-            gridViewTextBoxColumn1.Width = 41;
+            gridViewTextBoxColumn3.HeaderText = "ردیف";
+            gridViewTextBoxColumn3.Name = "colCounter";
+            gridViewTextBoxColumn3.Width = 41;
             this.gridMember.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn1});
+            gridViewTextBoxColumn3});
             this.gridMember.MasterTemplate.EnableGrouping = false;
             this.gridMember.Name = "gridMember";
             this.gridMember.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -174,14 +176,16 @@
             // 
             this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.radGroupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(245)))));
+            this.radGroupBox2.Controls.Add(this.label5);
+            this.radGroupBox2.Controls.Add(this.cmbPlayingBoardType);
             this.radGroupBox2.Controls.Add(this.label1);
             this.radGroupBox2.Controls.Add(this.radButton1);
             this.radGroupBox2.Controls.Add(this.txtSearchPlayingBoard);
             this.radGroupBox2.Controls.Add(this.cmbSearchPlayingBoardBy);
             this.radGroupBox2.Controls.Add(this.gridPlayingBoard);
             this.radGroupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.radGroupBox2.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.radGroupBox2.HeaderText = "میزها";
+            this.radGroupBox2.Font = new System.Drawing.Font("B Yekan", 12F);
+            this.radGroupBox2.HeaderText = "انتخاب بازی";
             this.radGroupBox2.Location = new System.Drawing.Point(0, 207);
             this.radGroupBox2.Name = "radGroupBox2";
             this.radGroupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -189,17 +193,40 @@
             // 
             // 
             this.radGroupBox2.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 207, 200, 100);
-            this.radGroupBox2.Size = new System.Drawing.Size(634, 226);
+            this.radGroupBox2.Size = new System.Drawing.Size(634, 261);
             this.radGroupBox2.TabIndex = 1;
-            this.radGroupBox2.Text = "میزها";
+            this.radGroupBox2.Text = "انتخاب بازی";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.label5.Location = new System.Drawing.Point(533, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(52, 21);
+            this.label5.TabIndex = 42;
+            this.label5.Text = "نوع بازی";
+            // 
+            // cmbPlayingBoardType
+            // 
+            this.cmbPlayingBoardType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPlayingBoardType.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbPlayingBoardType.FormattingEnabled = true;
+            this.cmbPlayingBoardType.Items.AddRange(new object[] {
+            "عنوان"});
+            this.cmbPlayingBoardType.Location = new System.Drawing.Point(409, 21);
+            this.cmbPlayingBoardType.Name = "cmbPlayingBoardType";
+            this.cmbPlayingBoardType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbPlayingBoardType.Size = new System.Drawing.Size(118, 28);
+            this.cmbPlayingBoardType.TabIndex = 41;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label1.Location = new System.Drawing.Point(533, 28);
+            this.label1.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.label1.Location = new System.Drawing.Point(533, 58);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 20);
+            this.label1.Size = new System.Drawing.Size(94, 21);
             this.label1.TabIndex = 40;
             this.label1.Text = "جستجو بر اساس";
             // 
@@ -208,22 +235,22 @@
             this.radButton1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.radButton1.Font = new System.Drawing.Font("B Yekan", 10F);
             this.radButton1.ImageAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.radButton1.Location = new System.Drawing.Point(12, 24);
+            this.radButton1.Location = new System.Drawing.Point(12, 54);
             this.radButton1.Name = "radButton1";
             // 
             // 
             // 
-            this.radButton1.RootElement.ControlBounds = new System.Drawing.Rectangle(12, 24, 110, 24);
-            this.radButton1.Size = new System.Drawing.Size(123, 28);
+            this.radButton1.RootElement.ControlBounds = new System.Drawing.Rectangle(12, 54, 110, 24);
+            this.radButton1.Size = new System.Drawing.Size(70, 28);
             this.radButton1.TabIndex = 38;
             this.radButton1.Text = "انتخاب";
             // 
             // txtSearchPlayingBoard
             // 
             this.txtSearchPlayingBoard.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.txtSearchPlayingBoard.Location = new System.Drawing.Point(259, 24);
+            this.txtSearchPlayingBoard.Location = new System.Drawing.Point(279, 54);
             this.txtSearchPlayingBoard.Name = "txtSearchPlayingBoard";
-            this.txtSearchPlayingBoard.Size = new System.Drawing.Size(144, 28);
+            this.txtSearchPlayingBoard.Size = new System.Drawing.Size(124, 28);
             this.txtSearchPlayingBoard.TabIndex = 37;
             this.txtSearchPlayingBoard.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -234,7 +261,7 @@
             this.cmbSearchPlayingBoardBy.FormattingEnabled = true;
             this.cmbSearchPlayingBoardBy.Items.AddRange(new object[] {
             "عنوان"});
-            this.cmbSearchPlayingBoardBy.Location = new System.Drawing.Point(409, 24);
+            this.cmbSearchPlayingBoardBy.Location = new System.Drawing.Point(409, 54);
             this.cmbSearchPlayingBoardBy.Name = "cmbSearchPlayingBoardBy";
             this.cmbSearchPlayingBoardBy.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cmbSearchPlayingBoardBy.Size = new System.Drawing.Size(118, 28);
@@ -246,7 +273,7 @@
             this.gridPlayingBoard.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridPlayingBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoard.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoard.Location = new System.Drawing.Point(2, 61);
+            this.gridPlayingBoard.Location = new System.Drawing.Point(2, 87);
             // 
             // 
             // 
@@ -257,19 +284,19 @@
             this.gridPlayingBoard.MasterTemplate.AllowDragToGroup = false;
             this.gridPlayingBoard.MasterTemplate.AllowEditRow = false;
             this.gridPlayingBoard.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn2.HeaderText = "ردیف";
-            gridViewTextBoxColumn2.Name = "colCounter";
-            gridViewTextBoxColumn2.Width = 41;
+            gridViewTextBoxColumn4.HeaderText = "ردیف";
+            gridViewTextBoxColumn4.Name = "colCounter";
+            gridViewTextBoxColumn4.Width = 41;
             this.gridPlayingBoard.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn2});
+            gridViewTextBoxColumn4});
             this.gridPlayingBoard.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoard.Name = "gridPlayingBoard";
             this.gridPlayingBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             // 
             // 
             // 
-            this.gridPlayingBoard.RootElement.ControlBounds = new System.Drawing.Rectangle(2, 61, 240, 150);
-            this.gridPlayingBoard.Size = new System.Drawing.Size(630, 163);
+            this.gridPlayingBoard.RootElement.ControlBounds = new System.Drawing.Rectangle(2, 87, 240, 150);
+            this.gridPlayingBoard.Size = new System.Drawing.Size(630, 172);
             this.gridPlayingBoard.TabIndex = 39;
             this.gridPlayingBoard.Text = "لیست میز‌ها";
             this.gridPlayingBoard.Click += new System.EventHandler(this.gridPlayingBoard_Click);
@@ -278,7 +305,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label2.Location = new System.Drawing.Point(494, 446);
+            this.label2.Location = new System.Drawing.Point(530, 472);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 41;
@@ -288,7 +315,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label3.Location = new System.Drawing.Point(494, 479);
+            this.label3.Location = new System.Drawing.Point(530, 505);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 20);
             this.label3.TabIndex = 42;
@@ -314,7 +341,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label4.Location = new System.Drawing.Point(494, 512);
+            this.label4.Location = new System.Drawing.Point(530, 538);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 20);
             this.label4.TabIndex = 44;
@@ -323,7 +350,7 @@
             // lblPlayingBoardTitle
             // 
             this.lblPlayingBoardTitle.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblPlayingBoardTitle.Location = new System.Drawing.Point(166, 511);
+            this.lblPlayingBoardTitle.Location = new System.Drawing.Point(202, 537);
             this.lblPlayingBoardTitle.Name = "lblPlayingBoardTitle";
             this.lblPlayingBoardTitle.Size = new System.Drawing.Size(306, 20);
             this.lblPlayingBoardTitle.TabIndex = 45;
@@ -333,7 +360,7 @@
             // lblDebt
             // 
             this.lblDebt.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblDebt.Location = new System.Drawing.Point(166, 478);
+            this.lblDebt.Location = new System.Drawing.Point(202, 504);
             this.lblDebt.Name = "lblDebt";
             this.lblDebt.Size = new System.Drawing.Size(306, 20);
             this.lblDebt.TabIndex = 46;
@@ -343,7 +370,7 @@
             // lblName
             // 
             this.lblName.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblName.Location = new System.Drawing.Point(166, 445);
+            this.lblName.Location = new System.Drawing.Point(202, 471);
             this.lblName.Name = "lblName";
             this.lblName.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblName.Size = new System.Drawing.Size(306, 20);
@@ -407,5 +434,7 @@
         private System.Windows.Forms.Label lblPlayingBoardTitle;
         private System.Windows.Forms.Label lblDebt;
         private System.Windows.Forms.Label lblName;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox cmbPlayingBoardType;
     }
 }

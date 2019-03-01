@@ -44,6 +44,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmbPlayingBoardTitle = new System.Windows.Forms.ComboBox();
             this.gridPlayingBoard = new Telerik.WinControls.UI.RadGridView();
+            this.btnPrice = new Telerik.WinControls.UI.RadButton();
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardGroupTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnNo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnDelete)).BeginInit();
@@ -53,6 +54,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard.MasterTemplate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrice)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAddPlayingboardGroupTitle
@@ -238,11 +240,27 @@
             this.gridPlayingBoard.ContextMenuOpening += new Telerik.WinControls.UI.ContextMenuOpeningEventHandler(this.gridPlayingBoard_ContextMenuOpening);
             this.gridPlayingBoard.KeyDown += new System.Windows.Forms.KeyEventHandler(this.gridPlayingBoard_KeyDown);
             // 
+            // btnPrice
+            // 
+            this.btnPrice.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.btnPrice.Image = global::BilliardClub.Properties.Resources.Save;
+            this.btnPrice.Location = new System.Drawing.Point(23, 63);
+            this.btnPrice.Name = "btnPrice";
+            this.btnPrice.Size = new System.Drawing.Size(84, 30);
+            this.btnPrice.TabIndex = 99;
+            this.btnPrice.Text = "تعیین بهاء";
+            this.btnPrice.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnPrice.Click += new System.EventHandler(this.btnPrice_Click);
+            ((Telerik.WinControls.UI.RadButtonElement)(this.btnPrice.GetChildAt(0))).Image = global::BilliardClub.Properties.Resources.Save;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.btnPrice.GetChildAt(0))).TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            ((Telerik.WinControls.UI.RadButtonElement)(this.btnPrice.GetChildAt(0))).Text = "تعیین بهاء";
+            // 
             // FrmPlayingBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 480);
+            this.Controls.Add(this.btnPrice);
             this.Controls.Add(this.btnAddPlayingboardTitle);
             this.Controls.Add(this.btnAddPlayingboardGroupTitle);
             this.Controls.Add(this.label1);
@@ -270,6 +288,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnAddPlayingboardTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard.MasterTemplate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridPlayingBoard)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnPrice)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,5 +309,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbPlayingBoardTitle;
         private Telerik.WinControls.UI.RadGridView gridPlayingBoard;
+        private Telerik.WinControls.UI.RadButton btnPrice;
     }
 }

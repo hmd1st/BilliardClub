@@ -221,8 +221,7 @@ namespace BilliardClub
                 (a, b) => new
                 {
                     id = a.ID,
-                    title = a.PlayingBoardTitle.Title,
-                    number = a.Number,
+                    title = a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle+" "+ a.PlayingBoardTitle.Title+" "+ a.Number,
                     type = b.Type,
                     price = b.Price
                 });
@@ -233,17 +232,12 @@ namespace BilliardClub
             grid.Columns[1].IsVisible = false;
 
             grid.Columns[2].HeaderText = "عنوان";
+            grid.Columns[2].Width = 207;
 
-            grid.Columns[2].Width = 107;
-
-            grid.Columns[3].HeaderText = "شماره";
-
-            grid.Columns[3].Width = 100;
-
-            grid.Columns[4].HeaderText = "نوع";
+            grid.Columns[4].HeaderText = "نوع بازی";
             grid.Columns[4].Width = 100;
 
-            grid.Columns[5].HeaderText = "قیمت";
+            grid.Columns[5].HeaderText = "قیمت به ساعت";
             grid.Columns[5].Width = 100;
 
             for (int i = 0; i < grid.RowCount; i++)
@@ -253,7 +247,7 @@ namespace BilliardClub
 
         }
 
-        public static void LoadGrid_By_PlayingBoardTitle_Join_PlayingBoardType(PlayingBoardTitle PlayingBoardTitle, RadGridView grid,
+        public static void LoadGrid_By_PlayingBoardTitle_Join_PlayingBoardType(PlayingBoardTitle playingBoardTitle, RadGridView grid,
             DataBaseDataContext connection)
         {
             //var myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).Select(a => new
@@ -263,18 +257,20 @@ namespace BilliardClub
             //    number = a.Number
             //});
 
-            var query = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == PlayingBoardTitle).
-                Join(connection.PlayingBoardTypes,
-                playingboard => playingboard.ID,
-                playingboardtype => playingboardtype.ID,
-                (a, b) => new
-                {
-                    id = a.ID,
-                    title = a.PlayingBoardTitle.Title,
-                    number = a.Number,
-                    type = b.Type,
-                    price = b.Price
-                });
+            var query =
+                connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle)
+                    .Join(connection.PlayingBoardTypes,
+                        playingboard => playingboard.ID,
+                        playingboardtype => playingboardtype.PlayingBoardID,
+                        (a, b) => new
+                        {
+                            id = a.ID,
+                            title =
+                            a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle + " " + a.PlayingBoardTitle.Title +
+                            " " + a.Number,
+                            type = b.Type,
+                            price = b.Price
+                        });
 
 
             grid.DataSource = query;
@@ -282,17 +278,12 @@ namespace BilliardClub
             grid.Columns[1].IsVisible = false;
 
             grid.Columns[2].HeaderText = "عنوان";
+            grid.Columns[2].Width = 207;
 
-            grid.Columns[2].Width = 100;
-
-            grid.Columns[3].HeaderText = "شماره";
-
-            grid.Columns[3].Width = 100;
-
-            grid.Columns[4].HeaderText = "نوع";
+            grid.Columns[4].HeaderText = "نوع بازی";
             grid.Columns[4].Width = 100;
 
-            grid.Columns[5].HeaderText = "قیمت";
+            grid.Columns[5].HeaderText = "قیمت به ساعت";
             grid.Columns[5].Width = 100;
 
             for (int i = 0; i < grid.RowCount; i++)
@@ -301,6 +292,55 @@ namespace BilliardClub
             }
 
         }
+        //public static void LoadGrid_By_PlayingBoardTitle_Join_PlayingBoardType(PlayingBoardTitle PlayingBoardTitle, RadGridView grid,
+        //    DataBaseDataContext connection)
+        //{
+        //    //var myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == playingBoardTitle).Select(a => new
+        //    //{
+        //    //    id = a.ID,
+        //    //    title = a.PlayingBoardTitle.Title,
+        //    //    number = a.Number
+        //    //});
+
+        //    var query = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == PlayingBoardTitle).
+        //        Join(connection.PlayingBoardTypes,
+        //        playingboard => playingboard.ID,
+        //        playingboardtype => playingboardtype.ID,
+        //        (a, b) => new
+        //        {
+        //            id = a.ID,
+        //            title = a.PlayingBoardTitle.Title,
+        //            number = a.Number,
+        //            type = b.Type,
+        //            price = b.Price
+        //        });
+
+
+        //    grid.DataSource = query;
+
+        //    grid.Columns[1].IsVisible = false;
+
+        //    grid.Columns[2].HeaderText = "عنوان";
+
+        //    grid.Columns[2].Width = 100;
+
+        //    grid.Columns[3].HeaderText = "شماره";
+
+        //    grid.Columns[3].Width = 100;
+
+        //    grid.Columns[4].HeaderText = "نوع";
+        //    grid.Columns[4].Width = 100;
+
+        //    grid.Columns[5].HeaderText = "قیمت";
+        //    grid.Columns[5].Width = 100;
+
+        //    for (int i = 0; i < grid.RowCount; i++)
+        //    {
+        //        grid.Rows[i].Cells[0].Value = i + 1;
+        //    }
+
+        //}
+
         public static void LoadGridByPlayingBoardTitle(PlayingBoardTitle PlayingBoardTitle, RadGridView grid,
             DataBaseDataContext connection)
         {

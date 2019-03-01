@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Telerik.WinControls.UI;
 
 namespace BilliardClub
 {
@@ -21,22 +22,25 @@ namespace BilliardClub
 
         private void clearTextBox()
         {
-            txtNumber.Clear();
+            txtPrice.Clear();
 
             txtPrice.Text = "0";
 
-            txtNumber.Focus();
+            txtPrice.Focus();
         }
 
         private void FrmPlayBoard_Load(object sender, EventArgs e)
         {
+            cmbType.SelectedIndex = 0;
 
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            PlayingBoardTitle.LoadComboBox(cmbPlayingBoardTitle, myConnection);
+            lblTitle.Text = FrmPlayingBoard.SelectedPlayingBoard.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle
+                            + " " + FrmPlayingBoard.SelectedPlayingBoard.PlayingBoardTitle.Title
+                            + " " + FrmPlayingBoard.SelectedPlayingBoard.Number;
 
-            PlayingBoard.LoadGrid_Join_PlayingBoardType(
-                gridPlayingBoard, myConnection);
+            PlayingBoardType.ShowList_By_PlayingBoard(FrmPlayingBoard.SelectedPlayingBoard, lstPlayingBoardTypes,
+                myConnection);
 
         }
 
@@ -45,292 +49,9 @@ namespace BilliardClub
             BTM.Text.FreezeToDigit(e);
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            DataBaseDataContext myConnection = Setting.DataBase;
-
-            if (string.IsNullOrEmpty(txtNumber.Text) || string.IsNullOrWhiteSpace(txtNumber.Text))
-            {
-                DataValidationMesaage.BlankTextBox("شماره میز");
-
-                return;
-            }
-
-            #region PlayingBoardTitle Casting
-
-            int playingBoardTitleID = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
-
-            if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
-            {
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
-
-            #endregion
-
-            bool query = myConnection.PlayingBoards.Join(myConnection.PlayingBoardTypes,
-                playingboard => playingboard.ID,
-                playingboardtype => playingboardtype.ID,
-                (playingboard, playingboardtype) => new
-                {
-                    mypb = playingboard,
-                    mypbt = playingboardtype
-                }).Any(a => a.mypb.Number == txtNumber.Text.Trim() &&
-                            a.mypb.PlayingBoardTitle == playingBoardTitle &&
-                            a.mypbt.Type == cmbType.Text);
-
-            //if (myConnection.PlayingBoards.Any(a => a.Number == txtNumber.Text.Trim() &&
-            //                                        a.PlayingBoardTitle == playingBoardTitle))
-            if (query)
-            {
-
-                DataValidationMesaage.DuplicateData("میز با این شماره");
-
-                return;
-            }
-
-
-
-            PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text.Trim(), true, myConnection);
-
-            PlayingBoardType playingBoardType = PlayingBoardType.Insert(playingBoard, cmbType.Text.Trim(),
-                int.Parse(txtPrice.Text.Trim()), myConnection);
-
-            DataValidationMesaage.AcceptMessage("میز");
-
-            //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-            // gridPlayingBoard, myConnection);
-            //if (chkRaspberryPi.Checked && RaspberryPi.allocatedGpioPinsCounter < 24)
-            //{
-            //    RaspberryPi.Insert(RaspberryPi.GpioPins[RaspberryPi.allocatedGpioPinsCounter].ToString(), playingBoard, myConnection);
-
-            //    RaspberryPi.allocatedGpioPinsCounter ++;
-            //}
-        }
-
-        private void cmbPlayingBoardTitle_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            DataBaseDataContext myConnection = Setting.DataBase;
-
-            if (myConnection.PlayingBoardTitles.Any())
-            {
-                int playingBoardTitleID = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
-
-                if (!PlayingBoardTitle.Validation(playingBoardTitleID, myConnection))
-                {
-                    DataValidationMesaage.NoDataInBank();
-
-                    return;
-                }
-
-                PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleID, myConnection);
-
-                //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                //gridPlayingBoard, myConnection);
-            }
-        }
-
-        private void btnAddPlayingboardTitle_Click(object sender, EventArgs e)
-        {
-            FrmPlayingBoardTitle frm = new FrmPlayingBoardTitle();
-
-            frm.ShowDialog();
-
-            PlayingBoardTitle.LoadComboBox(cmbPlayingBoardTitle, Setting.DataBase);
-
-            Setting.DataBase.Dispose();
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            DataBaseDataContext myConnection = Setting.DataBase;
-
-            if (gridPlayingBoard.SelectedRows.Count == 0)
-            {
-                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
-
-                return;
-            }
-
-            #region PlayingBoard Casting
-
-            int playingBoardID = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
-
-            if (!PlayingBoard.Validation(playingBoardID, myConnection))
-            {
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            PlayingBoard playingBoard = PlayingBoard.Get(playingBoardID, myConnection);
-
-            PlayingBoardType playingBoardType =
-                myConnection.PlayingBoardTypes.FirstOrDefault(a => a.PlayingBoardID == playingBoardID);
-
-            #endregion
-
-            txtNumber.Text = playingBoard.Number;
-
-            cmbPlayingBoardTitle.Text = playingBoard.PlayingBoardTitle.Title;
-
-            cmbType.Text = playingBoardType.Type;
-
-            txtPrice.Text = playingBoardType.Price.ToString();
-
-            FormManagement.EnableYesNo(this.Controls);
-
-            txtNumber.Focus();
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-
-            if (gridPlayingBoard.SelectedRows.Count == 0)
-            {
-                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
-
-                return;
-            }
-
-            DataBaseDataContext myConnection = Setting.DataBase;
-
-            #region PlayingBoard Casting
-
-            int playingBoardID = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
-
-            if (!PlayingBoard.Validation(playingBoardID, myConnection))
-            {
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            PlayingBoard playingBoard = PlayingBoard.Get(playingBoardID, myConnection);
-
-            PlayingBoardType playingBoardType =
-                myConnection.PlayingBoardTypes.FirstOrDefault(a => a.PlayingBoardID == playingBoardID);
-
-            #endregion
-
-            DialogResult message = DataValidationMesaage.ConfirmDeleteData(playingBoard.Number);
-
-            if (message == DialogResult.Yes)
-            {
-                PlayingBoardType.Delete(playingBoardType, myConnection);
-
-                PlayingBoard.Delete(playingBoard, myConnection);
-
-                DataValidationMesaage.DeleteMessage();
-
-                PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoard.PlayingBoardTitleID, myConnection);
-
-                //PlayingBoard.LoadGrid_By_Filter_PlayingBoardTitle_Join_PlayingBoardType(playingBoardTitle,
-                //    gridPlayingBoard, myConnection);
-
-            }
-
-        }
-
-        private void btnYes_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtNumber.Text) || string.IsNullOrWhiteSpace(txtNumber.Text))
-            {
-                DataValidationMesaage.BlankTextBox("شماره میز");
-
-                return;
-            }
-
-            DataBaseDataContext myConnection = Setting.DataBase;
-
-            #region PlayingBoard Casting
-
-            int playingBoardID = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
-
-            if (!PlayingBoard.Validation(playingBoardID, myConnection))
-            {
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            PlayingBoard playingBoard = PlayingBoard.Get(playingBoardID, myConnection);
-
-
-            if (!PlayingBoardTitle.Validation(playingBoard.PlayingBoardTitleID, myConnection))
-            {
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoard.PlayingBoardTitleID, myConnection);
-
-            PlayingBoardType playingBoardType =
-                myConnection.PlayingBoardTypes.FirstOrDefault(a => a.PlayingBoardID == playingBoardID);
-
-            #endregion
-
-            bool query = myConnection.PlayingBoards.Join(myConnection.PlayingBoardTypes,
-                playingboard => playingboard.ID,
-                playingboardtype => playingboardtype.ID,
-                (playingboard, playingboardtype) => new
-                {
-                    mypb = playingboard,
-                    mypbt = playingboardtype
-                }).Any(a => a.mypb.Number == txtNumber.Text.Trim() &&
-                            a.mypb.PlayingBoardTitle == playingBoardTitle &&
-                            a.mypbt.Type == cmbType.Text && a.mypb.ID != playingBoardID);
-
-            if (query)
-            {
-                DataValidationMesaage.DuplicateData("میز با این شماره");
-
-                return;
-            }
-
-            //PlayingBoardTitle.Edit(playingBoardTitle, cmbPlayingBoardTitle.Text.Trim(), myConnection);
-
-            PlayingBoard.Edit(playingBoard, playingBoardTitle, txtNumber.Text.Trim(), true, myConnection);
-
-            PlayingBoardType.Edit(playingBoardType, playingBoard, cmbType.Text.Trim(), int.Parse(txtPrice.Text),
-                myConnection);
-
-            DataValidationMesaage.EditMessage();
-
-            clearTextBox();
-
-            txtNumber.Focus();
-
-            PlayingBoard.LoadGrid_Join_PlayingBoardType(gridPlayingBoard, myConnection);
-
-            FormManagement.DisableYesNo(this.Controls);
-
-        }
-
-        private void btnNo_Click(object sender, EventArgs e)
-        {
-            FormManagement.DisableYesNo(this.Controls);
-
-            txtNumber.Focus();
-        }
-
         private void txtPrice_KeyDown(object sender, KeyEventArgs e)
         {
             FormManagement.KeyEnterToSaveChanges(e, btnYes, btnSave);
-        }
-
-        private void txtNumber_Enter(object sender, EventArgs e)
-        {
-            BTM.Language.SwitchToPersian();
-        }
-
-        private void gridPlayingBoard_KeyDown(object sender, KeyEventArgs e)
-        {
-            FormManagement.KeyDelToRemove(e, btnDelete);
         }
 
         private void cmbType_Enter(object sender, EventArgs e)
@@ -338,23 +59,172 @@ namespace BilliardClub
             BTM.Language.SwitchToPersian();
         }
 
-        private void txtNumber_KeyDown(object sender, KeyEventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
-            if (btnYes.Enabled)
+            PlayingBoard playingBoard = FrmPlayingBoard.SelectedPlayingBoard;
+
+            if (int.Parse(txtPrice.Text.Trim()).Equals(0) || string.IsNullOrWhiteSpace(txtPrice.Text.Trim()) || string.IsNullOrEmpty(txtPrice.Text.Trim()))
             {
-                FormManagement.KeyEnterToSaveChanges(e, btnYes, btnSave);
+                DataValidationMesaage.BlankTextBox("بهای میز");
+
+                return;
             }
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            if (
+                myConnection.PlayingBoardTypes.Any(
+                    a => a.Type == cmbType.SelectedItem.ToString() && a.PlayingBoard == playingBoard))
+            {
+                DataValidationMesaage.DuplicateData(cmbType.SelectedItem.ToString());
+
+                return;
+            }
+
+
+            PlayingBoardType.Insert(playingBoard, cmbType.SelectedItem.ToString(),
+                int.Parse(txtPrice.Text.Trim()), myConnection);
+
+            DataValidationMesaage.AcceptMessage();
+
+            PlayingBoardType.ShowList_By_PlayingBoard(playingBoard, lstPlayingBoardTypes, myConnection);
+
+            myConnection.Dispose();
         }
 
-        private void gridPlayingBoard_ContextMenuOpening(object sender, Telerik.WinControls.UI.ContextMenuOpeningEventArgs e)
+        private void btnEdit_Click(object sender, EventArgs e)
         {
-            e.Cancel = true;
+            if (lstPlayingBoardTypes.SelectedItems.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(lstPlayingBoardTypes.Text);
+
+                return;
+            }
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            PlayingBoardType playingBoardType = (PlayingBoardType)lstPlayingBoardTypes.SelectedItems[0].Tag;
+
+            if (!PlayingBoardType.Validation(playingBoardType.ID, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            cmbType.SelectedItem = playingBoardType.Type;
+
+            txtPrice.Text = playingBoardType.Price.ToString();
+
+            FormManagement.EnableYesNo(this.Controls);
+
+            myConnection.Dispose();
+
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
+            if (lstPlayingBoardTypes.SelectedItems.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(lstPlayingBoardTypes.Text);
 
+                return;
+            }
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            PlayingBoardType playingBoardType = (PlayingBoardType)(lstPlayingBoardTypes.SelectedItems[0].Tag);
+
+            if (!PlayingBoardType.Validation(playingBoardType.ID, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            playingBoardType = PlayingBoardType.Get(playingBoardType.ID, myConnection);
+
+            DialogResult message = DataValidationMesaage.ConfirmDeleteData(playingBoardType.Type);
+
+            if (message == DialogResult.Yes)
+            {
+                PlayingBoardType.Delete(playingBoardType, myConnection);
+
+                DataValidationMesaage.DeleteMessage();
+
+                PlayingBoardType.ShowList_By_PlayingBoard(FrmPlayingBoard.SelectedPlayingBoard, lstPlayingBoardTypes,
+                    myConnection);
+            }
+
+            myConnection.Dispose();
+
+        }
+
+        private void btnYes_Click(object sender, EventArgs e)
+        {
+            PlayingBoard playingBoard = FrmPlayingBoard.SelectedPlayingBoard;
+
+            if (int.Parse(txtPrice.Text.Trim()).Equals(0) || string.IsNullOrWhiteSpace(txtPrice.Text.Trim()) || string.IsNullOrEmpty(txtPrice.Text.Trim()))
+            {
+                DataValidationMesaage.BlankTextBox("بهای میز");
+
+                return;
+            }
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            PlayingBoardType playingBoardType = (PlayingBoardType)lstPlayingBoardTypes.SelectedItems[0].Tag;
+
+            if (!PlayingBoardType.Validation(playingBoardType.ID, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            playingBoardType = PlayingBoardType.Get(playingBoardType.ID, myConnection);
+
+            if (
+                myConnection.PlayingBoardTypes.Any(
+                    a =>
+                        a.Type == cmbType.SelectedItem.ToString() && a.PlayingBoard == playingBoard &&
+                        a.ID != playingBoardType.ID))
+            {
+                DataValidationMesaage.DuplicateData(cmbType.SelectedItem.ToString());
+
+                return;
+            }
+
+            if (myConnection.PlayingBoardTypes.Any(a =>
+                        a.PlayingBoard == playingBoard &&
+                        !a.PlayingBoard.IsAvailable))
+            {
+                DataValidationMesaage.DataInUse("میز بازی", lstPlayingBoardTypes.Text);
+
+                return;
+            }
+
+            PlayingBoardType.Edit(playingBoardType, cmbType.SelectedItem.ToString(),
+                int.Parse(txtPrice.Text.Trim()), myConnection);
+
+            DataValidationMesaage.EditMessage();
+
+            PlayingBoardType.ShowList_By_PlayingBoard(playingBoard, lstPlayingBoardTypes, myConnection);
+
+            FormManagement.DisableYesNo(this.Controls);
+
+            myConnection.Dispose();
+
+            clearTextBox();
+
+        }
+
+        private void btnNo_Click(object sender, EventArgs e)
+        {
+            FormManagement.DisableYesNo(this.Controls);
+
+            clearTextBox();
         }
     }
 }

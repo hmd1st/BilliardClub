@@ -47,8 +47,6 @@ namespace BilliardClub.Forms
 
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            RaspberryPi r=new RaspberryPi("1");
-
 
         }
 
@@ -129,9 +127,18 @@ namespace BilliardClub.Forms
             frm.ShowDialog();
         }
 
-        private void radRibbonBar1_Click(object sender, EventArgs e)
+        private void radButtonElement10_Click(object sender, EventArgs e)
         {
+            FrmPlayingBoardGroupTitle frm = new FrmPlayingBoardGroupTitle();
 
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement11_Click(object sender, EventArgs e)
+        {
+            FrmSetRaspberryRelays frm = new FrmSetRaspberryRelays();
+
+            frm.ShowDialog();
         }
 
         private void FrmMain_Activated(object sender, EventArgs e)
@@ -144,24 +151,30 @@ namespace BilliardClub.Forms
 
             if (myConnection.RentPlayingBoards.Any(a => a.Status))
             {
-                var myQuery = myConnection.RentPlayingBoards.Where(a => a.Status);
+                IQueryable<RentPlayingBoard> myQuery = myConnection.RentPlayingBoards.Where(a => a.Status);
 
-                var myJoin =
-                    Queryable.Join(myConnection.RentPlayingBoards.Where(a => a.Status), myConnection.PlayingBoardTypes,
-                        playingboard => playingboard.PlayingBoardID, playingboardtype => playingboardtype.ID,
-                        (a, b) => new
-                        {
-                            rentPlayingBoardID = a.ID,
-                            type = b.Type,
-                            price = b.Price
-                        });
+                //var myJoin =
+                //    Queryable.Join(myConnection.RentPlayingBoards.Where(a => a.Status), myConnection.PlayingBoardTypes,
+                //        rentplayingboard => rentplayingboard.PlayingBoardID, playingboardtype => playingboardtype.PlayingBoardID,
+                //        (a, b) => new
+                //        {
+                //            rentPlayingBoardID = a.ID,
+                //            type = b.Type,
+                //            price = b.Price
+                //        });
 
-                foreach (var query in myQuery.Select(a => a.PlayingBoard.PlayingBoardTitle).Distinct())
-                    tileGroupElements.Add(MemberRentPlayingBoard.AddTileGroupElement("PlayingBoard_Group_" + query.ID,
-                        query.Title));
+                //foreach (var query in myQuery.Select(a => a.PlayingBoard.PlayingBoardTitle).Distinct())
+                foreach (var item in myQuery.Select(a => a.PlayingBoardType.PlayingBoard.PlayingBoardTitle.PlayingBoardGroupTitle).Distinct())
+                    tileGroupElements.Add(
+                        MemberRentPlayingBoard.AddTileGroupElement(
+                            "PlayingBoard_Group_" +
+                            item.ID,
+                            item.GroupTitle));
 
                 foreach (var item in myQuery)
                 {
+
+
                     DateTime oDate = item.RegisterDate;
 
                     TimeSpan timeSpan = DateTime.Now.Subtract(item.RegisterDate);
@@ -173,20 +186,20 @@ namespace BilliardClub.Forms
 
                     foreach (var tileGroupElement in tileGroupElements)
                     {
-                        if (item.PlayingBoard.PlayingBoardTitle.ToString() == tileGroupElement.Text)
+                        if (item.PlayingBoardType.PlayingBoard.PlayingBoardTitle.PlayingBoardGroupTitle.ToString() == tileGroupElement.Text)
                         {
-                            foreach (var itemJoin in myJoin)
+                            foreach (var itemJoin in myQuery)
                             {
                                 MemberRentPlayingBoard memberRentPlayingBoard = new MemberRentPlayingBoard();
 
                                 memberRentPlayingBoard.RentPlayingBoard = item;
 
-                                if (itemJoin != null && itemJoin.rentPlayingBoardID == item.ID)
+                                if (itemJoin != null && itemJoin.ID == item.ID)
                                     memberRentPlayingBoard.AddPanoramaTile(memberRentPlayingBoard, tileGroupElement,
                                         panUsingPlayingBoards,
                                         "PlayingBoard_Tile_" + item.ID,
-                                        item.PlayingBoard.PlayingBoardTitle.Title + " " + item.PlayingBoard.Number,
-                                        second, minute, hour, day, (double) itemJoin.price/3600);
+                                        item.PlayingBoardType.PlayingBoard.PlayingBoardTitle.Title + " " + item.PlayingBoardType.PlayingBoard.Number,
+                                        second, minute, hour, day, (double)itemJoin.PlayingBoardType.Price / 3600);
 
                             }
                         }
@@ -195,18 +208,9 @@ namespace BilliardClub.Forms
             }
         }
 
-        private void radButtonElement10_Click(object sender, EventArgs e)
+        private void radRibbonBar1_Click(object sender, EventArgs e)
         {
-            FrmPlayingBoardGroupTitle frm=new FrmPlayingBoardGroupTitle();
 
-            frm.ShowDialog();
-        }
-
-        private void radButtonElement11_Click(object sender, EventArgs e)
-        {
-            FrmSetRaspberryRelays frm=new FrmSetRaspberryRelays();
-
-            frm.ShowDialog();
         }
     }
 }

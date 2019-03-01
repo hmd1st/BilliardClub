@@ -13,8 +13,6 @@ namespace BilliardClub
 {
     public partial class RentPlayingBoard
     {
-       
-
 
         public RentPlayingBoard(DateTime registerDate,
             string startTime, string endTime, bool status) : this()
@@ -28,12 +26,12 @@ namespace BilliardClub
             this.Status = status;
         }
 
-        public static RentPlayingBoard Insert(PlayingBoard playingBoard, DateTime registerDate,
+        public static RentPlayingBoard Insert(PlayingBoardType playingBoardType, DateTime registerDate,
             string startTime, string endTime, bool status, DataBaseDataContext connection)
         {
             RentPlayingBoard rentPlayingBoard = new RentPlayingBoard(registerDate, startTime, endTime, status);
 
-            rentPlayingBoard.PlayingBoard = playingBoard;
+            rentPlayingBoard.PlayingBoardType = playingBoardType;
 
             connection.RentPlayingBoards.InsertOnSubmit(rentPlayingBoard);
 
@@ -42,7 +40,7 @@ namespace BilliardClub
             return rentPlayingBoard;
         }
 
-        public static void Edit(RentPlayingBoard rentPlayingBoard, PlayingBoard playingBoard,
+        public static void Edit(RentPlayingBoard rentPlayingBoard, PlayingBoardType playingBoardType,
             DateTime registerDate, string startTime, string endTime, bool status,
             DataBaseDataContext connection)
         {
@@ -54,7 +52,20 @@ namespace BilliardClub
 
             rentPlayingBoard.Status = status;
 
+            rentPlayingBoard.PlayingBoardType = playingBoardType;
+
             connection.SubmitChanges();
+        }
+        public static RentPlayingBoard Edit(RentPlayingBoard rentPlayingBoard, string endTime, bool status,
+           DataBaseDataContext connection)
+        {
+            rentPlayingBoard.EndTime = endTime;
+
+            rentPlayingBoard.Status = status;
+
+            connection.SubmitChanges();
+
+            return rentPlayingBoard;
         }
 
         public static void Delete(RentPlayingBoard rentPlayingBoard, DataBaseDataContext connection)
@@ -87,10 +98,10 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBox(ComboBox cmbBox, PlayingBoard playingBoard,
+        public static void LoadComboBox_By_PlayingBoardType(ComboBox cmbBox, PlayingBoardType playingBoardType,
             DataBaseDataContext connection)
         {
-            IQueryable<PlayingBoardType> myQuery = connection.PlayingBoardTypes.Where(a => a.PlayingBoard == playingBoard);
+            IQueryable<RentPlayingBoard> myQuery = connection.RentPlayingBoards.Where(a => a.PlayingBoardType == playingBoardType);
 
             cmbBox.Items.Clear();
 
@@ -149,10 +160,10 @@ namespace BilliardClub
 
         }
 
-        public static void LoadFilteredGrid(RadGridView grid, PlayingBoard playingBoard,
+        public static void LoadFilteredGrid(RadGridView grid, PlayingBoardType playingBoardType,
             DataBaseDataContext connection)
         {
-            var myQuery = connection.RentPlayingBoards.Where(a => a.PlayingBoard == playingBoard)
+            var myQuery = connection.RentPlayingBoards.Where(a => a.PlayingBoardType == playingBoardType)
                 .Select(a => new
                 {
                     id = a.ID,
@@ -200,6 +211,6 @@ namespace BilliardClub
             return connection.RentPlayingBoards.FirstOrDefault(a => a.ID == id);
         }
 
-       
+
     }
 }

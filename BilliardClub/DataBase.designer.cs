@@ -1838,8 +1838,6 @@ namespace BilliardClub
 		
 		private EntitySet<PlayingBoardType> _PlayingBoardTypes;
 		
-		private EntitySet<RentPlayingBoard> _RentPlayingBoards;
-		
 		private EntityRef<RaspberryPi> _RaspberryPis;
 		
 		private EntityRef<PlayingBoardTitle> _PlayingBoardTitle;
@@ -1861,7 +1859,6 @@ namespace BilliardClub
 		public PlayingBoard()
 		{
 			this._PlayingBoardTypes = new EntitySet<PlayingBoardType>(new Action<PlayingBoardType>(this.attach_PlayingBoardTypes), new Action<PlayingBoardType>(this.detach_PlayingBoardTypes));
-			this._RentPlayingBoards = new EntitySet<RentPlayingBoard>(new Action<RentPlayingBoard>(this.attach_RentPlayingBoards), new Action<RentPlayingBoard>(this.detach_RentPlayingBoards));
 			this._RaspberryPis = default(EntityRef<RaspberryPi>);
 			this._PlayingBoardTitle = default(EntityRef<PlayingBoardTitle>);
 			OnCreated();
@@ -1964,19 +1961,6 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RentPlayingBoard", Storage="_RentPlayingBoards", ThisKey="ID", OtherKey="PlayingBoardID")]
-		public EntitySet<RentPlayingBoard> RentPlayingBoards
-		{
-			get
-			{
-				return this._RentPlayingBoards;
-			}
-			set
-			{
-				this._RentPlayingBoards.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspberryPi", Storage="_RaspberryPis", ThisKey="ID", OtherKey="PlayingBoardID", IsUnique=true, IsForeignKey=false)]
 		public RaspberryPi RaspberryPis
 		{
@@ -2071,18 +2055,6 @@ namespace BilliardClub
 			this.SendPropertyChanging();
 			entity.PlayingBoard = null;
 		}
-		
-		private void attach_RentPlayingBoards(RentPlayingBoard entity)
-		{
-			this.SendPropertyChanging();
-			entity.PlayingBoard = this;
-		}
-		
-		private void detach_RentPlayingBoards(RentPlayingBoard entity)
-		{
-			this.SendPropertyChanging();
-			entity.PlayingBoard = null;
-		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
@@ -2098,6 +2070,8 @@ namespace BilliardClub
 		private int _Price;
 		
 		private int _PlayingBoardID;
+		
+		private EntitySet<RentPlayingBoard> _RentPlayingBoards;
 		
 		private EntityRef<PlayingBoard> _PlayingBoard;
 		
@@ -2117,6 +2091,7 @@ namespace BilliardClub
 		
 		public PlayingBoardType()
 		{
+			this._RentPlayingBoards = new EntitySet<RentPlayingBoard>(new Action<RentPlayingBoard>(this.attach_RentPlayingBoards), new Action<RentPlayingBoard>(this.detach_RentPlayingBoards));
 			this._PlayingBoard = default(EntityRef<PlayingBoard>);
 			OnCreated();
 		}
@@ -2205,6 +2180,19 @@ namespace BilliardClub
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoardType_RentPlayingBoard", Storage="_RentPlayingBoards", ThisKey="ID", OtherKey="PlayingBoardTypeID")]
+		public EntitySet<RentPlayingBoard> RentPlayingBoards
+		{
+			get
+			{
+				return this._RentPlayingBoards;
+			}
+			set
+			{
+				this._RentPlayingBoards.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_PlayingBoardType", Storage="_PlayingBoard", ThisKey="PlayingBoardID", OtherKey="ID", IsForeignKey=true)]
 		public PlayingBoard PlayingBoard
 		{
@@ -2258,6 +2246,18 @@ namespace BilliardClub
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_RentPlayingBoards(RentPlayingBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.PlayingBoardType = this;
+		}
+		
+		private void detach_RentPlayingBoards(RentPlayingBoard entity)
+		{
+			this.SendPropertyChanging();
+			entity.PlayingBoardType = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
@@ -2280,7 +2280,7 @@ namespace BilliardClub
 		
 		private EntitySet<MemberRentPlayingBoard> _MemberRentPlayingBoards;
 		
-		private EntityRef<PlayingBoard> _PlayingBoard;
+		private EntityRef<PlayingBoardType> _PlayingBoardType;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2296,14 +2296,14 @@ namespace BilliardClub
     partial void OnEndTimeChanged();
     partial void OnStatusChanging(bool value);
     partial void OnStatusChanged();
-    partial void OnPlayingBoardIDChanging(int value);
-    partial void OnPlayingBoardIDChanged();
+    partial void OnPlayingBoardTypeIDChanging(int value);
+    partial void OnPlayingBoardTypeIDChanged();
     #endregion
 		
 		public RentPlayingBoard()
 		{
 			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
-			this._PlayingBoard = default(EntityRef<PlayingBoard>);
+			this._PlayingBoardType = default(EntityRef<PlayingBoardType>);
 			OnCreated();
 		}
 		
@@ -2408,7 +2408,7 @@ namespace BilliardClub
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayingBoardID")]
-		public int PlayingBoardID
+		public int PlayingBoardTypeID
 		{
 			get
 			{
@@ -2418,15 +2418,15 @@ namespace BilliardClub
 			{
 				if ((this._PlayingBoardID != value))
 				{
-					if (this._PlayingBoard.HasLoadedOrAssignedValue)
+					if (this._PlayingBoardType.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnPlayingBoardIDChanging(value);
+					this.OnPlayingBoardTypeIDChanging(value);
 					this.SendPropertyChanging();
 					this._PlayingBoardID = value;
-					this.SendPropertyChanged("PlayingBoardID");
-					this.OnPlayingBoardIDChanged();
+					this.SendPropertyChanged("PlayingBoardTypeID");
+					this.OnPlayingBoardTypeIDChanged();
 				}
 			}
 		}
@@ -2444,26 +2444,26 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RentPlayingBoard", Storage="_PlayingBoard", ThisKey="PlayingBoardID", OtherKey="ID", IsForeignKey=true)]
-		public PlayingBoard PlayingBoard
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoardType_RentPlayingBoard", Storage="_PlayingBoardType", ThisKey="PlayingBoardTypeID", OtherKey="ID", IsForeignKey=true)]
+		public PlayingBoardType PlayingBoardType
 		{
 			get
 			{
-				return this._PlayingBoard.Entity;
+				return this._PlayingBoardType.Entity;
 			}
 			set
 			{
-				PlayingBoard previousValue = this._PlayingBoard.Entity;
+				PlayingBoardType previousValue = this._PlayingBoardType.Entity;
 				if (((previousValue != value) 
-							|| (this._PlayingBoard.HasLoadedOrAssignedValue == false)))
+							|| (this._PlayingBoardType.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._PlayingBoard.Entity = null;
+						this._PlayingBoardType.Entity = null;
 						previousValue.RentPlayingBoards.Remove(this);
 					}
-					this._PlayingBoard.Entity = value;
+					this._PlayingBoardType.Entity = value;
 					if ((value != null))
 					{
 						value.RentPlayingBoards.Add(this);
@@ -2473,7 +2473,7 @@ namespace BilliardClub
 					{
 						this._PlayingBoardID = default(int);
 					}
-					this.SendPropertyChanged("PlayingBoard");
+					this.SendPropertyChanged("PlayingBoardType");
 				}
 			}
 		}
@@ -4269,7 +4269,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="PlayingBoardTitleID", Storage="_PlayingBoardTitleID")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayingBoardTitleID")]
 		public int PlayingBoardGroupTitleID
 		{
 			get
@@ -4280,6 +4280,10 @@ namespace BilliardClub
 			{
 				if ((this._PlayingBoardTitleID != value))
 				{
+					if (this._PlayingBoardGroupTitle.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnPlayingBoardGroupTitleIDChanging(value);
 					this.SendPropertyChanging();
 					this._PlayingBoardTitleID = value;

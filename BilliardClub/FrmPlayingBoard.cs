@@ -25,7 +25,9 @@ namespace BilliardClub
             txtNumber.Focus();
         }
 
-        public static PlayingBoardGroupTitle MyPlayingBoardGroupTitle;
+        public static PlayingBoardGroupTitle SelectedPlayingBoardGroupTitle;
+
+        public static PlayingBoard SelectedPlayingBoard;
 
         private void btnAddPlayingboardGroupTitle_Click(object sender, EventArgs e)
         {
@@ -153,7 +155,6 @@ namespace BilliardClub
 
         private void FrmPlayingBoard_Activated(object sender, EventArgs e)
         {
-            gridPlayingBoard.Rows.Clear();
 
             DataBaseDataContext myConnection = Setting.DataBase;
 
@@ -161,6 +162,8 @@ namespace BilliardClub
 
             if (FrmPlayingBoardGroupTitle.ActivatePlayingBoardGroupTitle)
             {
+                gridPlayingBoard.Rows.Clear();
+                
                 PlayingBoardGroupTitle.LoadComboBox(cmbPlayingBoardGroupTitle, myConnection);
 
                 FrmPlayingBoardGroupTitle.ActivatePlayingBoardGroupTitle = false;
@@ -168,6 +171,8 @@ namespace BilliardClub
 
             if (FrmPlayingBoardTitle.ActivatePlayingBoardTitle)
             {
+                gridPlayingBoard.Rows.Clear();
+                
                 #region PlayingBoardGroupTitle Cast
 
                 int playingBoardGroupTitleId = ((PlayingBoardGroupTitle)cmbPlayingBoardGroupTitle.SelectedItem).ID;
@@ -212,6 +217,8 @@ namespace BilliardClub
 
             if (!myConnection.PlayingBoardGroupTitles.Any())
             {
+                gridPlayingBoard.Rows.Clear();
+                
                 btnAddPlayingboardTitle.Visible = false;
 
                 cmbPlayingBoardTitle.Items.Clear();
@@ -240,7 +247,7 @@ namespace BilliardClub
                 return;
             }
 
-            MyPlayingBoardGroupTitle = PlayingBoardGroupTitle.Get(playingBoardGroupTitleId,
+            SelectedPlayingBoardGroupTitle = PlayingBoardGroupTitle.Get(playingBoardGroupTitleId,
                 myConnection);
 
             #endregion
@@ -299,7 +306,6 @@ namespace BilliardClub
 
             }
 
-
             #region PlayingBoardTitle Cast
 
             int id = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
@@ -314,20 +320,10 @@ namespace BilliardClub
             PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(id, myConnection);
 
             #endregion
-
-            //int allocatedGpioPinsCounter = myConnection.RaspberryPis.Count();
-
-            //if (allocatedGpioPinsCounter > 24 && chkRaspberryPi.Checked)
-            //{
-            //    DataValidationMesaage.RaspberryEmptyPinError();
-
-            //    return;
-            //}
+    
             PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text, true, myConnection);
 
             DataValidationMesaage.AcceptMessage();
-
-            //RaspberryPi.Insert(RaspberryPi.GpioPins[allocatedGpioPinsCounter].ToString(), playingBoard, myConnection);
 
             clearTextBox();
 
@@ -414,12 +410,17 @@ namespace BilliardClub
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
+            #region No ListItem Selected
+
             if (gridPlayingBoard.SelectedRows.Count == 0)
             {
                 DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
 
                 return;
             }
+
+
+            #endregion
 
             DataBaseDataContext myConnection = Setting.DataBase;
 
@@ -438,6 +439,8 @@ namespace BilliardClub
 
             #endregion
 
+            #region Check Data In Use (RaspberryPi)
+
             if (playingBoard.PlayingBoardTypes.Any() ||
                 myConnection.RaspberryPis.Any(a => a.PlayingBoard.Equals(playingBoard)))
             {
@@ -445,6 +448,9 @@ namespace BilliardClub
 
                 return;
             }
+
+
+            #endregion
 
             DialogResult message = DataValidationMesaage.ConfirmDeleteData(playingBoard.Number);
 
@@ -457,6 +463,7 @@ namespace BilliardClub
                 PlayingBoard.LoadGridColorful_By_PlayingBoardTitle(gridPlayingBoard, playingBoard.PlayingBoardTitle,
                     myConnection);
             }
+
             myConnection.Dispose();
         }
 
@@ -579,6 +586,42 @@ namespace BilliardClub
         private void gridPlayingBoard_ContextMenuOpening(object sender, ContextMenuOpeningEventArgs e)
         {
             e.Cancel = true;
+        }
+
+        private void btnPrice_Click(object sender, EventArgs e)
+        {
+            #region No ListItem Selected
+
+            if (gridPlayingBoard.SelectedRows.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
+
+                return;
+            }
+
+
+            #endregion
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            #region PlayingBoard Cast
+
+            int playingBoardId = (int)gridPlayingBoard.SelectedRows[0].Cells[1].Value;
+
+            if (!PlayingBoard.Validation(playingBoardId, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            SelectedPlayingBoard = PlayingBoard.Get(playingBoardId, myConnection);
+
+            #endregion
+
+            FrmPlayingBoardType frm=new FrmPlayingBoardType();
+
+            frm.ShowDialog();
         }
     }
 }

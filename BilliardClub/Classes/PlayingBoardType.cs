@@ -11,7 +11,7 @@ namespace BilliardClub
 {
     public partial class PlayingBoardType
     {
-        public PlayingBoardType(string type,int price) : this()
+        public PlayingBoardType(string type, int price) : this()
         {
             this.Type = type;
             this.Price = price;
@@ -26,6 +26,8 @@ namespace BilliardClub
         {
             PlayingBoardType playingBoardType = new PlayingBoardType(type, price);
 
+            playingBoard = PlayingBoard.Get(playingBoard.ID, connection);
+
             playingBoardType.PlayingBoard = playingBoard;
 
             connection.PlayingBoardTypes.InsertOnSubmit(playingBoardType);
@@ -35,14 +37,12 @@ namespace BilliardClub
             return playingBoardType;
         }
 
-        public static void Edit(PlayingBoardType playingBoardType,PlayingBoard playingBoard, 
+        public static void Edit(PlayingBoardType playingBoardType,
             string type, int price, DataBaseDataContext connection)
         {
             playingBoardType.Type = type;
 
             playingBoardType.Price = price;
-
-            playingBoardType.PlayingBoard = playingBoard;
 
             connection.SubmitChanges();
         }
@@ -60,7 +60,7 @@ namespace BilliardClub
 
             cmbBox.Items.Clear();
 
-            foreach (var item in myQuery)
+            foreach (var item in myQuery.Select(a=>a.Type).Distinct())
             {
                 cmbBox.Items.Add(item);
             }
@@ -77,7 +77,7 @@ namespace BilliardClub
             cmbBox.SelectedIndex = 0;
         }
 
-        public static void LoadFilteredComboBox(ComboBox cmbBox, PlayingBoard playingBoard,
+        public static void LoadComboBox_By_PlayingBoard(ComboBox cmbBox, PlayingBoard playingBoard,
             DataBaseDataContext connection)
         {
             IQueryable<PlayingBoardType> myQuery = connection.PlayingBoardTypes.Where(a => a.PlayingBoard == playingBoard);
@@ -107,7 +107,7 @@ namespace BilliardClub
             {
                 id = a.ID,
                 type = a.Type,
-                price=a.Price
+                price = a.Price
             });
 
             grid.DataSource = myQuery;
@@ -132,13 +132,13 @@ namespace BilliardClub
         public static void LoadFilteredGrid(RadGridView grid, PlayingBoard playingBoard,
             DataBaseDataContext connection)
         {
-            var myQuery = connection.PlayingBoardTypes.Where(a=>a.PlayingBoard==playingBoard)
+            var myQuery = connection.PlayingBoardTypes.Where(a => a.PlayingBoard == playingBoard)
                 .Select(a => new
-            {
-                id = a.ID,
-                type = a.Type,
-                price = a.Price
-            });
+                {
+                    id = a.ID,
+                    type = a.Type,
+                    price = a.Price
+                });
 
             grid.DataSource = myQuery;
 
@@ -155,6 +155,33 @@ namespace BilliardClub
             for (int i = 0; i < grid.RowCount; i++)
             {
                 grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void ShowList_By_PlayingBoard(PlayingBoard playingBoard, ListView listView,
+            DataBaseDataContext connection)
+        {
+            IQueryable<PlayingBoardType> myQuery =
+                connection.PlayingBoardTypes.Where(a => a.PlayingBoard == playingBoard);
+
+            listView.Items.Clear();
+
+            int count = 0;
+            foreach (PlayingBoardType item in myQuery)
+            {
+                ListViewItem listViewItem = new ListViewItem();
+
+                listViewItem.Tag = item;
+
+                listViewItem.Text = (++count).ToString();
+
+                listViewItem.SubItems.Add(item.Type);
+
+                listViewItem.SubItems.Add(item.Price.ToString());
+
+                listView.Items.Add(listViewItem);
+
             }
 
         }
