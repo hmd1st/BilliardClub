@@ -148,9 +148,6 @@ namespace BilliardClub
                 return;
             }
 
-
-
-
         }
 
         private void FrmPlayingBoard_Activated(object sender, EventArgs e)
@@ -163,7 +160,7 @@ namespace BilliardClub
             if (FrmPlayingBoardGroupTitle.ActivatePlayingBoardGroupTitle)
             {
                 gridPlayingBoard.Rows.Clear();
-                
+
                 PlayingBoardGroupTitle.LoadComboBox(cmbPlayingBoardGroupTitle, myConnection);
 
                 FrmPlayingBoardGroupTitle.ActivatePlayingBoardGroupTitle = false;
@@ -172,7 +169,7 @@ namespace BilliardClub
             if (FrmPlayingBoardTitle.ActivatePlayingBoardTitle)
             {
                 gridPlayingBoard.Rows.Clear();
-                
+
                 #region PlayingBoardGroupTitle Cast
 
                 int playingBoardGroupTitleId = ((PlayingBoardGroupTitle)cmbPlayingBoardGroupTitle.SelectedItem).ID;
@@ -218,7 +215,7 @@ namespace BilliardClub
             if (!myConnection.PlayingBoardGroupTitles.Any())
             {
                 gridPlayingBoard.Rows.Clear();
-                
+
                 btnAddPlayingboardTitle.Visible = false;
 
                 cmbPlayingBoardTitle.Items.Clear();
@@ -320,7 +317,7 @@ namespace BilliardClub
             PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(id, myConnection);
 
             #endregion
-    
+
             PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text, true, myConnection);
 
             DataValidationMesaage.AcceptMessage();
@@ -337,40 +334,43 @@ namespace BilliardClub
 
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            #region PlayingBoardGroupTitle Cast
-
-            int playingBoardGroupTitleId = ((PlayingBoardGroupTitle)cmbPlayingBoardGroupTitle.SelectedItem).ID;
-
-            if (!PlayingBoardGroupTitle.Validation(playingBoardGroupTitleId, myConnection))
+            if (myConnection.PlayingBoardGroupTitles.Any())
             {
-                DataValidationMesaage.NoDataInBank();
+                #region PlayingBoardGroupTitle Cast
 
-                return;
-            }
+                int playingBoardGroupTitleId = ((PlayingBoardGroupTitle)cmbPlayingBoardGroupTitle.SelectedItem).ID;
 
-            PlayingBoardGroupTitle playingBoardGroupTitle = PlayingBoardGroupTitle.Get(playingBoardGroupTitleId,
-                myConnection);
-
-            #endregion
-
-            if (myConnection.PlayingBoardTitles.Any(a => a.PlayingBoardGroupTitle.Equals(playingBoardGroupTitle)))
-            {
-                #region PlayingBoardTitle Cast
-
-                int playingBoardTitleId = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
-
-                if (!PlayingBoardTitle.Validation(playingBoardTitleId, myConnection))
+                if (!PlayingBoardGroupTitle.Validation(playingBoardGroupTitleId, myConnection))
                 {
                     DataValidationMesaage.NoDataInBank();
 
                     return;
                 }
 
-                PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleId, myConnection);
+                PlayingBoardGroupTitle playingBoardGroupTitle = PlayingBoardGroupTitle.Get(playingBoardGroupTitleId,
+                    myConnection);
 
                 #endregion
 
-                PlayingBoard.LoadGridColorful_By_PlayingBoardTitle(gridPlayingBoard, playingBoardTitle, myConnection);
+                if (myConnection.PlayingBoardTitles.Any(a => a.PlayingBoardGroupTitle.Equals(playingBoardGroupTitle)))
+                {
+                    #region PlayingBoardTitle Cast
+
+                    int playingBoardTitleId = ((PlayingBoardTitle)cmbPlayingBoardTitle.SelectedItem).ID;
+
+                    if (!PlayingBoardTitle.Validation(playingBoardTitleId, myConnection))
+                    {
+                        DataValidationMesaage.NoDataInBank();
+
+                        return;
+                    }
+
+                    PlayingBoardTitle playingBoardTitle = PlayingBoardTitle.Get(playingBoardTitleId, myConnection);
+
+                    #endregion
+
+                    PlayingBoard.LoadGridColorful_By_PlayingBoardTitle(gridPlayingBoard, playingBoardTitle, myConnection);
+                }
             }
         }
 
@@ -439,10 +439,10 @@ namespace BilliardClub
 
             #endregion
 
-            #region Check Data In Use (RaspberryPi)
+            #region Check Data In Use (RaspberryPin)
 
             if (playingBoard.PlayingBoardTypes.Any() ||
-                myConnection.RaspberryPis.Any(a => a.PlayingBoard.Equals(playingBoard)))
+                myConnection.RaspBerryPlayingBoards.Any(a => a.PlayingBoard.Equals(playingBoard)))
             {
                 DataValidationMesaage.DataInUse(playingBoard.Number, gridPlayingBoard.Text);
 
@@ -514,7 +514,7 @@ namespace BilliardClub
 
 
                 #endregion
-                
+
                 #region Check Duplicate Data
 
                 if (
@@ -619,7 +619,26 @@ namespace BilliardClub
 
             #endregion
 
-            FrmPlayingBoardType frm=new FrmPlayingBoardType();
+            FrmPlayingBoardType frm = new FrmPlayingBoardType();
+
+            frm.ShowDialog();
+        }
+
+        private void btnRaspberryRelay_Click(object sender, EventArgs e)
+        {
+            #region No ListItem Selected
+
+            if (gridPlayingBoard.SelectedRows.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
+
+                return;
+            }
+
+
+            #endregion
+
+            FrmSetRaspberryRelays frm =new FrmSetRaspberryRelays();
 
             frm.ShowDialog();
         }

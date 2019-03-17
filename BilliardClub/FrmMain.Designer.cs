@@ -32,6 +32,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.radMenuItem2 = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem3 = new Telerik.WinControls.UI.RadMenuItem();
+            this.timerTime = new System.Windows.Forms.Timer(this.components);
+            this.radButtonElement6 = new Telerik.WinControls.UI.RadButtonElement();
+            this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
+            this.panUsingPlayingBoards = new Telerik.WinControls.UI.RadPanorama();
             this.radRibbonBar1 = new Telerik.WinControls.UI.RadRibbonBar();
             this.ribbonTab1 = new Telerik.WinControls.UI.RibbonTab();
             this.radRibbonBarGroup3 = new Telerik.WinControls.UI.RadRibbonBarGroup();
@@ -51,16 +55,13 @@
             this.radButtonElement3 = new Telerik.WinControls.UI.RadButtonElement();
             this.radRibbonBarGroup9 = new Telerik.WinControls.UI.RadRibbonBarGroup();
             this.radButtonElement9 = new Telerik.WinControls.UI.RadButtonElement();
-            this.ribbonTab3 = new Telerik.WinControls.UI.RibbonTab();
-            this.radRibbonBarGroup2 = new Telerik.WinControls.UI.RadRibbonBarGroup();
-            this.radButtonElement6 = new Telerik.WinControls.UI.RadButtonElement();
             this.btnExit = new Telerik.WinControls.UI.RadMenuItem();
             this.radMenuItem1 = new Telerik.WinControls.UI.RadMenuItem();
             this.btnCabinetMemberManagement = new Telerik.WinControls.UI.RadMenuItem();
-            this.panUsingPlayingBoards = new Telerik.WinControls.UI.RadPanorama();
-            this.timerTime = new System.Windows.Forms.Timer(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
+            this.radRibbonBarGroup7 = new Telerik.WinControls.UI.RadRibbonBarGroup();
+            this.radButtonElement4 = new Telerik.WinControls.UI.RadButtonElement();
             ((System.ComponentModel.ISupportInitialize)(this.panUsingPlayingBoards)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // radMenuItem2
@@ -79,12 +80,45 @@
             this.radMenuItem3.Name = "radMenuItem3";
             this.radMenuItem3.Text = "اجاره میز";
             // 
+            // radButtonElement6
+            // 
+            this.radButtonElement6.AccessibleDescription = "radButtonElement6";
+            this.radButtonElement6.AccessibleName = "radButtonElement6";
+            this.radButtonElement6.DisplayStyle = Telerik.WinControls.DisplayStyle.Image;
+            this.radButtonElement6.Image = global::BilliardClub.Properties.Resources.bill2;
+            this.radButtonElement6.Name = "radButtonElement6";
+            this.radButtonElement6.Text = "radButtonElement6";
+            this.radButtonElement6.Click += new System.EventHandler(this.radButtonElement6_Click);
+            // 
+            // radRibbonBarGroup2
+            // 
+            this.radRibbonBarGroup2.AccessibleDescription = "اجاره میز";
+            this.radRibbonBarGroup2.AccessibleName = "اجاره میز";
+            this.radRibbonBarGroup2.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.radButtonElement6});
+            this.radRibbonBarGroup2.Margin = new System.Windows.Forms.Padding(0);
+            this.radRibbonBarGroup2.MaxSize = new System.Drawing.Size(0, 0);
+            this.radRibbonBarGroup2.MinSize = new System.Drawing.Size(0, 0);
+            this.radRibbonBarGroup2.Name = "radRibbonBarGroup2";
+            this.radRibbonBarGroup2.Text = "اجاره میز";
+            // 
+            // panUsingPlayingBoards
+            // 
+            this.panUsingPlayingBoards.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panUsingPlayingBoards.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.panUsingPlayingBoards.Location = new System.Drawing.Point(0, 174);
+            this.panUsingPlayingBoards.Name = "panUsingPlayingBoards";
+            this.panUsingPlayingBoards.RowsCount = 2;
+            this.panUsingPlayingBoards.ShowGroups = true;
+            this.panUsingPlayingBoards.Size = new System.Drawing.Size(1262, 353);
+            this.panUsingPlayingBoards.TabIndex = 1;
+            this.panUsingPlayingBoards.Text = "لیست میزهای در حال استفاده";
+            // 
             // radRibbonBar1
             // 
             this.radRibbonBar1.CommandTabs.AddRange(new Telerik.WinControls.RadItem[] {
             this.ribbonTab1,
-            this.ribbonTab2,
-            this.ribbonTab3});
+            this.ribbonTab2});
             this.radRibbonBar1.EnableTabScrollingOnMouseWheel = true;
             this.radRibbonBar1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
             this.radRibbonBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
@@ -147,7 +181,7 @@
             this.radRibbonBarGroup4.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radButtonElement2});
             this.radRibbonBarGroup4.Name = "radRibbonBarGroup4";
-            this.radRibbonBarGroup4.Text = "عناوین شماره تماس";
+            this.radRibbonBarGroup4.Text = "عناوین اپراتور تلفن";
             // 
             // radButtonElement2
             // 
@@ -166,7 +200,7 @@
             this.radRibbonBarGroup5.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radButtonElement5});
             this.radRibbonBarGroup5.Name = "radRibbonBarGroup5";
-            this.radRibbonBarGroup5.Text = "نوع عضویت";
+            this.radRibbonBarGroup5.Text = "ثبت نوع عضویت";
             // 
             // radButtonElement5
             // 
@@ -185,7 +219,7 @@
             this.radRibbonBarGroup1.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radButtonElement7});
             this.radRibbonBarGroup1.Name = "radRibbonBarGroup1";
-            this.radRibbonBarGroup1.Text = "مدیریت میزهای بازی";
+            this.radRibbonBarGroup1.Text = "ثبت میزهای بازی";
             // 
             // radButtonElement7
             // 
@@ -206,7 +240,7 @@
             this.radRibbonBarGroup8.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radButtonElement8});
             this.radRibbonBarGroup8.Name = "radRibbonBarGroup8";
-            this.radRibbonBarGroup8.Text = "صندوق امانات";
+            this.radRibbonBarGroup8.Text = "ثبت صندوق امانات";
             // 
             // radButtonElement8
             // 
@@ -231,6 +265,8 @@
             // 
             this.radButtonElement11.AccessibleDescription = "radButtonElement11";
             this.radButtonElement11.AccessibleName = "radButtonElement11";
+            this.radButtonElement11.DisplayStyle = Telerik.WinControls.DisplayStyle.Image;
+            this.radButtonElement11.Image = global::BilliardClub.Properties.Resources.wireless;
             this.radButtonElement11.Name = "radButtonElement11";
             this.radButtonElement11.Text = "radButtonElement11";
             this.radButtonElement11.Click += new System.EventHandler(this.radButtonElement11_Click);
@@ -242,7 +278,8 @@
             this.ribbonTab2.IsSelected = false;
             this.ribbonTab2.Items.AddRange(new Telerik.WinControls.RadItem[] {
             this.radRibbonBarGroup6,
-            this.radRibbonBarGroup9});
+            this.radRibbonBarGroup9,
+            this.radRibbonBarGroup7});
             this.ribbonTab2.Name = "ribbonTab2";
             this.ribbonTab2.Text = "عملیات";
             // 
@@ -287,35 +324,6 @@
             this.radButtonElement9.Text = "radButtonElement9";
             this.radButtonElement9.Click += new System.EventHandler(this.radButtonElement9_Click);
             // 
-            // ribbonTab3
-            // 
-            this.ribbonTab3.AccessibleDescription = "اجاره";
-            this.ribbonTab3.AccessibleName = "اجاره";
-            this.ribbonTab3.IsSelected = false;
-            this.ribbonTab3.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radRibbonBarGroup2});
-            this.ribbonTab3.Name = "ribbonTab3";
-            this.ribbonTab3.Text = "اجاره";
-            // 
-            // radRibbonBarGroup2
-            // 
-            this.radRibbonBarGroup2.AccessibleDescription = "اجاره میز";
-            this.radRibbonBarGroup2.AccessibleName = "اجاره میز";
-            this.radRibbonBarGroup2.Items.AddRange(new Telerik.WinControls.RadItem[] {
-            this.radButtonElement6});
-            this.radRibbonBarGroup2.Name = "radRibbonBarGroup2";
-            this.radRibbonBarGroup2.Text = "اجاره میز";
-            // 
-            // radButtonElement6
-            // 
-            this.radButtonElement6.AccessibleDescription = "radButtonElement6";
-            this.radButtonElement6.AccessibleName = "radButtonElement6";
-            this.radButtonElement6.DisplayStyle = Telerik.WinControls.DisplayStyle.Image;
-            this.radButtonElement6.Image = global::BilliardClub.Properties.Resources.bill2;
-            this.radButtonElement6.Name = "radButtonElement6";
-            this.radButtonElement6.Text = "radButtonElement6";
-            this.radButtonElement6.Click += new System.EventHandler(this.radButtonElement6_Click);
-            // 
             // btnExit
             // 
             this.btnExit.AccessibleDescription = "خروج";
@@ -332,6 +340,7 @@
             this.radMenuItem1.Font = new System.Drawing.Font("B Yekan", 12F);
             this.radMenuItem1.Name = "radMenuItem1";
             this.radMenuItem1.Text = "اجاره میز";
+            this.radMenuItem1.Click += new System.EventHandler(this.radMenuItem1_Click);
             // 
             // btnCabinetMemberManagement
             // 
@@ -342,17 +351,32 @@
             this.btnCabinetMemberManagement.Text = "مدیریت صندوق های امانت";
             this.btnCabinetMemberManagement.Click += new System.EventHandler(this.btnCabinetMemberManagement_Click);
             // 
-            // panUsingPlayingBoards
+            // radRibbonBarGroup7
             // 
-            this.panUsingPlayingBoards.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panUsingPlayingBoards.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.panUsingPlayingBoards.Location = new System.Drawing.Point(0, 174);
-            this.panUsingPlayingBoards.Name = "panUsingPlayingBoards";
-            this.panUsingPlayingBoards.RowsCount = 2;
-            this.panUsingPlayingBoards.ShowGroups = true;
-            this.panUsingPlayingBoards.Size = new System.Drawing.Size(1262, 353);
-            this.panUsingPlayingBoards.TabIndex = 1;
-            this.panUsingPlayingBoards.Text = "لیست میزهای در حال استفاده";
+            this.radRibbonBarGroup7.AccessibleDescription = "اجاره میز بازی";
+            this.radRibbonBarGroup7.AccessibleName = "اجاره میز بازی";
+            this.radRibbonBarGroup7.Items.AddRange(new Telerik.WinControls.RadItem[] {
+            this.radButtonElement4});
+            this.radRibbonBarGroup7.Name = "radRibbonBarGroup7";
+            this.radRibbonBarGroup7.Text = "اجاره میز بازی";
+            // 
+            // radButtonElement4
+            // 
+            this.radButtonElement4.AccessibleDescription = "radButtonElement4";
+            this.radButtonElement4.AccessibleName = "radButtonElement4";
+            this.radButtonElement4.AutoSize = true;
+            this.radButtonElement4.AutoSizeMode = Telerik.WinControls.RadAutoSizeMode.WrapAroundChildren;
+            this.radButtonElement4.DisplayStyle = Telerik.WinControls.DisplayStyle.Image;
+            this.radButtonElement4.FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentBounds;
+            this.radButtonElement4.Image = global::BilliardClub.Properties.Resources.bill;
+            this.radButtonElement4.MaxSize = new System.Drawing.Size(0, 0);
+            this.radButtonElement4.Name = "radButtonElement4";
+            this.radButtonElement4.Padding = new System.Windows.Forms.Padding(0);
+            this.radButtonElement4.StretchHorizontally = true;
+            this.radButtonElement4.StretchVertically = true;
+            this.radButtonElement4.Text = "radButtonElement4";
+            this.radButtonElement4.Click += new System.EventHandler(this.radButtonElement4_Click_1);
+            ((Telerik.WinControls.Primitives.ImagePrimitive)(this.radButtonElement4.GetChildAt(1).GetChildAt(0))).FitToSizeMode = Telerik.WinControls.RadFitToSizeMode.FitToParentPadding;
             // 
             // FrmMain
             // 
@@ -369,8 +393,8 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Activated += new System.EventHandler(this.FrmMain_Activated);
             this.Load += new System.EventHandler(this.FrmMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panUsingPlayingBoards)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radRibbonBar1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -394,9 +418,6 @@
         private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup8;
         private Telerik.WinControls.UI.RadButtonElement radButtonElement8;
         private Telerik.WinControls.UI.RadMenuItem btnExit;
-        private Telerik.WinControls.UI.RibbonTab ribbonTab3;
-        private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
-        private Telerik.WinControls.UI.RadButtonElement radButtonElement6;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem1;
         private Telerik.WinControls.UI.RadMenuItem btnCabinetMemberManagement;
         private Telerik.WinControls.UI.RadMenuItem radMenuItem2;
@@ -407,5 +428,9 @@
         private System.Windows.Forms.Timer timerTime;
         private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup11;
         private Telerik.WinControls.UI.RadButtonElement radButtonElement11;
+        private Telerik.WinControls.UI.RadButtonElement radButtonElement6;
+        private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup2;
+        private Telerik.WinControls.UI.RadRibbonBarGroup radRibbonBarGroup7;
+        private Telerik.WinControls.UI.RadButtonElement radButtonElement4;
     }
 }

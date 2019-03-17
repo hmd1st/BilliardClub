@@ -216,6 +216,7 @@
             this.txtSocialAccount.Size = new System.Drawing.Size(133, 28);
             this.txtSocialAccount.TabIndex = 13;
             this.txtSocialAccount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSocialAccount.Enter += new System.EventHandler(this.txtSocialAccount_Enter);
             // 
             // label8
             // 

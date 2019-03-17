@@ -765,5 +765,10 @@ namespace BilliardClub
             myConnection.Dispose();
 
         }
+
+        private void txtSocialAccount_Enter(object sender, EventArgs e)
+        {
+            BTM.Language.SwitchToEnglish();
+        }
     }
 }

@@ -357,7 +357,7 @@ namespace BilliardClub
 
         }
 
-        public static void PowerOnOff(RaspberryPi raspberryPi,string message, string ipAddress, int portNumber)
+        public static void PowerOnOff(RaspberryPin raspberryPin,string message, string ipAddress, int portNumber)
         {
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram,
                 ProtocolType.Udp);
@@ -367,10 +367,11 @@ namespace BilliardClub
             IPEndPoint endPoint = new IPEndPoint(serverIPAddr, portNumber);
 
             byte[] send_buffer =
-                Encoding.ASCII.GetBytes(message + "," +
-                                        RaspberryPi.GpioPins.FindIndex(a => a == int.Parse(raspberryPi.PinNumber)));
-
+                Encoding.ASCII.GetBytes(message + "," + (int.Parse(raspberryPin.PinNumber)-1));
+            
             sock.SendTo(send_buffer, endPoint);
+
+          
         }
     }
 }

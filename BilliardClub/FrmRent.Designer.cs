@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn3 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn4 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             this.radGroupBox1 = new Telerik.WinControls.UI.RadGroupBox();
             this.label9 = new System.Windows.Forms.Label();
             this.btnSave = new Telerik.WinControls.UI.RadButton();
@@ -155,11 +155,11 @@
             this.gridMember.MasterTemplate.AllowDragToGroup = false;
             this.gridMember.MasterTemplate.AllowEditRow = false;
             this.gridMember.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn3.HeaderText = "ردیف";
-            gridViewTextBoxColumn3.Name = "colCounter";
-            gridViewTextBoxColumn3.Width = 41;
+            gridViewTextBoxColumn1.HeaderText = "ردیف";
+            gridViewTextBoxColumn1.Name = "colCounter";
+            gridViewTextBoxColumn1.Width = 41;
             this.gridMember.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn3});
+            gridViewTextBoxColumn1});
             this.gridMember.MasterTemplate.EnableGrouping = false;
             this.gridMember.Name = "gridMember";
             this.gridMember.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -176,8 +176,6 @@
             // 
             this.radGroupBox2.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.radGroupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(245)))));
-            this.radGroupBox2.Controls.Add(this.label5);
-            this.radGroupBox2.Controls.Add(this.cmbPlayingBoardType);
             this.radGroupBox2.Controls.Add(this.label1);
             this.radGroupBox2.Controls.Add(this.radButton1);
             this.radGroupBox2.Controls.Add(this.txtSearchPlayingBoard);
@@ -193,19 +191,19 @@
             // 
             // 
             this.radGroupBox2.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 207, 200, 100);
-            this.radGroupBox2.Size = new System.Drawing.Size(634, 261);
+            this.radGroupBox2.Size = new System.Drawing.Size(634, 215);
             this.radGroupBox2.TabIndex = 1;
             this.radGroupBox2.Text = "انتخاب بازی";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.label5.Location = new System.Drawing.Point(533, 25);
+            this.label5.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.label5.Location = new System.Drawing.Point(276, 528);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(52, 21);
+            this.label5.Size = new System.Drawing.Size(86, 20);
             this.label5.TabIndex = 42;
-            this.label5.Text = "نوع بازی";
+            this.label5.Text = "انتخاب نوع بازی";
             // 
             // cmbPlayingBoardType
             // 
@@ -214,7 +212,7 @@
             this.cmbPlayingBoardType.FormattingEnabled = true;
             this.cmbPlayingBoardType.Items.AddRange(new object[] {
             "عنوان"});
-            this.cmbPlayingBoardType.Location = new System.Drawing.Point(409, 21);
+            this.cmbPlayingBoardType.Location = new System.Drawing.Point(152, 524);
             this.cmbPlayingBoardType.Name = "cmbPlayingBoardType";
             this.cmbPlayingBoardType.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cmbPlayingBoardType.Size = new System.Drawing.Size(118, 28);
@@ -224,7 +222,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.label1.Location = new System.Drawing.Point(533, 58);
+            this.label1.Location = new System.Drawing.Point(534, 29);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(94, 21);
             this.label1.TabIndex = 40;
@@ -235,7 +233,7 @@
             this.radButton1.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.radButton1.Font = new System.Drawing.Font("B Yekan", 10F);
             this.radButton1.ImageAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.radButton1.Location = new System.Drawing.Point(12, 54);
+            this.radButton1.Location = new System.Drawing.Point(12, 25);
             this.radButton1.Name = "radButton1";
             // 
             // 
@@ -248,7 +246,7 @@
             // txtSearchPlayingBoard
             // 
             this.txtSearchPlayingBoard.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.txtSearchPlayingBoard.Location = new System.Drawing.Point(279, 54);
+            this.txtSearchPlayingBoard.Location = new System.Drawing.Point(280, 25);
             this.txtSearchPlayingBoard.Name = "txtSearchPlayingBoard";
             this.txtSearchPlayingBoard.Size = new System.Drawing.Size(124, 28);
             this.txtSearchPlayingBoard.TabIndex = 37;
@@ -261,7 +259,7 @@
             this.cmbSearchPlayingBoardBy.FormattingEnabled = true;
             this.cmbSearchPlayingBoardBy.Items.AddRange(new object[] {
             "عنوان"});
-            this.cmbSearchPlayingBoardBy.Location = new System.Drawing.Point(409, 54);
+            this.cmbSearchPlayingBoardBy.Location = new System.Drawing.Point(410, 25);
             this.cmbSearchPlayingBoardBy.Name = "cmbSearchPlayingBoardBy";
             this.cmbSearchPlayingBoardBy.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cmbSearchPlayingBoardBy.Size = new System.Drawing.Size(118, 28);
@@ -273,7 +271,7 @@
             this.gridPlayingBoard.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.gridPlayingBoard.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gridPlayingBoard.Font = new System.Drawing.Font("B Nazanin", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.gridPlayingBoard.Location = new System.Drawing.Point(2, 87);
+            this.gridPlayingBoard.Location = new System.Drawing.Point(2, 62);
             // 
             // 
             // 
@@ -284,11 +282,11 @@
             this.gridPlayingBoard.MasterTemplate.AllowDragToGroup = false;
             this.gridPlayingBoard.MasterTemplate.AllowEditRow = false;
             this.gridPlayingBoard.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn4.HeaderText = "ردیف";
-            gridViewTextBoxColumn4.Name = "colCounter";
-            gridViewTextBoxColumn4.Width = 41;
+            gridViewTextBoxColumn2.HeaderText = "ردیف";
+            gridViewTextBoxColumn2.Name = "colCounter";
+            gridViewTextBoxColumn2.Width = 41;
             this.gridPlayingBoard.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn4});
+            gridViewTextBoxColumn2});
             this.gridPlayingBoard.MasterTemplate.EnableGrouping = false;
             this.gridPlayingBoard.Name = "gridPlayingBoard";
             this.gridPlayingBoard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -296,16 +294,17 @@
             // 
             // 
             this.gridPlayingBoard.RootElement.ControlBounds = new System.Drawing.Rectangle(2, 87, 240, 150);
-            this.gridPlayingBoard.Size = new System.Drawing.Size(630, 172);
+            this.gridPlayingBoard.Size = new System.Drawing.Size(630, 151);
             this.gridPlayingBoard.TabIndex = 39;
             this.gridPlayingBoard.Text = "لیست میز‌ها";
+            this.gridPlayingBoard.SelectionChanged += new System.EventHandler(this.gridPlayingBoard_SelectionChanged);
             this.gridPlayingBoard.Click += new System.EventHandler(this.gridPlayingBoard_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label2.Location = new System.Drawing.Point(530, 472);
+            this.label2.Location = new System.Drawing.Point(530, 436);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(95, 20);
             this.label2.TabIndex = 41;
@@ -315,7 +314,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label3.Location = new System.Drawing.Point(530, 505);
+            this.label3.Location = new System.Drawing.Point(530, 469);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 20);
             this.label3.TabIndex = 42;
@@ -326,13 +325,13 @@
             this.btnGameStart.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.btnGameStart.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnGameStart.ImageAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnGameStart.Location = new System.Drawing.Point(12, 555);
+            this.btnGameStart.Location = new System.Drawing.Point(12, 524);
             this.btnGameStart.Name = "btnGameStart";
             // 
             // 
             // 
             this.btnGameStart.RootElement.ControlBounds = new System.Drawing.Rectangle(12, 555, 110, 24);
-            this.btnGameStart.Size = new System.Drawing.Size(134, 34);
+            this.btnGameStart.Size = new System.Drawing.Size(134, 28);
             this.btnGameStart.TabIndex = 43;
             this.btnGameStart.Text = "شروع بازی";
             this.btnGameStart.Click += new System.EventHandler(this.btnGameStart_Click);
@@ -341,7 +340,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label4.Location = new System.Drawing.Point(530, 538);
+            this.label4.Location = new System.Drawing.Point(530, 502);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 20);
             this.label4.TabIndex = 44;
@@ -350,7 +349,7 @@
             // lblPlayingBoardTitle
             // 
             this.lblPlayingBoardTitle.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblPlayingBoardTitle.Location = new System.Drawing.Point(202, 537);
+            this.lblPlayingBoardTitle.Location = new System.Drawing.Point(202, 501);
             this.lblPlayingBoardTitle.Name = "lblPlayingBoardTitle";
             this.lblPlayingBoardTitle.Size = new System.Drawing.Size(306, 20);
             this.lblPlayingBoardTitle.TabIndex = 45;
@@ -360,7 +359,7 @@
             // lblDebt
             // 
             this.lblDebt.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblDebt.Location = new System.Drawing.Point(202, 504);
+            this.lblDebt.Location = new System.Drawing.Point(202, 468);
             this.lblDebt.Name = "lblDebt";
             this.lblDebt.Size = new System.Drawing.Size(306, 20);
             this.lblDebt.TabIndex = 46;
@@ -370,7 +369,7 @@
             // lblName
             // 
             this.lblName.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.lblName.Location = new System.Drawing.Point(202, 471);
+            this.lblName.Location = new System.Drawing.Point(202, 435);
             this.lblName.Name = "lblName";
             this.lblName.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.lblName.Size = new System.Drawing.Size(306, 20);
@@ -382,8 +381,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(634, 601);
+            this.ClientSize = new System.Drawing.Size(634, 561);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.lblName);
+            this.Controls.Add(this.cmbPlayingBoardType);
             this.Controls.Add(this.lblDebt);
             this.Controls.Add(this.lblPlayingBoardTitle);
             this.Controls.Add(this.label4);

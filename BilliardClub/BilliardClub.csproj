@@ -199,7 +199,8 @@
     <Compile Include="Classes\RentPlayingBoard.cs" />
     <Compile Include="Classes\TeamMember.cs" />
     <Compile Include="Classes\SocialNetworkAccount.cs" />
-    <Compile Include="RaspberryPi.cs" />
+    <Compile Include="RaspberryPin.cs" />
+    <Compile Include="RaspBerryPlayingBoard.cs" />
     <None Include="BilliardClubDataSet.xsc">
       <DependentUpon>BilliardClubDataSet.xsd</DependentUpon>
     </None>
@@ -398,6 +399,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cash-register-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\wireless.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

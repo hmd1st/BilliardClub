@@ -99,7 +99,7 @@
       <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
-      <Association Name="PlayingBoard_RaspberryPi" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspberryPi" Cardinality="One" />
+      <Association Name="PlayingBoard_RaspberryPi" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspBerryPlayingBoard" Cardinality="One" />
       <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoardTitle" ThisKey="PlayingBoardTitleID" OtherKey="ID" Type="PlayingBoardTitle" IsForeignKey="true" />
     </Type>
   </Table>
@@ -210,11 +210,20 @@
       <Association Name="PlayingBoardGroupTitle_PlayingBoardTitle" Member="PlayingBoardGroupTitle" ThisKey="PlayingBoardGroupTitleID" OtherKey="ID" Type="PlayingBoardGroupTitle" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="" Member="RaspberryPis">
-    <Type Name="RaspberryPi">
+  <Table Name="" Member="RaspBerryPlayingBoards">
+    <Type Name="RaspBerryPlayingBoard">
       <Column Name="PlayingBoardID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PinNumber" Storage="_Title" Type="System.String" DbType="nvarchar(30)" CanBeNull="false" />
+      <Column Name="RaspberryPinID" Storage="_Title" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="PlayingBoard_RaspberryPi" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
+      <Association Name="RaspberryPin_RaspBerryPlayingBoard" Member="RaspberryPin" ThisKey="RaspberryPinID" OtherKey="ID" Type="RaspberryPin" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="RaspberryPins">
+    <Type Name="RaspberryPin">
+      <Column Name="ID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PinNumber" Storage="_Title" Type="System.String" DbType="nvarchar(3)" CanBeNull="false" />
+      <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
+      <Association Name="RaspberryPin_RaspBerryPlayingBoard" Member="RaspBerryPlayingBoards" ThisKey="ID" OtherKey="RaspberryPinID" Type="RaspBerryPlayingBoard" Cardinality="One" />
     </Type>
   </Table>
 </Database>

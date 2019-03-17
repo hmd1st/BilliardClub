@@ -21,7 +21,7 @@ namespace BilliardClub
 
         public static string RaspberryIPAddress
         {
-            get { return "192.168.1.9"; }
+            get { return "127.0.0.1"; }
             //private set { _ipAddress = value; }
         }
 

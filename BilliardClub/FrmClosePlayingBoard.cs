@@ -169,9 +169,31 @@ namespace BilliardClub
 
             myRentPlayingBoard.PlayingBoardType.PlayingBoard.IsAvailable = true;
 
+            int playingBoardID = myRentPlayingBoard.PlayingBoardType.PlayingBoardID;
+
+            if (!RaspBerryPlayingBoard.Validation_By_PlayingBoardID(playingBoardID, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+            RaspberryPin raspberryPin =
+                RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardID, myConnection).RaspberryPin;
+
+            MemberRentPlayingBoard.PowerOnOff(raspberryPin, "0", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
+
             myConnection.SubmitChanges();
 
-            MessageBox.Show("End");
+            MessageBox.Show("بازی تمام شد.");
+
+            DialogResult message = MessageBox.Show(
+                "پرداخت انجام شد و میز بازی بسته شد. آیا مایل هستید پنجره جاری بسته شود؟ ",
+                "کاربر گرامی", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (message == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            myConnection.Dispose();
         }
 
 

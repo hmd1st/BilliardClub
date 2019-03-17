@@ -19,11 +19,11 @@ namespace BilliardClub
 
         private void FrmSetRaspberryRelays_Load(object sender, EventArgs e)
         {
-            cmbRaspberryRelay.SelectedIndex = 0;
-
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            RaspberryPi.ShowList(lstRaspberryRelays, myConnection);
+            RaspBerryPlayingBoard.ShowList(lstRaspberryRelays, myConnection);
+
+            RaspberryPin.LoadComboBoxAvailables(cmbRaspberryRelay, myConnection);
 
             PlayingBoardGroupTitle.LoadComboBox(cmbPlayingBoardGroupTitle, myConnection);
 
@@ -76,6 +76,13 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
+            if (cmbPlayingBoard.SelectedItem==null)
+            {
+                DataValidationMesaage.NoSelectedItemFromList("لیست میزهای بازی");
+
+                return;
+            }
+
             #region PlayingBoard Cast
 
             int playingBoardId = ((PlayingBoard)cmbPlayingBoard.SelectedItem).ID;
@@ -91,13 +98,40 @@ namespace BilliardClub
 
             #endregion
 
-            string pinNumber = RaspberryPi.GpioPins[int.Parse(cmbRaspberryRelay.SelectedItem.ToString()) - 1].ToString();
+            #region RaspberryPin Cast
 
-            RaspberryPi.Insert(pinNumber, playingBoard, myConnection);
+            int raspberryPinID = ((RaspberryPin)cmbRaspberryRelay.SelectedItem).ID;
+
+            if (!RaspberryPin.Validation(raspberryPinID, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            RaspberryPin raspberryPin = RaspberryPin.Get(raspberryPinID, myConnection);
+
+            #endregion
+
+            if (myConnection.RaspBerryPlayingBoards.Any(a=>a.PlayingBoard==playingBoard))
+            {
+                MessageBox.Show("برای این میز بازی یک رله اختصاص داده شده است.", "کاربر گرامی", MessageBoxButtons.OK,
+              MessageBoxIcon.Error);
+
+                return;
+            }
+
+            RaspBerryPlayingBoard.Insert(raspberryPin, playingBoard, myConnection);
+
+            raspberryPin.IsAvailable = false;
+
+            myConnection.SubmitChanges();
 
             DataValidationMesaage.AcceptMessage();
 
-            RaspberryPi.ShowList(lstRaspberryRelays, myConnection);
+            RaspberryPin.LoadComboBoxAvailables(cmbRaspberryRelay, myConnection);
+            
+            RaspBerryPlayingBoard.ShowList(lstRaspberryRelays, myConnection);
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -111,29 +145,35 @@ namespace BilliardClub
 
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            #region RaspberryPi Cast
+            #region RaspBerryPlayingBoard Cast
 
-            int playingBoardId = (int)((RaspberryPi)lstRaspberryRelays.SelectedItems[0].Tag).PlayingBoardID;
+            int playingBoardId = (int)((RaspBerryPlayingBoard)lstRaspberryRelays.SelectedItems[0].Tag).PlayingBoardID;
 
-            if (!RaspberryPi.Validation(playingBoardId, myConnection))
+            if (!RaspBerryPlayingBoard.Validation_By_PlayingBoardID(playingBoardId, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
 
                 return;
             }
 
-            RaspberryPi raspberryPi = RaspberryPi.Get(playingBoardId, myConnection);
+            RaspBerryPlayingBoard raspBerryPlayingBoard = RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardId, myConnection);
             #endregion
 
-            DialogResult message = DataValidationMesaage.ConfirmDeleteData(raspberryPi.PinNumber);
+            DialogResult message = DataValidationMesaage.ConfirmDeleteData(raspBerryPlayingBoard.RaspberryPin.PinNumber);
 
             if (message == DialogResult.Yes)
             {
-                RaspberryPi.Delete(raspberryPi, myConnection);
+                RaspBerryPlayingBoard.Delete(raspBerryPlayingBoard, myConnection);
+
+                raspBerryPlayingBoard.RaspberryPin.IsAvailable = true;
+
+                myConnection.SubmitChanges();
 
                 DataValidationMesaage.DeleteMessage();
 
-                RaspberryPi.ShowList(lstRaspberryRelays, myConnection);
+                RaspberryPin.LoadComboBoxAvailables(cmbRaspberryRelay, myConnection);
+                
+                RaspBerryPlayingBoard.ShowList(lstRaspberryRelays, myConnection);
             }
             myConnection.Dispose();
 

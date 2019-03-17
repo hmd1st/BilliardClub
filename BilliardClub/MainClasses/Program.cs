@@ -21,6 +21,11 @@ namespace BilliardClub
             if (!myConnection.DatabaseExists())
             {
                 myConnection.CreateDatabase();
+
+                for (int i = 0; i < 24; i++)
+                {
+                    RaspberryPin.Insert(i.ToString(), true, myConnection);
+                }
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

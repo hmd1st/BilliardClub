@@ -25,12 +25,27 @@ namespace BilliardClub
 
             Member.LoadGridBriefly(gridMember, myConnection);
 
-            PlayingBoardType.LoadComboBox(cmbPlayingBoardType, myConnection);
-
             PlayingBoard.LoadGridAvailables(gridPlayingBoard, myConnection);
 
+            if (myConnection.PlayingBoards.Any(a => a.IsAvailable))
+            {
+                #region PlayingBoard Cast
 
+                int playingBoardId = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
 
+                if (!PlayingBoard.Validation(playingBoardId, myConnection))
+                {
+                    DataValidationMesaage.NoDataInBank();
+
+                    return;
+                }
+
+                PlayingBoard playingBoard = PlayingBoard.Get(playingBoardId, myConnection);
+
+                #endregion
+
+                PlayingBoardType.LoadComboBox_By_PlayingBoard(cmbPlayingBoardType, playingBoard, myConnection);
+            }
             cmbSearchMemberBy.SelectedIndex = 0;
 
             cmbSearchPlayingBoardBy.SelectedIndex = 0;
@@ -91,31 +106,53 @@ namespace BilliardClub
             Member member = Member.Get(memberId, myConnection);
             #endregion
 
-            #region RaspberryPi Cast
+            if (!myConnection.PlayingBoardTypes.Any(a => a.PlayingBoard == playingBoard))
+            {
+                MessageBox.Show("برای این میز بازی هیچ قیمتی ثبت نشده است.", "کاربر گرامی", MessageBoxButtons.OK,
+               MessageBoxIcon.Error);
 
-            if (!RaspberryPi.Validation(playingBoardId, myConnection))
+                return;
+            }
+
+            if (myConnection.RaspBerryPlayingBoards.Any(a => a.PlayingBoard == playingBoard))
+            {
+                #region RaspBerryPlayingBoard Cast
+
+                if (!RaspBerryPlayingBoard.Validation_By_PlayingBoardID(playingBoardId, myConnection))
+                {
+                    DataValidationMesaage.NoDataInBank();
+
+                    return;
+                }
+
+                RaspBerryPlayingBoard raspBerryPlayingBoard = RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardId, myConnection);
+
+                #endregion
+
+                MemberRentPlayingBoard.PowerOnOff(raspBerryPlayingBoard.RaspberryPin, "1", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
+
+            }
+
+            #region PlayingBoardType Cast
+
+            int playingBoardTypeID = ((PlayingBoardType)cmbPlayingBoardType.SelectedItem).ID;
+
+            if (!PlayingBoardType.Validation(playingBoardTypeID, myConnection))
             {
                 DataValidationMesaage.NoDataInBank();
 
                 return;
             }
 
-            RaspberryPi raspberryPi = RaspberryPi.Get(playingBoardId, myConnection);
+            PlayingBoardType playingBoardType = PlayingBoardType.Get(playingBoardTypeID, myConnection);
 
             #endregion
 
-            ///TODO Cast PlayingBoardType
-
-            PlayingBoardType playingBoardType = myConnection.PlayingBoardTypes.First(a => a.PlayingBoard == playingBoard);
-            
-            ///
-
             MyRentPlayingBoard = RentPlayingBoard.Insert(playingBoardType, DateTime.Now,
-                 DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
+                  DateTime.Now.ToString("HH:mm:ss"), DateTime.Now.ToString("HH:mm:ss"), true, myConnection);
 
             MemberRentPlayingBoard.Insert(MyRentPlayingBoard, member, "opener", myConnection);
 
-            MemberRentPlayingBoard.PowerOnOff(raspberryPi, "1", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
 
             playingBoard.IsAvailable = false;
 
@@ -166,6 +203,28 @@ namespace BilliardClub
             else if (cmbSearchMemberBy.SelectedIndex == 2)
                 Member.SearchGridByMemberNationalCode_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
 
+        }
+
+        private void gridPlayingBoard_SelectionChanged(object sender, EventArgs e)
+        {
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            #region PlayingBoard Cast
+
+            int playingBoardId = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
+
+            if (!PlayingBoard.Validation(playingBoardId, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            PlayingBoard playingBoard = PlayingBoard.Get(playingBoardId, myConnection);
+
+            #endregion
+
+            PlayingBoardType.LoadComboBox_By_PlayingBoard(cmbPlayingBoardType, playingBoard, myConnection);
         }
     }
 }

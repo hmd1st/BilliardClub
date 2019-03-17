@@ -98,9 +98,12 @@ namespace BilliardClub
     partial void InsertPlayingBoardTitle(PlayingBoardTitle instance);
     partial void UpdatePlayingBoardTitle(PlayingBoardTitle instance);
     partial void DeletePlayingBoardTitle(PlayingBoardTitle instance);
-    partial void InsertRaspberryPi(RaspberryPi instance);
-    partial void UpdateRaspberryPi(RaspberryPi instance);
-    partial void DeleteRaspberryPi(RaspberryPi instance);
+    partial void InsertRaspBerryPlayingBoard(RaspBerryPlayingBoard instance);
+    partial void UpdateRaspBerryPlayingBoard(RaspBerryPlayingBoard instance);
+    partial void DeleteRaspBerryPlayingBoard(RaspBerryPlayingBoard instance);
+    partial void InsertRaspberryPin(RaspberryPin instance);
+    partial void UpdateRaspberryPin(RaspberryPin instance);
+    partial void DeleteRaspberryPin(RaspberryPin instance);
     #endregion
 		
 		public DataBaseDataContext(string connection) : 
@@ -311,11 +314,19 @@ namespace BilliardClub
 			}
 		}
 		
-		public System.Data.Linq.Table<RaspberryPi> RaspberryPis
+		public System.Data.Linq.Table<RaspBerryPlayingBoard> RaspBerryPlayingBoards
 		{
 			get
 			{
-				return this.GetTable<RaspberryPi>();
+				return this.GetTable<RaspBerryPlayingBoard>();
+			}
+		}
+		
+		public System.Data.Linq.Table<RaspberryPin> RaspberryPins
+		{
+			get
+			{
+				return this.GetTable<RaspberryPin>();
 			}
 		}
 	}
@@ -1838,7 +1849,7 @@ namespace BilliardClub
 		
 		private EntitySet<PlayingBoardType> _PlayingBoardTypes;
 		
-		private EntityRef<RaspberryPi> _RaspberryPis;
+		private EntityRef<RaspBerryPlayingBoard> _RaspberryPis;
 		
 		private EntityRef<PlayingBoardTitle> _PlayingBoardTitle;
 		
@@ -1859,7 +1870,7 @@ namespace BilliardClub
 		public PlayingBoard()
 		{
 			this._PlayingBoardTypes = new EntitySet<PlayingBoardType>(new Action<PlayingBoardType>(this.attach_PlayingBoardTypes), new Action<PlayingBoardType>(this.detach_PlayingBoardTypes));
-			this._RaspberryPis = default(EntityRef<RaspberryPi>);
+			this._RaspberryPis = default(EntityRef<RaspBerryPlayingBoard>);
 			this._PlayingBoardTitle = default(EntityRef<PlayingBoardTitle>);
 			OnCreated();
 		}
@@ -1962,7 +1973,7 @@ namespace BilliardClub
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspberryPi", Storage="_RaspberryPis", ThisKey="ID", OtherKey="PlayingBoardID", IsUnique=true, IsForeignKey=false)]
-		public RaspberryPi RaspberryPis
+		public RaspBerryPlayingBoard RaspberryPis
 		{
 			get
 			{
@@ -1970,7 +1981,7 @@ namespace BilliardClub
 			}
 			set
 			{
-				RaspberryPi previousValue = this._RaspberryPis.Entity;
+				RaspBerryPlayingBoard previousValue = this._RaspberryPis.Entity;
 				if (((previousValue != value) 
 							|| (this._RaspberryPis.HasLoadedOrAssignedValue == false)))
 				{
@@ -4374,16 +4385,18 @@ namespace BilliardClub
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	public partial class RaspberryPi : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class RaspBerryPlayingBoard : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private int _PlayingBoardTitleID;
 		
-		private string _Title;
+		private int _Title;
 		
 		private EntityRef<PlayingBoard> _PlayingBoard;
+		
+		private EntityRef<RaspberryPin> _RaspberryPin;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4391,13 +4404,14 @@ namespace BilliardClub
     partial void OnCreated();
     partial void OnPlayingBoardIDChanging(int value);
     partial void OnPlayingBoardIDChanged();
-    partial void OnPinNumberChanging(string value);
-    partial void OnPinNumberChanged();
+    partial void OnRaspberryPinIDChanging(int value);
+    partial void OnRaspberryPinIDChanged();
     #endregion
 		
-		public RaspberryPi()
+		public RaspBerryPlayingBoard()
 		{
 			this._PlayingBoard = default(EntityRef<PlayingBoard>);
+			this._RaspberryPin = default(EntityRef<RaspberryPin>);
 			OnCreated();
 		}
 		
@@ -4425,8 +4439,8 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(30)", CanBeNull=false)]
-		public string PinNumber
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", IsPrimaryKey=true)]
+		public int RaspberryPinID
 		{
 			get
 			{
@@ -4436,11 +4450,15 @@ namespace BilliardClub
 			{
 				if ((this._Title != value))
 				{
-					this.OnPinNumberChanging(value);
+					if (this._RaspberryPin.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRaspberryPinIDChanging(value);
 					this.SendPropertyChanging();
 					this._Title = value;
-					this.SendPropertyChanged("PinNumber");
-					this.OnPinNumberChanged();
+					this.SendPropertyChanged("RaspberryPinID");
+					this.OnRaspberryPinIDChanged();
 				}
 			}
 		}
@@ -4475,6 +4493,182 @@ namespace BilliardClub
 						this._PlayingBoardTitleID = default(int);
 					}
 					this.SendPropertyChanged("PlayingBoard");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RaspberryPin_RaspBerryPlayingBoard", Storage="_RaspberryPin", ThisKey="RaspberryPinID", OtherKey="ID", IsForeignKey=true)]
+		public RaspberryPin RaspberryPin
+		{
+			get
+			{
+				return this._RaspberryPin.Entity;
+			}
+			set
+			{
+				RaspberryPin previousValue = this._RaspberryPin.Entity;
+				if (((previousValue != value) 
+							|| (this._RaspberryPin.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RaspberryPin.Entity = null;
+						previousValue.RaspBerryPlayingBoards = null;
+					}
+					this._RaspberryPin.Entity = value;
+					if ((value != null))
+					{
+						value.RaspBerryPlayingBoards = this;
+						this._Title = value.ID;
+					}
+					else
+					{
+						this._Title = default(int);
+					}
+					this.SendPropertyChanged("RaspberryPin");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class RaspberryPin : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PlayingBoardTitleID;
+		
+		private string _Title;
+		
+		private bool _IsAvailable;
+		
+		private EntityRef<RaspBerryPlayingBoard> _RaspBerryPlayingBoards;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnPinNumberChanging(string value);
+    partial void OnPinNumberChanged();
+    partial void OnIsAvailableChanging(bool value);
+    partial void OnIsAvailableChanged();
+    #endregion
+		
+		public RaspberryPin()
+		{
+			this._RaspBerryPlayingBoards = default(EntityRef<RaspBerryPlayingBoard>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayingBoardTitleID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._PlayingBoardTitleID;
+			}
+			set
+			{
+				if ((this._PlayingBoardTitleID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._PlayingBoardTitleID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(3)", CanBeNull=false)]
+		public string PinNumber
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnPinNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("PinNumber");
+					this.OnPinNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvailable")]
+		public bool IsAvailable
+		{
+			get
+			{
+				return this._IsAvailable;
+			}
+			set
+			{
+				if ((this._IsAvailable != value))
+				{
+					this.OnIsAvailableChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvailable = value;
+					this.SendPropertyChanged("IsAvailable");
+					this.OnIsAvailableChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="RaspberryPin_RaspBerryPlayingBoard", Storage="_RaspBerryPlayingBoards", ThisKey="ID", OtherKey="RaspberryPinID", IsUnique=true, IsForeignKey=false)]
+		public RaspBerryPlayingBoard RaspBerryPlayingBoards
+		{
+			get
+			{
+				return this._RaspBerryPlayingBoards.Entity;
+			}
+			set
+			{
+				RaspBerryPlayingBoard previousValue = this._RaspBerryPlayingBoards.Entity;
+				if (((previousValue != value) 
+							|| (this._RaspBerryPlayingBoards.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RaspBerryPlayingBoards.Entity = null;
+						previousValue.RaspberryPin = null;
+					}
+					this._RaspBerryPlayingBoards.Entity = value;
+					if ((value != null))
+					{
+						value.RaspberryPin = this;
+					}
+					this.SendPropertyChanged("RaspBerryPlayingBoards");
 				}
 			}
 		}
