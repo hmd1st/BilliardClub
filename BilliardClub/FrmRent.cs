@@ -50,11 +50,11 @@ namespace BilliardClub
 
             cmbSearchPlayingBoardBy.SelectedIndex = 0;
 
-            myConnection.Dispose();
-        }
+            gridPlayingBoard.ClearSelection();
+            
+            gridMember.ClearSelection();
 
-        private void btnSave_Click(object sender, EventArgs e)
-        {
+            myConnection.Dispose();
 
         }
 
@@ -176,7 +176,7 @@ namespace BilliardClub
                 return;
             }
 
-            lblName.Text = gridPlayingBoard.SelectedRows[0].Cells[3].Value.ToString();
+            lblName.Text = gridMember.SelectedRows[0].Cells[3].Value.ToString();
         }
 
         private void gridPlayingBoard_Click(object sender, EventArgs e)
@@ -188,8 +188,7 @@ namespace BilliardClub
                 return;
             }
 
-            lblPlayingBoardTitle.Text = gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString() + " " +
-                                        gridPlayingBoard.SelectedRows[0].Cells[2].Value.ToString();
+            lblPlayingBoardTitle.Text = gridPlayingBoard.SelectedRows[0].Cells[2].Value.ToString();
         }
 
         private void txtSearchMember_TextChanged(object sender, EventArgs e)
@@ -209,6 +208,11 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
+            if (gridPlayingBoard.SelectedCells.Count==0)
+            {
+                return;
+            }
+
             #region PlayingBoard Cast
 
             int playingBoardId = int.Parse(gridPlayingBoard.SelectedRows[0].Cells[1].Value.ToString());
@@ -225,6 +229,28 @@ namespace BilliardClub
             #endregion
 
             PlayingBoardType.LoadComboBox_By_PlayingBoard(cmbPlayingBoardType, playingBoard, myConnection);
+        }
+
+        private void txtSearchPlayingBoard_TextChanged(object sender, EventArgs e)
+        {
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            //if (cmbSearchPlayingBoardBy.SelectedIndex == 0)
+            PlayingBoard.Search_By_PlayingBoardTitle_LoadGridAvailables(txtSearchPlayingBoard.Text, gridPlayingBoard, myConnection);
+            //else if (cmbSearchPlayingBoardBy.SelectedIndex == 1)
+            //    Member.SearchGridByMemberFullName_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
+            //else if (cmbSearchPlayingBoardBy.SelectedIndex == 2)
+            //Member.SearchGridByMemberNationalCode_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
+
+        }
+
+        private void gridPlayingBoard_DataBindingComplete(object sender, Telerik.WinControls.UI.GridViewBindingCompleteEventArgs e)
+        {
+        }
+
+        private void gridMember_DataBindingComplete(object sender, Telerik.WinControls.UI.GridViewBindingCompleteEventArgs e)
+        {
+            gridMember.ClearSelection();
         }
     }
 }

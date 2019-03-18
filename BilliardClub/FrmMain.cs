@@ -227,5 +227,12 @@ namespace BilliardClub.Forms
 
             frm.ShowDialog();
         }
+
+        private void radMenuItem4_Click(object sender, EventArgs e)
+        {
+            FrmInitialSetting frm=new FrmInitialSetting();
+
+            frm.ShowDialog();
+        }
     }
 }

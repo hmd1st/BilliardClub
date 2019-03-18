@@ -17,12 +17,12 @@ namespace BilliardClub
 
         }
 
-        //private static string _raspberryIPAddress;
+        private static string _raspberryIPAddress;
 
         public static string RaspberryIPAddress
         {
-            get { return "127.0.0.1"; }
-            //private set { _ipAddress = value; }
+            get { return _raspberryIPAddress; }
+            set { _raspberryIPAddress = value; }
         }
 
         //private static int _raspberryPortNumber;

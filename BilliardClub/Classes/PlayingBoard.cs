@@ -38,7 +38,7 @@ namespace BilliardClub
         }
 
         public static void Edit(PlayingBoard playingBoard, PlayingBoardTitle PlayingBoardTitle,
-            string number,bool isAvailable, DataBaseDataContext connection)
+            string number, bool isAvailable, DataBaseDataContext connection)
         {
             playingBoard.Number = number;
 
@@ -81,7 +81,7 @@ namespace BilliardClub
 
         public static void LoadComboBoxByFilter(ComboBox cmbBox, PlayingBoardTitle PlayingBoardTitle, DataBaseDataContext connection)
         {
-            IQueryable<PlayingBoard> myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle  == PlayingBoardTitle);
+            IQueryable<PlayingBoard> myQuery = connection.PlayingBoards.Where(a => a.PlayingBoardTitle == PlayingBoardTitle);
 
             cmbBox.Items.Clear();
 
@@ -135,7 +135,7 @@ namespace BilliardClub
             var myQuery = connection.PlayingBoards.Where(a => a.IsAvailable).Select(a => new
             {
                 id = a.ID,
-                title = a.PlayingBoardTitle.Title,
+                title = a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle + " " + a.PlayingBoardTitle.Title,
                 number = a.Number
             });
 
@@ -145,7 +145,39 @@ namespace BilliardClub
 
             grid.Columns[2].HeaderText = "عنوان";
 
-            grid.Columns[2].Width = (int)Math.Ceiling(0.5*grid.Width);
+            grid.Columns[2].Width = (int)Math.Ceiling(0.5 * grid.Width);
+
+            grid.Columns[3].HeaderText = "شماره";
+
+            grid.Columns[3].Width = (int)Math.Ceiling(0.4 * grid.Width);
+
+            for (int i = 0; i < grid.RowCount; i++)
+            {
+                grid.Rows[i].Cells[0].Value = i + 1;
+            }
+
+        }
+
+        public static void Search_By_PlayingBoardTitle_LoadGridAvailables(string text, RadGridView grid, DataBaseDataContext connection)
+        {
+            var myQuery =
+                connection.PlayingBoards.Where(
+                        a => (a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle.Contains(text.Trim()) ||
+                        a.PlayingBoardTitle.Title.Contains(text.Trim())) && a.IsAvailable)
+                    .Select(a => new
+                    {
+                        id = a.ID,
+                        title = a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle + " " + a.PlayingBoardTitle.Title,
+                        number = a.Number
+                    });
+
+            grid.DataSource = myQuery;
+
+            grid.Columns[1].IsVisible = false;
+
+            grid.Columns[2].HeaderText = "عنوان";
+
+            grid.Columns[2].Width = (int)Math.Ceiling(0.5 * grid.Width);
 
             grid.Columns[3].HeaderText = "شماره";
 
@@ -178,11 +210,11 @@ namespace BilliardClub
 
             grid.Columns[2].HeaderText = "عنوان";
 
-            grid.Columns[2].Width = (int) Math.Ceiling(0.44*grid.Width);
+            grid.Columns[2].Width = (int)Math.Ceiling(0.44 * grid.Width);
 
             grid.Columns[3].HeaderText = "شماره";
 
-            grid.Columns[3].Width = (int) Math.Ceiling(0.44*grid.Width);
+            grid.Columns[3].Width = (int)Math.Ceiling(0.44 * grid.Width);
 
             grid.Columns[4].IsVisible = false;
 
@@ -196,7 +228,7 @@ namespace BilliardClub
 
                     grid.Rows[i].Cells[j].Style.DrawFill = true;
 
-                    grid.Rows[i].Cells[j].Style.BackColor = (bool) grid.Rows[i].Cells[4].Value
+                    grid.Rows[i].Cells[j].Style.BackColor = (bool)grid.Rows[i].Cells[4].Value
                         ? Color.LightGreen
                         : Color.Gray;
                 }
@@ -221,7 +253,7 @@ namespace BilliardClub
                 (a, b) => new
                 {
                     id = a.ID,
-                    title = a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle+" "+ a.PlayingBoardTitle.Title+" "+ a.Number,
+                    title = a.PlayingBoardTitle.PlayingBoardGroupTitle.GroupTitle + " " + a.PlayingBoardTitle.Title + " " + a.Number,
                     type = b.Type,
                     price = b.Price
                 });
@@ -292,6 +324,7 @@ namespace BilliardClub
             }
 
         }
+
         //public static void LoadGrid_By_PlayingBoardTitle_Join_PlayingBoardType(PlayingBoardTitle PlayingBoardTitle, RadGridView grid,
         //    DataBaseDataContext connection)
         //{
