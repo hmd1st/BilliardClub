@@ -208,7 +208,7 @@ namespace BilliardClub
         {
             DataBaseDataContext myConnection = Setting.DataBase;
 
-            if (gridPlayingBoard.SelectedCells.Count==0)
+            if (gridPlayingBoard.SelectedRows.Count==0)
             {
                 return;
             }
@@ -244,13 +244,5 @@ namespace BilliardClub
 
         }
 
-        private void gridPlayingBoard_DataBindingComplete(object sender, Telerik.WinControls.UI.GridViewBindingCompleteEventArgs e)
-        {
-        }
-
-        private void gridMember_DataBindingComplete(object sender, Telerik.WinControls.UI.GridViewBindingCompleteEventArgs e)
-        {
-            gridMember.ClearSelection();
-        }
     }
 }

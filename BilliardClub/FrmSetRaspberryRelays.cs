@@ -163,10 +163,10 @@ namespace BilliardClub
 
             if (message == DialogResult.Yes)
             {
-                RaspBerryPlayingBoard.Delete(raspBerryPlayingBoard, myConnection);
-
                 raspBerryPlayingBoard.RaspberryPin.IsAvailable = true;
-
+                
+                RaspBerryPlayingBoard.Delete(raspBerryPlayingBoard, myConnection);
+                
                 myConnection.SubmitChanges();
 
                 DataValidationMesaage.DeleteMessage();
@@ -175,6 +175,7 @@ namespace BilliardClub
                 
                 RaspBerryPlayingBoard.ShowList(lstRaspberryRelays, myConnection);
             }
+
             myConnection.Dispose();
 
         }

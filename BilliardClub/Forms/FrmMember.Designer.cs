@@ -38,7 +38,6 @@
             this.وضعیتپرداختیToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLevelGet = new Telerik.WinControls.UI.RadButton();
             this.txtNationalCode = new System.Windows.Forms.MaskedTextBox();
-            this.txtPhoneNumber = new System.Windows.Forms.MaskedTextBox();
             this.cmbType = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -69,6 +68,7 @@
             this.cmbLevel = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtFirstName = new System.Windows.Forms.TextBox();
+            this.txtPhoneNumber = new System.Windows.Forms.TextBox();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnLevelGet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnSocialAccountTypeGet)).BeginInit();
@@ -141,16 +141,6 @@
             this.txtNationalCode.Size = new System.Drawing.Size(118, 28);
             this.txtNationalCode.TabIndex = 4;
             this.txtNationalCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
-            // 
-            // txtPhoneNumber
-            // 
-            this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.txtPhoneNumber.Location = new System.Drawing.Point(719, 77);
-            this.txtPhoneNumber.Mask = "(\\0\\900) 000-0000";
-            this.txtPhoneNumber.Name = "txtPhoneNumber";
-            this.txtPhoneNumber.Size = new System.Drawing.Size(133, 28);
-            this.txtPhoneNumber.TabIndex = 10;
-            this.txtPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals;
             // 
             // cmbType
             // 
@@ -499,14 +489,23 @@
             this.txtFirstName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtFirstName_KeyDown);
             this.txtFirstName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFirstName_KeyPress);
             // 
+            // txtPhoneNumber
+            // 
+            this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtPhoneNumber.Location = new System.Drawing.Point(719, 77);
+            this.txtPhoneNumber.Name = "txtPhoneNumber";
+            this.txtPhoneNumber.Size = new System.Drawing.Size(133, 28);
+            this.txtPhoneNumber.TabIndex = 37;
+            this.txtPhoneNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // FrmMember
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(934, 511);
+            this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.btnLevelGet);
             this.Controls.Add(this.txtNationalCode);
-            this.Controls.Add(this.txtPhoneNumber);
             this.Controls.Add(this.cmbType);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -589,7 +588,6 @@
         private System.Windows.Forms.TextBox txtSocialAccount;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox cmbType;
-        private System.Windows.Forms.MaskedTextBox txtPhoneNumber;
         private System.Windows.Forms.MaskedTextBox txtNationalCode;
         private Telerik.WinControls.UI.RadButton btnLevelGet;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -598,5 +596,6 @@
         private System.Windows.Forms.ToolStripMenuItem cmsTeam;
         private System.Windows.Forms.ToolStripMenuItem صندوقچهاماناتToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem وضعیتپرداختیToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtPhoneNumber;
     }
 }

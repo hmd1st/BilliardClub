@@ -318,6 +318,13 @@ namespace BilliardClub
 
             #endregion
 
+            if (myConnection.PlayingBoards.Any(a => a.PlayingBoardTitle == playingBoardTitle && a.Number.Equals(txtNumber.Text.Trim())))
+            {
+                DataValidationMesaage.DuplicateData("شماره میز");
+
+                return;
+            }
+
             PlayingBoard playingBoard = PlayingBoard.Insert(playingBoardTitle, txtNumber.Text, true, myConnection);
 
             DataValidationMesaage.AcceptMessage();
@@ -638,7 +645,62 @@ namespace BilliardClub
 
             #endregion
 
-            FrmSetRaspberryRelays frm =new FrmSetRaspberryRelays();
+            FrmSetRaspberryRelays frm = new FrmSetRaspberryRelays();
+
+            frm.ShowDialog();
+        }
+
+        private void تعیینبهاءToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            #region No ListItem Selected
+
+            if (gridPlayingBoard.SelectedRows.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
+
+                return;
+            }
+
+
+            #endregion
+
+            DataBaseDataContext myConnection = Setting.DataBase;
+
+            #region PlayingBoard Cast
+
+            int playingBoardId = (int)gridPlayingBoard.SelectedRows[0].Cells[1].Value;
+
+            if (!PlayingBoard.Validation(playingBoardId, myConnection))
+            {
+                DataValidationMesaage.NoDataInBank();
+
+                return;
+            }
+
+            SelectedPlayingBoard = PlayingBoard.Get(playingBoardId, myConnection);
+
+            #endregion
+
+            FrmPlayingBoardType frm = new FrmPlayingBoardType();
+
+            frm.ShowDialog();
+        }
+
+        private void کنترلبرقToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            #region No ListItem Selected
+
+            if (gridPlayingBoard.SelectedRows.Count == 0)
+            {
+                DataValidationMesaage.NoSelectedItemFromList(gridPlayingBoard.Text);
+
+                return;
+            }
+
+
+            #endregion
+
+            FrmSetRaspberryRelays frm = new FrmSetRaspberryRelays();
 
             frm.ShowDialog();
         }

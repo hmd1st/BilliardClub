@@ -135,22 +135,7 @@ namespace BilliardClub
 
             #endregion
 
-            #region SocialNetwork Casting
-
-            int socialNetworkTypeID = ((SocialNetworkType)cmbSocialNetworkType.SelectedItem).ID;
-
-            if (!Phone.Validation(socialNetworkTypeID, myConnection))
-            {
-                //TODO Fix Message
-
-                DataValidationMesaage.NoDataInBank();
-
-                return;
-            }
-
-            SocialNetworkType socialNetworkType = SocialNetworkType.Get(socialNetworkTypeID, myConnection);
-
-            #endregion
+         
 
             #region Save Image
 
@@ -212,8 +197,29 @@ namespace BilliardClub
 
             PhoneNumber.Insert(phone, member, true, CorrectPhoneNumber(), myConnection);
 
-            SocialNetworkAccount.Insert(socialNetworkType, member, true, txtSocialAccount.Text.Trim(), myConnection);
 
+            if (txtSocialAccount.Text.Length > 0)
+            {
+
+                #region SocialNetwork Casting
+
+                int socialNetworkTypeID = ((SocialNetworkType) cmbSocialNetworkType.SelectedItem).ID;
+
+                if (!Phone.Validation(socialNetworkTypeID, myConnection))
+                {
+                    //TODO Fix Message
+
+                    DataValidationMesaage.NoDataInBank();
+
+                    return;
+                }
+
+                SocialNetworkType socialNetworkType = SocialNetworkType.Get(socialNetworkTypeID, myConnection);
+
+                #endregion
+
+                SocialNetworkAccount.Insert(socialNetworkType, member, true, txtSocialAccount.Text.Trim(), myConnection);
+            }
             GetCode();
 
             Member.LoadGridJoinSocialNetworkAccountJoinPhoneNumber(gridMember, myConnection);

@@ -249,7 +249,6 @@
             this.gridPlayingBoard.TabIndex = 39;
             this.gridPlayingBoard.Text = "لیست میز‌ها";
             this.gridPlayingBoard.SelectionChanged += new System.EventHandler(this.gridPlayingBoard_SelectionChanged);
-            this.gridPlayingBoard.DataBindingComplete += new Telerik.WinControls.UI.GridViewBindingCompleteEventHandler(this.gridPlayingBoard_DataBindingComplete);
             this.gridPlayingBoard.Click += new System.EventHandler(this.gridPlayingBoard_Click);
             // 
             // radGroupBox1
@@ -341,7 +340,6 @@
             this.gridMember.Size = new System.Drawing.Size(630, 147);
             this.gridMember.TabIndex = 39;
             this.gridMember.Text = "لیست اعضا";
-            this.gridMember.DataBindingComplete += new Telerik.WinControls.UI.GridViewBindingCompleteEventHandler(this.gridMember_DataBindingComplete);
             this.gridMember.Click += new System.EventHandler(this.gridMember_Click);
             // 
             // FrmRent

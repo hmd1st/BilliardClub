@@ -63,6 +63,7 @@
     </Compile>
     <Compile Include="Classes\Cabinet.cs" />
     <Compile Include="Classes\RaspberryPi.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Exception\DataValidationMessage.cs" />
     <Compile Include="DataBase.designer.cs">
       <AutoGen>True</AutoGen>
@@ -198,6 +199,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\PlayingBoardGroupTitle.cs" />
+    <Compile Include="Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainClasses\Setting.cs" />
     <Compile Include="Classes\Team.cs" />
@@ -411,6 +413,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\wireless.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\help.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\config.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

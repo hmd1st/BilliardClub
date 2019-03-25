@@ -93,7 +93,7 @@ namespace BilliardClub
 
             if (!query.Any())
             {
-                comboBox.Items.Add("یک آیتم به ثبت برسانید.");
+                comboBox.Items.Add(" رله آزاد موجود نیست.");
 
                 comboBox.SelectedIndex = 0;
             }

@@ -5,14 +5,17 @@
       <Column Name="Title" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
-  <Table Name="" Member="Peyments">
-    <Type Name="Peyment">
+  <Table Name="" Member="Payments">
+    <Type Name="Payment">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="Title" Type="System.String" CanBeNull="false" />
-      <Column Name="Price" Type="System.String" CanBeNull="false" />
-      <Column Name="Date" Type="System.String" CanBeNull="false" />
-      <Column Name="Type" Type="System.String" CanBeNull="false" />
-      <Column Name="Description" Type="System.String" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="Price" Type="System.Int32" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" CanBeNull="false" />
+      <Column Name="Type" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="Description" Type="System.String" DbType="nvarchar(2000)" CanBeNull="false" />
+      <Column Name="RentIdentity" Type="System.Int32" CanBeNull="false" />
+      <Column Name="MemberId" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Member_Peyment" Member="Member" ThisKey="MemberId" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Teachers">
@@ -99,7 +102,7 @@
       <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Column Name="PlayingBoardTitleID" Type="System.Int32" CanBeNull="false" />
       <Association Name="PlayingBoard_PlayingBoardType" Member="PlayingBoardTypes" ThisKey="ID" OtherKey="PlayingBoardID" Type="PlayingBoardType" />
-      <Association Name="PlayingBoard_RaspberryPi" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspBerryPlayingBoard" Cardinality="One" />
+      <Association Name="PlayingBoard_RaspBerryPlayingBoard" Member="RaspberryPis" ThisKey="ID" OtherKey="PlayingBoardID" Type="RaspBerryPlayingBoard" Cardinality="One" />
       <Association Name="PlayingBoardTitle_PlayingBoard" Member="PlayingBoardTitle" ThisKey="PlayingBoardTitleID" OtherKey="ID" Type="PlayingBoardTitle" IsForeignKey="true" />
     </Type>
   </Table>
@@ -181,6 +184,7 @@
       <Column Name="Sex" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
       <Column Name="Image" Type="System.Byte[]" DbType="varbinary(max)" CanBeNull="false" />
       <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Member_Peyment" Member="Payments" Storage="_Peyments" ThisKey="ID" OtherKey="MemberId" Type="Payment" />
       <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
       <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
       <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
@@ -214,7 +218,7 @@
     <Type Name="RaspBerryPlayingBoard">
       <Column Name="PlayingBoardID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="RaspberryPinID" Storage="_Title" Type="System.Int32" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="PlayingBoard_RaspberryPi" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
+      <Association Name="PlayingBoard_RaspBerryPlayingBoard" Member="PlayingBoard" ThisKey="PlayingBoardID" OtherKey="ID" Type="PlayingBoard" IsForeignKey="true" />
       <Association Name="RaspberryPin_RaspBerryPlayingBoard" Member="RaspberryPin" ThisKey="RaspberryPinID" OtherKey="ID" Type="RaspberryPin" IsForeignKey="true" />
     </Type>
   </Table>
@@ -224,6 +228,13 @@
       <Column Name="PinNumber" Storage="_Title" Type="System.String" DbType="nvarchar(3)" CanBeNull="false" />
       <Column Name="IsAvailable" Type="System.Boolean" CanBeNull="false" />
       <Association Name="RaspberryPin_RaspBerryPlayingBoard" Member="RaspBerryPlayingBoards" ThisKey="ID" OtherKey="RaspberryPinID" Type="RaspBerryPlayingBoard" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="" Member="Configurations">
+    <Type Name="Configuration">
+      <Column Name="ID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="RaspberryIPAddress" Storage="_Title" Type="System.String" DbType="nvarchar(15)" CanBeNull="false" />
+      <Column Name="RaspberryPortNumber" Storage="_IsAvailable" Type="System.String" DbType="nvarchar(4)" CanBeNull="false" />
     </Type>
   </Table>
 </Database>

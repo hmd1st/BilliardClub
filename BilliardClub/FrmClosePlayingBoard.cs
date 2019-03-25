@@ -177,10 +177,15 @@ namespace BilliardClub
 
                 return;
             }
-            RaspberryPin raspberryPin =
-                RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardID, myConnection).RaspberryPin;
+            
+            #region RaspBerryPlayingBoard Cast
 
-            MemberRentPlayingBoard.PowerOnOff(raspberryPin, "0", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
+            RaspBerryPlayingBoard raspBerryPlayingBoard = RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardID, myConnection);
+
+            #endregion
+
+            MemberRentPlayingBoard.PowerOnOff(raspBerryPlayingBoard.RaspberryPin, "0", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
+
 
             myConnection.SubmitChanges();
 
@@ -194,6 +199,9 @@ namespace BilliardClub
                 this.Close();
             }
             myConnection.Dispose();
+
+
+
         }
 
 

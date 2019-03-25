@@ -17,13 +17,9 @@ namespace BilliardClub
 
         }
 
-        private static string _raspberryIPAddress;
+       // private static string _raspberryIPAddress;
 
-        public static string RaspberryIPAddress
-        {
-            get { return _raspberryIPAddress; }
-            set { _raspberryIPAddress = value; }
-        }
+        public static string RaspberryIPAddress => DataBase.Configurations.FirstOrDefault().RaspberryIPAddress;
 
         //private static int _raspberryPortNumber;
 

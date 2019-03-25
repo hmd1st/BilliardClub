@@ -127,13 +127,6 @@ namespace BilliardClub.Forms
             frm.ShowDialog();
         }
 
-        private void radButtonElement10_Click(object sender, EventArgs e)
-        {
-            FrmPlayingBoardGroupTitle frm = new FrmPlayingBoardGroupTitle();
-
-            frm.ShowDialog();
-        }
-
         private void radButtonElement11_Click(object sender, EventArgs e)
         {
             FrmSetRaspberryRelays frm = new FrmSetRaspberryRelays();
@@ -229,6 +222,13 @@ namespace BilliardClub.Forms
         }
 
         private void radMenuItem4_Click(object sender, EventArgs e)
+        {
+            FrmInitialSetting frm=new FrmInitialSetting();
+
+            frm.ShowDialog();
+        }
+
+        private void radButtonElement10_Click(object sender, EventArgs e)
         {
             FrmInitialSetting frm=new FrmInitialSetting();
 

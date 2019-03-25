@@ -32,9 +32,9 @@ namespace BilliardClub
     partial void InsertAsset(Asset instance);
     partial void UpdateAsset(Asset instance);
     partial void DeleteAsset(Asset instance);
-    partial void InsertPeyment(Peyment instance);
-    partial void UpdatePeyment(Peyment instance);
-    partial void DeletePeyment(Peyment instance);
+    partial void InsertPayment(Payment instance);
+    partial void UpdatePayment(Payment instance);
+    partial void DeletePayment(Payment instance);
     partial void InsertTeacher(Teacher instance);
     partial void UpdateTeacher(Teacher instance);
     partial void DeleteTeacher(Teacher instance);
@@ -104,6 +104,9 @@ namespace BilliardClub
     partial void InsertRaspberryPin(RaspberryPin instance);
     partial void UpdateRaspberryPin(RaspberryPin instance);
     partial void DeleteRaspberryPin(RaspberryPin instance);
+    partial void InsertConfiguration(Configuration instance);
+    partial void UpdateConfiguration(Configuration instance);
+    partial void DeleteConfiguration(Configuration instance);
     #endregion
 		
 		public DataBaseDataContext(string connection) : 
@@ -138,11 +141,11 @@ namespace BilliardClub
 			}
 		}
 		
-		public System.Data.Linq.Table<Peyment> Peyments
+		public System.Data.Linq.Table<Payment> Payments
 		{
 			get
 			{
-				return this.GetTable<Peyment>();
+				return this.GetTable<Payment>();
 			}
 		}
 		
@@ -329,6 +332,14 @@ namespace BilliardClub
 				return this.GetTable<RaspberryPin>();
 			}
 		}
+		
+		public System.Data.Linq.Table<Configuration> Configurations
+		{
+			get
+			{
+				return this.GetTable<Configuration>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
@@ -418,7 +429,7 @@ namespace BilliardClub
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
-	public partial class Peyment : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Payment : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -427,13 +438,19 @@ namespace BilliardClub
 		
 		private string _Title;
 		
-		private string _Price;
+		private int _Price;
 		
-		private string _Date;
+		private System.DateTime _Date;
 		
-		private string _Type;
+		private bool _Type;
 		
 		private string _Description;
+		
+		private int _RentIdentity;
+		
+		private int _MemberId;
+		
+		private EntityRef<Member> _Member;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -443,18 +460,23 @@ namespace BilliardClub
     partial void OnIDChanged();
     partial void OnTitleChanging(string value);
     partial void OnTitleChanged();
-    partial void OnPriceChanging(string value);
+    partial void OnPriceChanging(int value);
     partial void OnPriceChanged();
-    partial void OnDateChanging(string value);
+    partial void OnDateChanging(System.DateTime value);
     partial void OnDateChanged();
-    partial void OnTypeChanging(string value);
+    partial void OnTypeChanging(bool value);
     partial void OnTypeChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
+    partial void OnRentIdentityChanging(int value);
+    partial void OnRentIdentityChanged();
+    partial void OnMemberIdChanging(int value);
+    partial void OnMemberIdChanged();
     #endregion
 		
-		public Peyment()
+		public Payment()
 		{
+			this._Member = default(EntityRef<Member>);
 			OnCreated();
 		}
 		
@@ -478,7 +500,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(20)", CanBeNull=false)]
 		public string Title
 		{
 			get
@@ -498,8 +520,8 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", CanBeNull=false)]
-		public string Price
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price")]
+		public int Price
 		{
 			get
 			{
@@ -518,8 +540,8 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", CanBeNull=false)]
-		public string Date
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date")]
+		public System.DateTime Date
 		{
 			get
 			{
@@ -538,8 +560,8 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", CanBeNull=false)]
-		public string Type
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type")]
+		public bool Type
 		{
 			get
 			{
@@ -558,7 +580,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="nvarchar(2000)", CanBeNull=false)]
 		public string Description
 		{
 			get
@@ -574,6 +596,84 @@ namespace BilliardClub
 					this._Description = value;
 					this.SendPropertyChanged("Description");
 					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RentIdentity")]
+		public int RentIdentity
+		{
+			get
+			{
+				return this._RentIdentity;
+			}
+			set
+			{
+				if ((this._RentIdentity != value))
+				{
+					this.OnRentIdentityChanging(value);
+					this.SendPropertyChanging();
+					this._RentIdentity = value;
+					this.SendPropertyChanged("RentIdentity");
+					this.OnRentIdentityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberId")]
+		public int MemberId
+		{
+			get
+			{
+				return this._MemberId;
+			}
+			set
+			{
+				if ((this._MemberId != value))
+				{
+					if (this._Member.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnMemberIdChanging(value);
+					this.SendPropertyChanging();
+					this._MemberId = value;
+					this.SendPropertyChanged("MemberId");
+					this.OnMemberIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Peyment", Storage="_Member", ThisKey="MemberId", OtherKey="ID", IsForeignKey=true)]
+		public Member Member
+		{
+			get
+			{
+				return this._Member.Entity;
+			}
+			set
+			{
+				Member previousValue = this._Member.Entity;
+				if (((previousValue != value) 
+							|| (this._Member.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Member.Entity = null;
+						previousValue.Payments.Remove(this);
+					}
+					this._Member.Entity = value;
+					if ((value != null))
+					{
+						value.Payments.Add(this);
+						this._MemberId = value.ID;
+					}
+					else
+					{
+						this._MemberId = default(int);
+					}
+					this.SendPropertyChanged("Member");
 				}
 			}
 		}
@@ -1972,7 +2072,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspberryPi", Storage="_RaspberryPis", ThisKey="ID", OtherKey="PlayingBoardID", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspBerryPlayingBoard", Storage="_RaspberryPis", ThisKey="ID", OtherKey="PlayingBoardID", IsUnique=true, IsForeignKey=false)]
 		public RaspBerryPlayingBoard RaspberryPis
 		{
 			get
@@ -3508,6 +3608,8 @@ namespace BilliardClub
 		
 		private int _LevelID;
 		
+		private EntitySet<Payment> _Peyments;
+		
 		private EntitySet<MemberRentPlayingBoard> _MemberRentPlayingBoards;
 		
 		private EntitySet<TeamMember> _TeamMembers;
@@ -3548,6 +3650,7 @@ namespace BilliardClub
 		
 		public Member()
 		{
+			this._Peyments = new EntitySet<Payment>(new Action<Payment>(this.attach_Peyments), new Action<Payment>(this.detach_Peyments));
 			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
 			this._TeamMembers = new EntitySet<TeamMember>(new Action<TeamMember>(this.attach_TeamMembers), new Action<TeamMember>(this.detach_TeamMembers));
 			this._SocialNetworkAccounts = new EntitySet<SocialNetworkAccount>(new Action<SocialNetworkAccount>(this.attach_SocialNetworkAccounts), new Action<SocialNetworkAccount>(this.detach_SocialNetworkAccounts));
@@ -3761,6 +3864,19 @@ namespace BilliardClub
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Peyment", Storage="_Peyments", ThisKey="ID", OtherKey="MemberId")]
+		public EntitySet<Payment> Payments
+		{
+			get
+			{
+				return this._Peyments;
+			}
+			set
+			{
+				this._Peyments.Assign(value);
+			}
+		}
+		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_MemberRentPlayingBoard", Storage="_MemberRentPlayingBoards", ThisKey="ID", OtherKey="MemberID")]
 		public EntitySet<MemberRentPlayingBoard> MemberRentPlayingBoards
 		{
@@ -3878,6 +3994,18 @@ namespace BilliardClub
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Peyments(Payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = this;
+		}
+		
+		private void detach_Peyments(Payment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Member = null;
 		}
 		
 		private void attach_MemberRentPlayingBoards(MemberRentPlayingBoard entity)
@@ -4463,7 +4591,7 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspberryPi", Storage="_PlayingBoard", ThisKey="PlayingBoardID", OtherKey="ID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PlayingBoard_RaspBerryPlayingBoard", Storage="_PlayingBoard", ThisKey="PlayingBoardID", OtherKey="ID", IsForeignKey=true)]
 		public PlayingBoard PlayingBoard
 		{
 			get
@@ -4669,6 +4797,116 @@ namespace BilliardClub
 						value.RaspberryPin = this;
 					}
 					this.SendPropertyChanged("RaspBerryPlayingBoards");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class Configuration : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _PlayingBoardTitleID;
+		
+		private string _Title;
+		
+		private string _IsAvailable;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnRaspberryIPAddressChanging(string value);
+    partial void OnRaspberryIPAddressChanged();
+    partial void OnRaspberryPortNumberChanging(string value);
+    partial void OnRaspberryPortNumberChanged();
+    #endregion
+		
+		public Configuration()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PlayingBoardTitleID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._PlayingBoardTitleID;
+			}
+			set
+			{
+				if ((this._PlayingBoardTitleID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._PlayingBoardTitleID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(15)", CanBeNull=false)]
+		public string RaspberryIPAddress
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnRaspberryIPAddressChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("RaspberryIPAddress");
+					this.OnRaspberryIPAddressChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsAvailable", DbType="nvarchar(4)", CanBeNull=false)]
+		public string RaspberryPortNumber
+		{
+			get
+			{
+				return this._IsAvailable;
+			}
+			set
+			{
+				if ((this._IsAvailable != value))
+				{
+					this.OnRaspberryPortNumberChanging(value);
+					this.SendPropertyChanging();
+					this._IsAvailable = value;
+					this.SendPropertyChanged("RaspberryPortNumber");
+					this.OnRaspberryPortNumberChanged();
 				}
 			}
 		}
