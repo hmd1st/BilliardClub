@@ -47,13 +47,21 @@
             this.gridMember = new Telerik.WinControls.UI.RadGridView();
             this.btnPayment = new Telerik.WinControls.UI.RadButton();
             this.radGroupBox3 = new Telerik.WinControls.UI.RadGroupBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmbBankAccount = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtAccountNumber = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtCardNumber = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtCardPaymentIdentity = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.radioCash = new System.Windows.Forms.RadioButton();
+            this.label5 = new System.Windows.Forms.Label();
+            this.radioCard = new System.Windows.Forms.RadioButton();
+            this.txtPrice = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.cmbIsCredit = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).BeginInit();
             this.radGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox2)).BeginInit();
@@ -87,7 +95,7 @@
             // 
             // 
             this.radGroupBox1.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 0, 200, 100);
-            this.radGroupBox1.Size = new System.Drawing.Size(675, 84);
+            this.radGroupBox1.Size = new System.Drawing.Size(674, 84);
             this.radGroupBox1.TabIndex = 9;
             this.radGroupBox1.Text = "اطلاعات اجاره کننده میز";
             // 
@@ -167,9 +175,9 @@
             this.label6.Font = new System.Drawing.Font("B Yekan", 9.75F);
             this.label6.Location = new System.Drawing.Point(208, 42);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(72, 20);
+            this.label6.Size = new System.Drawing.Size(91, 20);
             this.label6.TabIndex = 6;
-            this.label6.Text = "مبلغ پرداختی";
+            this.label6.Text = "مبلغ محاسبه شده";
             // 
             // radGroupBox2
             // 
@@ -186,7 +194,7 @@
             this.radGroupBox2.Location = new System.Drawing.Point(0, 84);
             this.radGroupBox2.Name = "radGroupBox2";
             this.radGroupBox2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radGroupBox2.Size = new System.Drawing.Size(675, 195);
+            this.radGroupBox2.Size = new System.Drawing.Size(674, 195);
             this.radGroupBox2.TabIndex = 10;
             this.radGroupBox2.Text = "اطلاعات اجاره کننده میز";
             // 
@@ -226,7 +234,7 @@
             this.radioMySelf.TabStop = true;
             this.radioMySelf.Text = "خودم";
             this.radioMySelf.UseVisualStyleBackColor = true;
-            this.radioMySelf.CheckedChanged += new System.EventHandler(this.radioMySelf_CheckedChanged_1);
+            this.radioMySelf.CheckedChanged += new System.EventHandler(this.radioMySelf_CheckedChanged);
             // 
             // txtSearchMember
             // 
@@ -236,6 +244,7 @@
             this.txtSearchMember.Size = new System.Drawing.Size(144, 28);
             this.txtSearchMember.TabIndex = 44;
             this.txtSearchMember.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtSearchMember.TextChanged += new System.EventHandler(this.txtSearchMember_TextChanged);
             // 
             // cmbSearchMemberBy
             // 
@@ -281,7 +290,7 @@
             // 
             // 
             this.gridMember.RootElement.ControlBounds = new System.Drawing.Rectangle(2, 52, 240, 150);
-            this.gridMember.Size = new System.Drawing.Size(671, 141);
+            this.gridMember.Size = new System.Drawing.Size(670, 141);
             this.gridMember.TabIndex = 46;
             this.gridMember.Text = "لیست اعضا";
             // 
@@ -291,13 +300,13 @@
             this.btnPayment.Font = new System.Drawing.Font("B Yekan", 10F);
             this.btnPayment.Image = global::BilliardClub.Properties.Resources.Cash_register_icon;
             this.btnPayment.ImageAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnPayment.Location = new System.Drawing.Point(12, 28);
+            this.btnPayment.Location = new System.Drawing.Point(12, 21);
             this.btnPayment.Name = "btnPayment";
             // 
             // 
             // 
-            this.btnPayment.RootElement.ControlBounds = new System.Drawing.Rectangle(2, 285, 110, 24);
-            this.btnPayment.Size = new System.Drawing.Size(150, 28);
+            this.btnPayment.RootElement.ControlBounds = new System.Drawing.Rectangle(12, 21, 110, 24);
+            this.btnPayment.Size = new System.Drawing.Size(103, 28);
             this.btnPayment.TabIndex = 45;
             this.btnPayment.Text = "پرداخت";
             this.btnPayment.Click += new System.EventHandler(this.btnPayment_Click);
@@ -306,13 +315,21 @@
             // 
             this.radGroupBox3.AccessibleRole = System.Windows.Forms.AccessibleRole.Grouping;
             this.radGroupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(219)))), ((int)(((byte)(245)))));
+            this.radGroupBox3.Controls.Add(this.label12);
+            this.radGroupBox3.Controls.Add(this.cmbBankAccount);
+            this.radGroupBox3.Controls.Add(this.label11);
+            this.radGroupBox3.Controls.Add(this.txtAccountNumber);
+            this.radGroupBox3.Controls.Add(this.label10);
+            this.radGroupBox3.Controls.Add(this.txtCardNumber);
+            this.radGroupBox3.Controls.Add(this.label8);
+            this.radGroupBox3.Controls.Add(this.txtCardPaymentIdentity);
             this.radGroupBox3.Controls.Add(this.label7);
-            this.radGroupBox3.Controls.Add(this.radioButton1);
+            this.radGroupBox3.Controls.Add(this.radioCash);
             this.radGroupBox3.Controls.Add(this.label5);
-            this.radGroupBox3.Controls.Add(this.radioButton2);
-            this.radGroupBox3.Controls.Add(this.textBox1);
+            this.radGroupBox3.Controls.Add(this.radioCard);
+            this.radGroupBox3.Controls.Add(this.txtPrice);
             this.radGroupBox3.Controls.Add(this.label3);
-            this.radGroupBox3.Controls.Add(this.comboBox1);
+            this.radGroupBox3.Controls.Add(this.cmbIsCredit);
             this.radGroupBox3.Controls.Add(this.btnPayment);
             this.radGroupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.radGroupBox3.Font = new System.Drawing.Font("Tahoma", 8.25F);
@@ -323,101 +340,187 @@
             // 
             // 
             // 
-            this.radGroupBox3.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 0, 200, 100);
-            this.radGroupBox3.Size = new System.Drawing.Size(675, 76);
+            this.radGroupBox3.RootElement.ControlBounds = new System.Drawing.Rectangle(0, 279, 200, 100);
+            this.radGroupBox3.Size = new System.Drawing.Size(674, 67);
             this.radGroupBox3.TabIndex = 46;
             this.radGroupBox3.Text = "اطلاعات پرداخت";
             // 
-            // comboBox1
+            // label12
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("B Yekan", 9.75F);
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "نقدی",
-            "غیرنقدی"});
-            this.comboBox1.Location = new System.Drawing.Point(499, 26);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.comboBox1.Size = new System.Drawing.Size(91, 28);
-            this.comboBox1.TabIndex = 46;
+            this.label12.AutoSize = true;
+            this.label12.Enabled = false;
+            this.label12.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label12.Location = new System.Drawing.Point(542, 72);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(94, 20);
+            this.label12.TabIndex = 59;
+            this.label12.Text = "پرداخت به حساب";
             // 
-            // label3
+            // cmbBankAccount
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label3.Location = new System.Drawing.Point(596, 31);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(67, 20);
-            this.label3.TabIndex = 48;
-            this.label3.Text = "نوع پرداخت";
+            this.cmbBankAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBankAccount.Enabled = false;
+            this.cmbBankAccount.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbBankAccount.FormattingEnabled = true;
+            this.cmbBankAccount.Location = new System.Drawing.Point(329, 68);
+            this.cmbBankAccount.Name = "cmbBankAccount";
+            this.cmbBankAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbBankAccount.Size = new System.Drawing.Size(207, 28);
+            this.cmbBankAccount.TabIndex = 58;
             // 
-            // textBox1
+            // label11
             // 
-            this.textBox1.Font = new System.Drawing.Font("B Yekan", 10F);
-            this.textBox1.Location = new System.Drawing.Point(220, 28);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(115, 28);
-            this.textBox1.TabIndex = 49;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label11.AutoSize = true;
+            this.label11.Enabled = false;
+            this.label11.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label11.Location = new System.Drawing.Point(247, 105);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(71, 20);
+            this.label11.TabIndex = 56;
+            this.label11.Text = "شماره حساب";
             // 
-            // label5
+            // txtAccountNumber
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.label5.Location = new System.Drawing.Point(341, 32);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 20);
-            this.label5.TabIndex = 49;
-            this.label5.Text = "مبلغ";
+            this.txtAccountNumber.Enabled = false;
+            this.txtAccountNumber.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtAccountNumber.Location = new System.Drawing.Point(34, 101);
+            this.txtAccountNumber.Name = "txtAccountNumber";
+            this.txtAccountNumber.Size = new System.Drawing.Size(207, 28);
+            this.txtAccountNumber.TabIndex = 57;
+            this.txtAccountNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // radioButton1
+            // label10
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.radioButton1.Location = new System.Drawing.Point(393, 29);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton1.Size = new System.Drawing.Size(43, 24);
-            this.radioButton1.TabIndex = 50;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "نقد";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.label10.AutoSize = true;
+            this.label10.Enabled = false;
+            this.label10.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label10.Location = new System.Drawing.Point(247, 72);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(65, 20);
+            this.label10.TabIndex = 54;
+            this.label10.Text = "شماره کارت";
             // 
-            // radioButton2
+            // txtCardNumber
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
-            this.radioButton2.Location = new System.Drawing.Point(442, 28);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.radioButton2.Size = new System.Drawing.Size(51, 24);
-            this.radioButton2.TabIndex = 49;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "کارت";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.txtCardNumber.Enabled = false;
+            this.txtCardNumber.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtCardNumber.Location = new System.Drawing.Point(34, 68);
+            this.txtCardNumber.Name = "txtCardNumber";
+            this.txtCardNumber.Size = new System.Drawing.Size(207, 28);
+            this.txtCardNumber.TabIndex = 55;
+            this.txtCardNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Enabled = false;
+            this.label8.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label8.Location = new System.Drawing.Point(542, 105);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(82, 20);
+            this.label8.TabIndex = 52;
+            this.label8.Text = "شناسه پرداخت";
+            // 
+            // txtCardPaymentIdentity
+            // 
+            this.txtCardPaymentIdentity.Enabled = false;
+            this.txtCardPaymentIdentity.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtCardPaymentIdentity.Location = new System.Drawing.Point(329, 101);
+            this.txtCardPaymentIdentity.Name = "txtCardPaymentIdentity";
+            this.txtCardPaymentIdentity.Size = new System.Drawing.Size(207, 28);
+            this.txtCardPaymentIdentity.TabIndex = 53;
+            this.txtCardPaymentIdentity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.label7.Location = new System.Drawing.Point(190, 36);
+            this.label7.Location = new System.Drawing.Point(161, 29);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(24, 13);
             this.label7.TabIndex = 51;
             this.label7.Text = "ریال";
             // 
+            // radioCash
+            // 
+            this.radioCash.AutoSize = true;
+            this.radioCash.Checked = true;
+            this.radioCash.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.radioCash.Location = new System.Drawing.Point(450, 23);
+            this.radioCash.Name = "radioCash";
+            this.radioCash.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.radioCash.Size = new System.Drawing.Size(43, 24);
+            this.radioCash.TabIndex = 50;
+            this.radioCash.TabStop = true;
+            this.radioCash.Text = "نقد";
+            this.radioCash.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label5.Location = new System.Drawing.Point(312, 25);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 20);
+            this.label5.TabIndex = 49;
+            this.label5.Text = "مبلغ پرداختی";
+            // 
+            // radioCard
+            // 
+            this.radioCard.AutoSize = true;
+            this.radioCard.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.radioCard.Location = new System.Drawing.Point(393, 23);
+            this.radioCard.Name = "radioCard";
+            this.radioCard.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.radioCard.Size = new System.Drawing.Size(51, 24);
+            this.radioCard.TabIndex = 49;
+            this.radioCard.Text = "کارت";
+            this.radioCard.UseVisualStyleBackColor = true;
+            this.radioCard.CheckedChanged += new System.EventHandler(this.radioCard_CheckedChanged);
+            // 
+            // txtPrice
+            // 
+            this.txtPrice.Font = new System.Drawing.Font("B Yekan", 10F);
+            this.txtPrice.Location = new System.Drawing.Point(191, 21);
+            this.txtPrice.Name = "txtPrice";
+            this.txtPrice.Size = new System.Drawing.Size(115, 28);
+            this.txtPrice.TabIndex = 49;
+            this.txtPrice.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("B Yekan", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(178)));
+            this.label3.Location = new System.Drawing.Point(596, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 20);
+            this.label3.TabIndex = 48;
+            this.label3.Text = "نوع پرداخت";
+            // 
+            // cmbIsCredit
+            // 
+            this.cmbIsCredit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbIsCredit.Font = new System.Drawing.Font("B Yekan", 9.75F);
+            this.cmbIsCredit.FormattingEnabled = true;
+            this.cmbIsCredit.Items.AddRange(new object[] {
+            "نقدی",
+            "نسیه"});
+            this.cmbIsCredit.Location = new System.Drawing.Point(499, 21);
+            this.cmbIsCredit.Name = "cmbIsCredit";
+            this.cmbIsCredit.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cmbIsCredit.Size = new System.Drawing.Size(91, 28);
+            this.cmbIsCredit.TabIndex = 46;
+            // 
             // FrmClosePlayingBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(675, 355);
+            this.ClientSize = new System.Drawing.Size(674, 346);
             this.Controls.Add(this.radGroupBox3);
             this.Controls.Add(this.radGroupBox2);
             this.Controls.Add(this.radGroupBox1);
             this.Name = "FrmClosePlayingBoard";
             this.Text = "تسویه حساب";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmClosePlayingBoard_FormClosed);
             this.Load += new System.EventHandler(this.FrmClosePlayingBoard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.radGroupBox1)).EndInit();
             this.radGroupBox1.ResumeLayout(false);
@@ -456,11 +559,19 @@
         private Telerik.WinControls.UI.RadButton btnPayment;
         private Telerik.WinControls.UI.RadGroupBox radGroupBox3;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioCash;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton radioCard;
+        private System.Windows.Forms.TextBox txtPrice;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbIsCredit;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox txtAccountNumber;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtCardNumber;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtCardPaymentIdentity;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox cmbBankAccount;
     }
 }

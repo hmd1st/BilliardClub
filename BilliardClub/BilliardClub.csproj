@@ -56,11 +56,13 @@
     <Reference Include="TelerikCommon, Version=2015.1.331.40, Culture=neutral, PublicKeyToken=5bb2a467cbec794e" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BankAccount.cs" />
     <Compile Include="BilliardClubDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BilliardClubDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CardSerialPayment.cs" />
     <Compile Include="Classes\Cabinet.cs" />
     <Compile Include="Classes\RaspberryPi.cs" />
     <Compile Include="Configuration.cs" />
@@ -71,6 +73,12 @@
       <DependentUpon>DataBase.dbml</DependentUpon>
     </Compile>
     <Compile Include="Exception\FormsManagement.cs" />
+    <Compile Include="FrmBankAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmBankAccount.Designer.cs">
+      <DependentUpon>FrmBankAccount.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmClosePlayingBoard.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,6 +231,9 @@
     <None Include="DataBase.dbml.layout">
       <DependentUpon>DataBase.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="FrmBankAccount.resx">
+      <DependentUpon>FrmBankAccount.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmClosePlayingBoard.resx">
       <DependentUpon>FrmClosePlayingBoard.cs</DependentUpon>
     </EmbeddedResource>
@@ -419,6 +430,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pos.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pos1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

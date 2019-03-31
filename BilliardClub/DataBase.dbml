@@ -8,14 +8,15 @@
   <Table Name="" Member="Payments">
     <Type Name="Payment">
       <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
-      <Column Name="Title" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
       <Column Name="Price" Type="System.Int32" CanBeNull="false" />
       <Column Name="Date" Type="System.DateTime" CanBeNull="false" />
-      <Column Name="Type" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="IsCredit" Storage="_Type" Type="System.Boolean" CanBeNull="false" />
+      <Column Name="IsCard" Type="System.Boolean" CanBeNull="false" />
       <Column Name="Description" Type="System.String" DbType="nvarchar(2000)" CanBeNull="false" />
       <Column Name="RentIdentity" Type="System.Int32" CanBeNull="false" />
       <Column Name="MemberId" Type="System.Int32" CanBeNull="false" />
-      <Association Name="Member_Peyment" Member="Member" ThisKey="MemberId" OtherKey="ID" Type="Member" IsForeignKey="true" />
+      <Association Name="Payment_CardSerialPayment" Member="CardSerialPayments" ThisKey="ID" OtherKey="PaymentID" Type="CardSerialPayment" />
+      <Association Name="Member_Payment" Member="Member" ThisKey="MemberId" OtherKey="ID" Type="Member" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="" Member="Teachers">
@@ -184,7 +185,7 @@
       <Column Name="Sex" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
       <Column Name="Image" Type="System.Byte[]" DbType="varbinary(max)" CanBeNull="false" />
       <Column Name="LevelID" Type="System.Int32" CanBeNull="false" />
-      <Association Name="Member_Peyment" Member="Payments" Storage="_Peyments" ThisKey="ID" OtherKey="MemberId" Type="Payment" />
+      <Association Name="Member_Payment" Member="Payments" ThisKey="ID" OtherKey="MemberId" Type="Payment" />
       <Association Name="Member_MemberRentPlayingBoard" Member="MemberRentPlayingBoards" ThisKey="ID" OtherKey="MemberID" Type="MemberRentPlayingBoard" />
       <Association Name="Member_TeamMember" Member="TeamMembers" ThisKey="ID" OtherKey="MemberID" Type="TeamMember" />
       <Association Name="Member_SocialNetworkAccount" Member="SocialNetworkAccounts" ThisKey="ID" OtherKey="MemberID" Type="SocialNetworkAccount" />
@@ -235,6 +236,27 @@
       <Column Name="ID" Storage="_PlayingBoardTitleID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RaspberryIPAddress" Storage="_Title" Type="System.String" DbType="nvarchar(15)" CanBeNull="false" />
       <Column Name="RaspberryPortNumber" Storage="_IsAvailable" Type="System.String" DbType="nvarchar(4)" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="" Member="CardSerialPayments">
+    <Type Name="CardSerialPayment">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" IsDelayLoaded="true" />
+      <Column Name="CardPaymentIdentity" Storage="_Price" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="CardNumber" Storage="_Date" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="AccountNumber" Storage="_Type" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="BankAccountID" Type="System.Int32" CanBeNull="false" />
+      <Column Name="PaymentID" Storage="_MemberId" Type="System.Int32" CanBeNull="false" />
+      <Association Name="Payment_CardSerialPayment" Member="Payment" ThisKey="PaymentID" OtherKey="ID" Type="Payment" IsForeignKey="true" />
+      <Association Name="BankAccount_CardSerialPayment" Member="BankAccount" ThisKey="BankAccountID" OtherKey="ID" Type="BankAccount" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="" Member="BankAccounts">
+    <Type Name="BankAccount">
+      <Column Name="ID" Type="System.Int32" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="BankTitle" Type="System.String" DbType="nvarchar(50)" CanBeNull="false" />
+      <Column Name="CardNumber" Storage="_Date" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Column Name="AccountNumber" Storage="_Type" Type="System.String" DbType="nvarchar(20)" CanBeNull="false" />
+      <Association Name="BankAccount_CardSerialPayment" Member="CardSerialPayments" ThisKey="ID" OtherKey="BankAccountID" Type="CardSerialPayment" />
     </Type>
   </Table>
 </Database>

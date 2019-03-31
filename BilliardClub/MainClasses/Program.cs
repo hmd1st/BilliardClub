@@ -53,7 +53,7 @@ namespace BilliardClub
 
                 #endregion
 
-                #region Insert Level
+                #region Insert Levels
 
                 Level.Insert("طلایی", myConnection);
                 Level.Insert("نقره ای", myConnection);
@@ -62,6 +62,14 @@ namespace BilliardClub
 
                 #endregion
 
+                #region BankAccounts
+
+                BankAccount.Insert("کشاورزی", "", "", myConnection);
+                BankAccount.Insert("ملی", "", "", myConnection);
+                BankAccount.Insert("ملت", "", "", myConnection);
+
+
+                #endregion
 
             }
             Application.EnableVisualStyles();

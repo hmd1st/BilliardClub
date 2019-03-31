@@ -107,6 +107,12 @@ namespace BilliardClub
     partial void InsertConfiguration(Configuration instance);
     partial void UpdateConfiguration(Configuration instance);
     partial void DeleteConfiguration(Configuration instance);
+    partial void InsertCardSerialPayment(CardSerialPayment instance);
+    partial void UpdateCardSerialPayment(CardSerialPayment instance);
+    partial void DeleteCardSerialPayment(CardSerialPayment instance);
+    partial void InsertBankAccount(BankAccount instance);
+    partial void UpdateBankAccount(BankAccount instance);
+    partial void DeleteBankAccount(BankAccount instance);
     #endregion
 		
 		public DataBaseDataContext(string connection) : 
@@ -340,6 +346,22 @@ namespace BilliardClub
 				return this.GetTable<Configuration>();
 			}
 		}
+		
+		public System.Data.Linq.Table<CardSerialPayment> CardSerialPayments
+		{
+			get
+			{
+				return this.GetTable<CardSerialPayment>();
+			}
+		}
+		
+		public System.Data.Linq.Table<BankAccount> BankAccounts
+		{
+			get
+			{
+				return this.GetTable<BankAccount>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
@@ -436,19 +458,21 @@ namespace BilliardClub
 		
 		private System.Data.Linq.Link<int> _ID;
 		
-		private string _Title;
-		
 		private int _Price;
 		
 		private System.DateTime _Date;
 		
 		private bool _Type;
 		
+		private bool _IsCard;
+		
 		private string _Description;
 		
 		private int _RentIdentity;
 		
 		private int _MemberId;
+		
+		private EntitySet<CardSerialPayment> _CardSerialPayments;
 		
 		private EntityRef<Member> _Member;
 		
@@ -458,14 +482,14 @@ namespace BilliardClub
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
     partial void OnPriceChanging(int value);
     partial void OnPriceChanged();
     partial void OnDateChanging(System.DateTime value);
     partial void OnDateChanged();
-    partial void OnTypeChanging(bool value);
-    partial void OnTypeChanged();
+    partial void OnIsCreditChanging(bool value);
+    partial void OnIsCreditChanged();
+    partial void OnIsCardChanging(bool value);
+    partial void OnIsCardChanged();
     partial void OnDescriptionChanging(string value);
     partial void OnDescriptionChanged();
     partial void OnRentIdentityChanging(int value);
@@ -476,6 +500,7 @@ namespace BilliardClub
 		
 		public Payment()
 		{
+			this._CardSerialPayments = new EntitySet<CardSerialPayment>(new Action<CardSerialPayment>(this.attach_CardSerialPayments), new Action<CardSerialPayment>(this.detach_CardSerialPayments));
 			this._Member = default(EntityRef<Member>);
 			OnCreated();
 		}
@@ -496,26 +521,6 @@ namespace BilliardClub
 					this._ID.Value = value;
 					this.SendPropertyChanged("ID");
 					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="nvarchar(20)", CanBeNull=false)]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
 				}
 			}
 		}
@@ -561,7 +566,7 @@ namespace BilliardClub
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type")]
-		public bool Type
+		public bool IsCredit
 		{
 			get
 			{
@@ -571,11 +576,31 @@ namespace BilliardClub
 			{
 				if ((this._Type != value))
 				{
-					this.OnTypeChanging(value);
+					this.OnIsCreditChanging(value);
 					this.SendPropertyChanging();
 					this._Type = value;
-					this.SendPropertyChanged("Type");
-					this.OnTypeChanged();
+					this.SendPropertyChanged("IsCredit");
+					this.OnIsCreditChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsCard")]
+		public bool IsCard
+		{
+			get
+			{
+				return this._IsCard;
+			}
+			set
+			{
+				if ((this._IsCard != value))
+				{
+					this.OnIsCardChanging(value);
+					this.SendPropertyChanging();
+					this._IsCard = value;
+					this.SendPropertyChanged("IsCard");
+					this.OnIsCardChanged();
 				}
 			}
 		}
@@ -644,7 +669,20 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Peyment", Storage="_Member", ThisKey="MemberId", OtherKey="ID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_CardSerialPayment", Storage="_CardSerialPayments", ThisKey="ID", OtherKey="PaymentID")]
+		public EntitySet<CardSerialPayment> CardSerialPayments
+		{
+			get
+			{
+				return this._CardSerialPayments;
+			}
+			set
+			{
+				this._CardSerialPayments.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Payment", Storage="_Member", ThisKey="MemberId", OtherKey="ID", IsForeignKey=true)]
 		public Member Member
 		{
 			get
@@ -696,6 +734,18 @@ namespace BilliardClub
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_CardSerialPayments(CardSerialPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Payment = this;
+		}
+		
+		private void detach_CardSerialPayments(CardSerialPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.Payment = null;
 		}
 	}
 	
@@ -3608,7 +3658,7 @@ namespace BilliardClub
 		
 		private int _LevelID;
 		
-		private EntitySet<Payment> _Peyments;
+		private EntitySet<Payment> _Payments;
 		
 		private EntitySet<MemberRentPlayingBoard> _MemberRentPlayingBoards;
 		
@@ -3650,7 +3700,7 @@ namespace BilliardClub
 		
 		public Member()
 		{
-			this._Peyments = new EntitySet<Payment>(new Action<Payment>(this.attach_Peyments), new Action<Payment>(this.detach_Peyments));
+			this._Payments = new EntitySet<Payment>(new Action<Payment>(this.attach_Payments), new Action<Payment>(this.detach_Payments));
 			this._MemberRentPlayingBoards = new EntitySet<MemberRentPlayingBoard>(new Action<MemberRentPlayingBoard>(this.attach_MemberRentPlayingBoards), new Action<MemberRentPlayingBoard>(this.detach_MemberRentPlayingBoards));
 			this._TeamMembers = new EntitySet<TeamMember>(new Action<TeamMember>(this.attach_TeamMembers), new Action<TeamMember>(this.detach_TeamMembers));
 			this._SocialNetworkAccounts = new EntitySet<SocialNetworkAccount>(new Action<SocialNetworkAccount>(this.attach_SocialNetworkAccounts), new Action<SocialNetworkAccount>(this.detach_SocialNetworkAccounts));
@@ -3864,16 +3914,16 @@ namespace BilliardClub
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Peyment", Storage="_Peyments", ThisKey="ID", OtherKey="MemberId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Member_Payment", Storage="_Payments", ThisKey="ID", OtherKey="MemberId")]
 		public EntitySet<Payment> Payments
 		{
 			get
 			{
-				return this._Peyments;
+				return this._Payments;
 			}
 			set
 			{
-				this._Peyments.Assign(value);
+				this._Payments.Assign(value);
 			}
 		}
 		
@@ -3996,13 +4046,13 @@ namespace BilliardClub
 			}
 		}
 		
-		private void attach_Peyments(Payment entity)
+		private void attach_Payments(Payment entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = this;
 		}
 		
-		private void detach_Peyments(Payment entity)
+		private void detach_Payments(Payment entity)
 		{
 			this.SendPropertyChanging();
 			entity.Member = null;
@@ -4929,6 +4979,432 @@ namespace BilliardClub
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class CardSerialPayment : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private System.Data.Linq.Link<int> _ID;
+		
+		private string _Price;
+		
+		private string _Date;
+		
+		private string _Type;
+		
+		private int _BankAccountID;
+		
+		private int _MemberId;
+		
+		private EntityRef<Payment> _Payment;
+		
+		private EntityRef<BankAccount> _BankAccount;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnCardPaymentIdentityChanging(string value);
+    partial void OnCardPaymentIdentityChanged();
+    partial void OnCardNumberChanging(string value);
+    partial void OnCardNumberChanged();
+    partial void OnAccountNumberChanging(string value);
+    partial void OnAccountNumberChanged();
+    partial void OnBankAccountIDChanging(int value);
+    partial void OnBankAccountIDChanged();
+    partial void OnPaymentIDChanging(int value);
+    partial void OnPaymentIDChanged();
+    #endregion
+		
+		public CardSerialPayment()
+		{
+			this._Payment = default(EntityRef<Payment>);
+			this._BankAccount = default(EntityRef<BankAccount>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID.Value;
+			}
+			set
+			{
+				if ((this._ID.Value != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID.Value = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Price", DbType="nvarchar(20)", CanBeNull=false)]
+		public string CardPaymentIdentity
+		{
+			get
+			{
+				return this._Price;
+			}
+			set
+			{
+				if ((this._Price != value))
+				{
+					this.OnCardPaymentIdentityChanging(value);
+					this.SendPropertyChanging();
+					this._Price = value;
+					this.SendPropertyChanged("CardPaymentIdentity");
+					this.OnCardPaymentIdentityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="nvarchar(20)", CanBeNull=false)]
+		public string CardNumber
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnCardNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("CardNumber");
+					this.OnCardNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="nvarchar(20)", CanBeNull=false)]
+		public string AccountNumber
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnAccountNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("AccountNumber");
+					this.OnAccountNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccountID")]
+		public int BankAccountID
+		{
+			get
+			{
+				return this._BankAccountID;
+			}
+			set
+			{
+				if ((this._BankAccountID != value))
+				{
+					if (this._BankAccount.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnBankAccountIDChanging(value);
+					this.SendPropertyChanging();
+					this._BankAccountID = value;
+					this.SendPropertyChanged("BankAccountID");
+					this.OnBankAccountIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MemberId")]
+		public int PaymentID
+		{
+			get
+			{
+				return this._MemberId;
+			}
+			set
+			{
+				if ((this._MemberId != value))
+				{
+					if (this._Payment.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnPaymentIDChanging(value);
+					this.SendPropertyChanging();
+					this._MemberId = value;
+					this.SendPropertyChanged("PaymentID");
+					this.OnPaymentIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Payment_CardSerialPayment", Storage="_Payment", ThisKey="PaymentID", OtherKey="ID", IsForeignKey=true)]
+		public Payment Payment
+		{
+			get
+			{
+				return this._Payment.Entity;
+			}
+			set
+			{
+				Payment previousValue = this._Payment.Entity;
+				if (((previousValue != value) 
+							|| (this._Payment.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Payment.Entity = null;
+						previousValue.CardSerialPayments.Remove(this);
+					}
+					this._Payment.Entity = value;
+					if ((value != null))
+					{
+						value.CardSerialPayments.Add(this);
+						this._MemberId = value.ID;
+					}
+					else
+					{
+						this._MemberId = default(int);
+					}
+					this.SendPropertyChanged("Payment");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BankAccount_CardSerialPayment", Storage="_BankAccount", ThisKey="BankAccountID", OtherKey="ID", IsForeignKey=true)]
+		public BankAccount BankAccount
+		{
+			get
+			{
+				return this._BankAccount.Entity;
+			}
+			set
+			{
+				BankAccount previousValue = this._BankAccount.Entity;
+				if (((previousValue != value) 
+							|| (this._BankAccount.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._BankAccount.Entity = null;
+						previousValue.CardSerialPayments.Remove(this);
+					}
+					this._BankAccount.Entity = value;
+					if ((value != null))
+					{
+						value.CardSerialPayments.Add(this);
+						this._BankAccountID = value.ID;
+					}
+					else
+					{
+						this._BankAccountID = default(int);
+					}
+					this.SendPropertyChanged("BankAccount");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="")]
+	public partial class BankAccount : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private string _BankTitle;
+		
+		private string _Date;
+		
+		private string _Type;
+		
+		private EntitySet<CardSerialPayment> _CardSerialPayments;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnBankTitleChanging(string value);
+    partial void OnBankTitleChanged();
+    partial void OnCardNumberChanging(string value);
+    partial void OnCardNumberChanged();
+    partial void OnAccountNumberChanging(string value);
+    partial void OnAccountNumberChanged();
+    #endregion
+		
+		public BankAccount()
+		{
+			this._CardSerialPayments = new EntitySet<CardSerialPayment>(new Action<CardSerialPayment>(this.attach_CardSerialPayments), new Action<CardSerialPayment>(this.detach_CardSerialPayments));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankTitle", DbType="nvarchar(50)", CanBeNull=false)]
+		public string BankTitle
+		{
+			get
+			{
+				return this._BankTitle;
+			}
+			set
+			{
+				if ((this._BankTitle != value))
+				{
+					this.OnBankTitleChanging(value);
+					this.SendPropertyChanging();
+					this._BankTitle = value;
+					this.SendPropertyChanged("BankTitle");
+					this.OnBankTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="nvarchar(20)", CanBeNull=false)]
+		public string CardNumber
+		{
+			get
+			{
+				return this._Date;
+			}
+			set
+			{
+				if ((this._Date != value))
+				{
+					this.OnCardNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Date = value;
+					this.SendPropertyChanged("CardNumber");
+					this.OnCardNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="nvarchar(20)", CanBeNull=false)]
+		public string AccountNumber
+		{
+			get
+			{
+				return this._Type;
+			}
+			set
+			{
+				if ((this._Type != value))
+				{
+					this.OnAccountNumberChanging(value);
+					this.SendPropertyChanging();
+					this._Type = value;
+					this.SendPropertyChanged("AccountNumber");
+					this.OnAccountNumberChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="BankAccount_CardSerialPayment", Storage="_CardSerialPayments", ThisKey="ID", OtherKey="BankAccountID")]
+		public EntitySet<CardSerialPayment> CardSerialPayments
+		{
+			get
+			{
+				return this._CardSerialPayments;
+			}
+			set
+			{
+				this._CardSerialPayments.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_CardSerialPayments(CardSerialPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.BankAccount = this;
+		}
+		
+		private void detach_CardSerialPayments(CardSerialPayment entity)
+		{
+			this.SendPropertyChanging();
+			entity.BankAccount = null;
 		}
 	}
 }

@@ -234,5 +234,19 @@ namespace BilliardClub.Forms
 
             frm.ShowDialog();
         }
+
+        private void radButtonElement12_Click(object sender, EventArgs e)
+        {
+            FrmBankAccount frm=new FrmBankAccount();
+
+            frm.ShowDialog();
+        }
+
+        private void radMenuItem5_Click(object sender, EventArgs e)
+        {
+            FrmBankAccount frm = new FrmBankAccount();
+
+            frm.ShowDialog();
+        }
     }
 }

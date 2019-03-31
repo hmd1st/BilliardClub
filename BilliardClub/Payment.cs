@@ -10,24 +10,27 @@ namespace BilliardClub
 {
   public partial  class Payment
     {
-        public Payment(string title, int price, DateTime date, bool type, string description, int rentIdentity) : this()
-        {
-            this.Title = title;
+        ///TODO ADD USER INSTANCE TO THIS CLASS
 
+        public Payment(int price, DateTime date, bool isCredit, bool isCard, string description, int rentIdentity) : this()
+        {
+           
             this.Price = price;
 
             this.Date = date;
 
-            this.Type = type;
+            this.IsCredit = isCredit;
+
+            this.IsCard = isCard;
 
             this.Description = description;
 
             this.RentIdentity = rentIdentity;
         }
 
-        public static Payment Insert(string title, int price, DateTime date, bool type, string description, int rentIdentity,Member member,DataBaseDataContext connection)
+        public static Payment Insert(int price, DateTime date, bool isCredit, bool isCard, string description, int rentIdentity,Member member,DataBaseDataContext connection)
         { 
-            Payment peyment=new Payment( title,  price,  date,  type,  description,  rentIdentity);
+            Payment peyment=new Payment( price,  date, isCredit, isCard,  description,  rentIdentity);
 
             peyment.Member = Member.Get(member.ID, connection);
 
@@ -38,16 +41,16 @@ namespace BilliardClub
             return peyment;
         }
 
-        public static void Edit(Payment payment, string title, int price, DateTime date, bool type, string description,
+        public static void Edit(Payment payment, int price, DateTime date, bool isCredit, bool isCard, string description,
             int rentIdentity, Member member, DataBaseDataContext connection)
         {
-            payment.Title = title;
-
             payment.Price = price;
 
             payment.Date = date;
 
-            payment.Type = type;
+            payment.IsCredit = isCredit;
+
+            payment.IsCard = isCard;
 
             payment.Description = description;
 
@@ -66,39 +69,36 @@ namespace BilliardClub
             connection.SubmitChanges();
         }
 
-        public static void LoadComboBox(ComboBox comboBox,DataBaseDataContext connection)
+        public static void LoadComboBox(ComboBox cmbBox, DataBaseDataContext connection)
         {
-            comboBox.Items.Clear();
+            IQueryable<BankAccount> myQuery = connection.BankAccounts.Select(a => a);
 
-            IQueryable<Payment> myQueryable = connection.Payments.OrderByDescending(a => a.ID).Select(a=>a);
+            cmbBox.Items.Clear();
 
-            foreach (Payment item in myQueryable)
+            foreach (BankAccount item in myQuery)
             {
-                comboBox.Items.Add(item);
+                cmbBox.Items.Add(item);
             }
-
-            if (!myQueryable.Any())
+            if (!myQuery.Any())
             {
-                comboBox.Items.Add("یک آیتم به ثبت برسانید;");
+                cmbBox.Items.Add("یک آیتم به ثبت برسانید");
 
-                comboBox.SelectedIndex = 0;
+                cmbBox.SelectedIndex = 0;
 
                 return;
             }
-            comboBox.SelectedIndex = 0;
-
+            cmbBox.SelectedIndex = 0;
         }
-
         public static void LoadGrid(RadGridView gridView, DataBaseDataContext connection)
         {
             var query = connection.Payments.OrderByDescending(a => a.ID).Select(a=>new
             {
                 Id=a.ID,
-                title=a.Title,
                 price=a.Price,
                 date=a.Date,
-                type=a.Type,
-                description=a.Description
+                isCredit=a.IsCredit,
+                isCard = a.IsCard,
+                description = a.Description
             });
 
             gridView.DataSource = query;
@@ -107,19 +107,19 @@ namespace BilliardClub
 
             gridView.Columns[2].Width = 431;
 
-            gridView.Columns[2].HeaderText = "عنوان";
+            gridView.Columns[2].HeaderText = "مبلغ";
 
             gridView.Columns[3].Width = 431;
 
-            gridView.Columns[3].HeaderText = "مبلغ";
+            gridView.Columns[3].HeaderText = "تاریخ";
 
             gridView.Columns[4].Width = 431;
 
-            gridView.Columns[4].HeaderText = "تاریخ";
+            gridView.Columns[4].HeaderText = "نقدی/غیر نقدی";
 
             gridView.Columns[5].Width = 431;
 
-            gridView.Columns[5].HeaderText = "نقدی/غیر نقدی";
+            gridView.Columns[5].HeaderText = "نقدی/کارتی";
 
             gridView.Columns[6].Width = 431;
 
@@ -129,6 +129,16 @@ namespace BilliardClub
             {
                 gridView.Rows[i].Cells[0].Value = i + 1;
             }
+        }
+
+        public static bool Validation(int id, DataBaseDataContext connection)
+        {
+            return connection.Payments.Any(a => a.ID == id);
+        }
+
+        public static Payment Get(int id, DataBaseDataContext connection)
+        {
+            return connection.Payments.First(a => a.ID == id);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Data.Linq;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BilliardClub.Forms;
@@ -64,15 +65,26 @@ namespace BilliardClub
 
             Member.LoadGridBriefly(gridMember, myConnection);
 
-            cmbSearchMemberBy.SelectedIndex = 0;
+            BankAccount.LoadComboBox(cmbBankAccount, Setting.DataBase);
 
-            myConnection.Dispose();
+            cmbSearchMemberBy.SelectedIndex = 0;
 
             cmbSearchMemberBy.Enabled = false;
 
             txtSearchMember.Enabled = false;
 
             gridMember.Enabled = false;
+
+            cmbIsCredit.SelectedIndex = 0;
+
+            int price = int.Parse(lblPayment.Text);
+
+            int roundedPrice = 500 * ((price / 500) + 1);
+
+            txtPrice.Text = roundedPrice.ToString();
+
+            myConnection.Dispose();
+
 
         }
 
@@ -88,15 +100,6 @@ namespace BilliardClub
                 Member.SearchGridByMemberNationalCode_LoadGridBriefly(txtSearchMember.Text, gridMember, myConnection);
 
             myConnection.Dispose();
-
-        }
-
-        private void FrmClosePlayingBoard_FormClosed(object sender, FormClosedEventArgs e)
-        {
-        }
-
-        private void radio_CheckedChanged(object sender, EventArgs e)
-        {
 
         }
 
@@ -165,29 +168,79 @@ namespace BilliardClub
             RentPlayingBoard myRentPlayingBoard = RentPlayingBoard.Edit(rentPlayingBoard,
                 DateTime.Now.ToString("HH:mm:ss"), false, myConnection);
 
-            MemberRentPlayingBoard.Insert(myRentPlayingBoard, _member, "Closer", myConnection);
+            MemberRentPlayingBoard closerMemberRentPlayingBoard = MemberRentPlayingBoard.Insert(myRentPlayingBoard, _member, "Closer", myConnection);
 
             myRentPlayingBoard.PlayingBoardType.PlayingBoard.IsAvailable = true;
 
             int playingBoardID = myRentPlayingBoard.PlayingBoardType.PlayingBoardID;
 
-            if (!RaspBerryPlayingBoard.Validation_By_PlayingBoardID(playingBoardID, myConnection))
+            #region Raspberry Check and Turn off
+
+            if (myConnection.RaspBerryPlayingBoards.Any(a => a.PlayingBoardID.Equals(playingBoardID)))
             {
-                DataValidationMesaage.NoDataInBank();
 
-                return;
+                if (!RaspBerryPlayingBoard.Validation_By_PlayingBoardID(playingBoardID, myConnection))
+                {
+                    DataValidationMesaage.NoDataInBank();
+
+                    return;
+                }
+
+                #region RaspBerryPlayingBoard Cast
+
+                RaspBerryPlayingBoard raspBerryPlayingBoard = RaspBerryPlayingBoard.Get_By_PlayingBoardID(
+                    playingBoardID, myConnection);
+
+                #endregion
+
+                MemberRentPlayingBoard.PowerOnOff(raspBerryPlayingBoard.RaspberryPin, "0", Setting.RaspberryIPAddress,
+                    Setting.RaspberryPortNumber);
             }
-            
-            #region RaspBerryPlayingBoard Cast
-
-            RaspBerryPlayingBoard raspBerryPlayingBoard = RaspBerryPlayingBoard.Get_By_PlayingBoardID(playingBoardID, myConnection);
 
             #endregion
 
-            MemberRentPlayingBoard.PowerOnOff(raspBerryPlayingBoard.RaspberryPin, "0", Setting.RaspberryIPAddress, Setting.RaspberryPortNumber);
+            bool isCredit = true && cmbIsCredit.SelectedText.Equals("نسیه");
 
+            bool isCard = true && radioCard.Checked;
+
+            if (string.IsNullOrWhiteSpace(txtPrice.Text.Trim()) || string.IsNullOrEmpty(txtPrice.Text.Trim()))
+            {
+                DataValidationMesaage.BlankTextBox("مبلغ پرداختی");
+
+                return;
+            }
+
+            if (isCard)
+            {
+                if (string.IsNullOrWhiteSpace(txtCardPaymentIdentity.Text.Trim()) || string.IsNullOrEmpty(txtCardPaymentIdentity.Text.Trim()))
+                {
+                    DataValidationMesaage.BlankTextBox("شناسه پرداخت");
+
+                    return;
+                }
+
+                if (myConnection.CardSerialPayments.Any(a=>a.CardPaymentIdentity.Equals(txtCardPaymentIdentity.Text.Trim())))
+                {
+                    DataValidationMesaage.DuplicateData("شناسه پرداخت");
+
+                    return;
+                }
+
+            }
+
+            Payment payment = Payment.Insert(int.Parse(txtPrice.Text.Trim()), DateTime.Now, isCredit, isCard, "", closerMemberRentPlayingBoard.ID, _member, myConnection);
+
+            if (isCard)
+            {
+
+
+                CardSerialPayment.Insert(txtCardPaymentIdentity.Text.Trim(), txtCardNumber.Text.Trim(),
+                    txtAccountNumber.Text.Trim(), payment, (BankAccount)cmbBankAccount.SelectedItem, myConnection);
+            }
 
             myConnection.SubmitChanges();
+
+
 
             MessageBox.Show("بازی تمام شد.");
 
@@ -204,14 +257,7 @@ namespace BilliardClub
 
         }
 
-
-
         private void radioMySelf_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void radioMySelf_CheckedChanged_1(object sender, EventArgs e)
         {
             if (radioMySelf.Checked)
             {
@@ -229,5 +275,46 @@ namespace BilliardClub
                 gridMember.Enabled = true;
             }
         }
+
+        private void radioCard_CheckedChanged(object sender, EventArgs e)
+        {
+            int origHeight = this.Height;
+
+            if (radioCard.Checked)
+            {
+                while (this.Height < (origHeight + 80))
+                {
+                    this.Height++;
+
+                    Application.DoEvents();
+
+                }
+
+                txtCardPaymentIdentity.Enabled = true;
+                txtCardNumber.Enabled = true;
+                txtAccountNumber.Enabled = true;
+                cmbBankAccount.Enabled = true;
+
+
+            }
+            else
+            {
+
+                while (this.Height > (origHeight - 80))
+                {
+                    this.Height--;
+
+                    Application.DoEvents();
+
+                }
+
+                txtCardPaymentIdentity.Enabled = false;
+                txtCardNumber.Enabled = false;
+                txtAccountNumber.Enabled = false;
+                cmbBankAccount.Enabled = false;
+
+            }
+        }
+
     }
 }
