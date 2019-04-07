@@ -222,5 +222,10 @@ namespace BilliardClub
         {
             BTM.Text.FreezeToDigit(e);
         }
+
+        private void txtBankTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            BTM.Text.FreezeToLetter(e);
+        }
     }
 }

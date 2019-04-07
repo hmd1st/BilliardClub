@@ -135,7 +135,7 @@ namespace BilliardClub
 
             #endregion
 
-         
+
 
             #region Save Image
 
@@ -175,10 +175,10 @@ namespace BilliardClub
 
             if (string.IsNullOrEmpty(txtNationalCode.Text.Trim()) || string.IsNullOrWhiteSpace(txtNationalCode.Text.Trim()))
             {
-                DataValidationMesaage.BlankTextBox("کد ملی");    
+                DataValidationMesaage.BlankTextBox("کد ملی");
 
                 return;
-                
+
             }
 
             if (!BTM.Date.Validation(txtBirthDate.Text))
@@ -203,7 +203,7 @@ namespace BilliardClub
 
                 #region SocialNetwork Casting
 
-                int socialNetworkTypeID = ((SocialNetworkType) cmbSocialNetworkType.SelectedItem).ID;
+                int socialNetworkTypeID = ((SocialNetworkType)cmbSocialNetworkType.SelectedItem).ID;
 
                 if (!Phone.Validation(socialNetworkTypeID, myConnection))
                 {
@@ -775,6 +775,11 @@ namespace BilliardClub
         private void txtSocialAccount_Enter(object sender, EventArgs e)
         {
             BTM.Language.SwitchToEnglish();
+        }
+
+        private void txtLastName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            BTM.Text.FreezeToLetter(e);
         }
     }
 }

@@ -406,6 +406,7 @@
             this.txtLastName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtLastName.Size = new System.Drawing.Size(142, 27);
             this.txtLastName.TabIndex = 1;
+            this.txtLastName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtLastName_KeyPress);
             // 
             // label4
             // 
@@ -493,6 +494,7 @@
             // 
             this.txtPhoneNumber.Font = new System.Drawing.Font("B Yekan", 10F);
             this.txtPhoneNumber.Location = new System.Drawing.Point(719, 77);
+            this.txtPhoneNumber.MaxLength = 11;
             this.txtPhoneNumber.Name = "txtPhoneNumber";
             this.txtPhoneNumber.Size = new System.Drawing.Size(133, 28);
             this.txtPhoneNumber.TabIndex = 37;

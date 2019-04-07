@@ -68,6 +68,7 @@
             this.txtTitle.TabIndex = 83;
             this.txtTitle.Enter += new System.EventHandler(this.txtTitle_Enter);
             this.txtTitle.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtTitle_KeyDown);
+            this.txtTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtTitle_KeyPress);
             // 
             // gridPhone
             // 

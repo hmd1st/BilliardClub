@@ -56,11 +56,13 @@
             // 
             this.txtRaspBerryIP.Font = new System.Drawing.Font("B Yekan", 10F);
             this.txtRaspBerryIP.Location = new System.Drawing.Point(236, 15);
+            this.txtRaspBerryIP.MaxLength = 15;
             this.txtRaspBerryIP.Name = "txtRaspBerryIP";
             this.txtRaspBerryIP.Size = new System.Drawing.Size(144, 28);
             this.txtRaspBerryIP.TabIndex = 46;
             this.txtRaspBerryIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtRaspBerryIP.MouseHover += new System.EventHandler(this.txtRaspBerryIP_MouseHover);
+            this.txtRaspBerryIP.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtRaspBerryIP_KeyDown);
+            this.txtRaspBerryIP.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtRaspBerryIP_KeyPress);
             // 
             // pictureBox1
             // 

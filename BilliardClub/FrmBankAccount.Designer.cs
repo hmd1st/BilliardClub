@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn1 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
+            Telerik.WinControls.UI.GridViewTextBoxColumn gridViewTextBoxColumn2 = new Telerik.WinControls.UI.GridViewTextBoxColumn();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmBankAccount));
             this.label2 = new System.Windows.Forms.Label();
             this.کنترلبرقToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,6 +91,7 @@
             this.txtBankTitle.Size = new System.Drawing.Size(192, 28);
             this.txtBankTitle.TabIndex = 0;
             this.txtBankTitle.Enter += new System.EventHandler(this.txtBankTitle_Enter);
+            this.txtBankTitle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBankTitle_KeyPress);
             // 
             // gridBankAccount
             // 
@@ -109,11 +110,11 @@
             this.gridBankAccount.MasterTemplate.AllowDragToGroup = false;
             this.gridBankAccount.MasterTemplate.AllowEditRow = false;
             this.gridBankAccount.MasterTemplate.AllowRowResize = false;
-            gridViewTextBoxColumn1.HeaderText = "ردیف";
-            gridViewTextBoxColumn1.Name = "colCounter";
-            gridViewTextBoxColumn1.Width = 41;
+            gridViewTextBoxColumn2.HeaderText = "ردیف";
+            gridViewTextBoxColumn2.Name = "colCounter";
+            gridViewTextBoxColumn2.Width = 41;
             this.gridBankAccount.MasterTemplate.Columns.AddRange(new Telerik.WinControls.UI.GridViewDataColumn[] {
-            gridViewTextBoxColumn1});
+            gridViewTextBoxColumn2});
             this.gridBankAccount.MasterTemplate.EnableGrouping = false;
             this.gridBankAccount.Name = "gridBankAccount";
             this.gridBankAccount.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
@@ -144,7 +145,7 @@
             // 
             this.txtAccountNumber.Font = new System.Drawing.Font("B Yekan", 10F);
             this.txtAccountNumber.Location = new System.Drawing.Point(373, 46);
-            this.txtAccountNumber.MaxLength = 30;
+            this.txtAccountNumber.MaxLength = 20;
             this.txtAccountNumber.Name = "txtAccountNumber";
             this.txtAccountNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtAccountNumber.Size = new System.Drawing.Size(192, 28);
@@ -165,7 +166,7 @@
             // 
             this.txtCardNumber.Font = new System.Drawing.Font("B Yekan", 10F);
             this.txtCardNumber.Location = new System.Drawing.Point(373, 80);
-            this.txtCardNumber.MaxLength = 30;
+            this.txtCardNumber.MaxLength = 20;
             this.txtCardNumber.Name = "txtCardNumber";
             this.txtCardNumber.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtCardNumber.Size = new System.Drawing.Size(192, 28);

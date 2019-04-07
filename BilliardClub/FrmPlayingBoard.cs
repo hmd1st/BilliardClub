@@ -329,6 +329,21 @@ namespace BilliardClub
 
             DataValidationMesaage.AcceptMessage();
 
+            DialogResult result1 = MessageBox.Show("آیا مایلید برق میز بازی ثبت شده را به صورت سیستمی کنترل نمایید؟", "کاربر گرامی", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result1 == DialogResult.Yes)
+            {
+                btnRaspberryRelay.PerformClick();
+            }
+
+
+            DialogResult result2 = MessageBox.Show("آیا مایلید برای میز بازی ثبت شده بهاء تعیین نمایید؟", "کاربر گرامی", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result2==DialogResult.Yes)
+            {
+                btnPrice.PerformClick();
+            }
+            
             clearTextBox();
 
             PlayingBoard.LoadGridColorful_By_PlayingBoardTitle(gridPlayingBoard, playingBoardTitle, myConnection);

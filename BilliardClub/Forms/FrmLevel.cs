@@ -202,5 +202,10 @@ namespace BilliardClub
         {
             e.Cancel = true;
         }
+
+        private void txtTitle_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
     }
 }
